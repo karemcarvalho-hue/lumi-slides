@@ -1,0 +1,233 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Nunito', sans-serif;
+  background-color: #F5F7FA;
+}
+
+/* ===========================================
+   PDF EXPORT STYLES - Fixed 1920x1080 dimensions
+   =========================================== */
+
+#print-container {
+  /* Hidden but rendered in DOM for proper layout calculation */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1920px;
+  height: 1080px;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: -9999;
+  opacity: 0;
+}
+
+/* Each slide wrapper - fixed 1920x1080 */
+#print-container > .print-slide {
+  width: 1920px !important;
+  height: 1080px !important;
+  min-width: 1920px !important;
+  min-height: 1080px !important;
+  max-width: 1920px !important;
+  max-height: 1080px !important;
+  background: white;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+/* Slide container for print - force exact dimensions */
+#print-container .slide-container-print {
+  width: 1920px !important;
+  height: 1080px !important;
+  min-width: 1920px !important;
+  min-height: 1080px !important;
+  max-width: 1920px !important;
+  max-height: 1080px !important;
+  padding: 40px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+}
+
+/* The inner slide box */
+#print-container .slide-box-print {
+  width: 1840px !important;
+  height: 1000px !important;
+  min-width: 1840px !important;
+  min-height: 1000px !important;
+  max-width: 1840px !important;
+  max-height: 1000px !important;
+  aspect-ratio: auto !important;
+  background: white;
+  border-radius: 24px;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid #e5e7eb;
+  box-sizing: border-box !important;
+}
+
+/* Content padding inside slide */
+#print-container .slide-content-print {
+  padding: 80px !important;
+  height: 100% !important;
+  width: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  position: relative !important;
+  z-index: 10 !important;
+  box-sizing: border-box !important;
+}
+
+/* Override h-screen and viewport units */
+#print-container .h-screen {
+  height: 1080px !important;
+}
+
+#print-container .w-screen {
+  width: 1920px !important;
+}
+
+#print-container .h-full {
+  height: 100% !important;
+}
+
+#print-container .w-full {
+  width: 100% !important;
+}
+
+/* Ensure flex children have correct heights */
+#print-container .flex-1 {
+  flex: 1 1 0% !important;
+  min-height: 0 !important;
+}
+
+/* Fix aspect-video override */
+#print-container .aspect-video {
+  aspect-ratio: auto !important;
+}
+
+/* Ensure split content works */
+#print-container .w-1\/2 {
+  width: 50% !important;
+  flex-shrink: 0 !important;
+}
+
+/* Scale up text slightly for 1920px width */
+#print-container .text-8xl {
+  font-size: 7rem !important;
+}
+
+#print-container .text-7xl {
+  font-size: 5.5rem !important;
+}
+
+#print-container .text-5xl {
+  font-size: 3.5rem !important;
+}
+
+#print-container .text-4xl {
+  font-size: 2.75rem !important;
+}
+
+#print-container .text-3xl {
+  font-size: 2.25rem !important;
+}
+
+#print-container .text-2xl {
+  font-size: 1.75rem !important;
+}
+
+#print-container .text-xl {
+  font-size: 1.5rem !important;
+}
+
+#print-container .text-lg {
+  font-size: 1.25rem !important;
+}
+
+/* Larger gaps for 1920 width */
+#print-container .gap-24 {
+  gap: 6rem !important;
+}
+
+#print-container .gap-16 {
+  gap: 4rem !important;
+}
+
+#print-container .gap-12 {
+  gap: 3rem !important;
+}
+
+#print-container .gap-8 {
+  gap: 2rem !important;
+}
+
+#print-container .gap-6 {
+  gap: 1.5rem !important;
+}
+
+/* Larger padding for 1920 width */
+#print-container .p-8 {
+  padding: 2.5rem !important;
+}
+
+#print-container .p-6 {
+  padding: 2rem !important;
+}
+
+#print-container .p-5 {
+  padding: 1.75rem !important;
+}
+
+#print-container .mb-12 {
+  margin-bottom: 4rem !important;
+}
+
+#print-container .mb-10 {
+  margin-bottom: 3.5rem !important;
+}
+
+#print-container .mb-8 {
+  margin-bottom: 2.5rem !important;
+}
+
+/* Ensure grids work properly */
+#print-container .grid {
+  display: grid !important;
+}
+
+#print-container .grid-cols-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+}
+
+#print-container .grid-cols-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+}
+
+#print-container .grid-cols-4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+}
+
+/* Process flow max widths - scale for 1920 */
+#print-container .max-w-4xl {
+  max-width: 1100px !important;
+}
+
+#print-container .max-w-5xl {
+  max-width: 1300px !important;
+}
+
+#print-container .max-w-6xl {
+  max-width: 1500px !important;
+}
+
