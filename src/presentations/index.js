@@ -1,5 +1,4 @@
 import { workflowPresentation, workflowPrintSlides } from './WorkflowPresentation';
-import { operationsPresentation } from './OperationsPresentation';
 
 export const presentations = [
   {
@@ -9,14 +8,6 @@ export const presentations = [
     description: 'Roadmap Q4 2025 - Update para Director de Producto',
     component: workflowPresentation,
     printSlides: workflowPrintSlides
-  },
-  {
-    id: 'lumi-update-operations-nov-2025',
-    title: 'Lumi: Operaciones',
-    date: 'Noviembre 2025',
-    description: 'Update para Head de Operaciones AI',
-    component: operationsPresentation,
-    printSlides: null // Uses default slides
   }
 ];
 
