@@ -355,19 +355,23 @@ export const sprintPlanningPresentation = {
                   <StatusBadge status="in-progress">In Progress</StatusBadge>
                 </div>
               </div>
-              <div className="flex gap-2 mb-2">
-                <div className="flex items-center gap-1 text-[10px] text-green-600">
-                  <CheckCircle size={10} />
-                  <span>2 listos</span>
+              <p className="text-xs text-gray-600 mb-3">
+                Lumi lee y entiende el contenido visible en pantalla. Puede responder preguntas y sugerir acciones contextuales.
+              </p>
+              <div className="space-y-1.5">
+                <div className="flex items-center gap-2 text-[10px]">
+                  <CheckCircle size={10} className="text-green-500" />
+                  <span className="text-gray-600">Formulario de productos</span>
                 </div>
-                <div className="flex items-center gap-1 text-[10px] text-amber-600">
-                  <Clock size={10} />
-                  <span>4 pendientes</span>
+                <div className="flex items-center gap-2 text-[10px]">
+                  <CheckCircle size={10} className="text-green-500" />
+                  <span className="text-gray-600">Estadísticas</span>
+                </div>
+                <div className="flex items-center gap-2 text-[10px]">
+                  <Clock size={10} className="text-amber-500" />
+                  <span className="text-gray-500">Listado: productos, clientes, órdenes, promos</span>
                 </div>
               </div>
-              <ul className="text-[10px] text-gray-500 space-y-0.5">
-                <li>Productos, Clientes, Órdenes, Promos</li>
-              </ul>
             </motion.div>
 
             {/* Contexto Estático v2 */}
@@ -386,13 +390,27 @@ export const sprintPlanningPresentation = {
                   <StatusBadge status="not-started">Not Started</StatusBadge>
                 </div>
               </div>
-              <p className="text-xs text-gray-600 mb-2">
-                RAG para responder desde cualquier pantalla.
+              <p className="text-xs text-gray-600 mb-3">
+                RAG: desde cualquier pantalla, si pregunto algo del contenido estático, puede responderlo.
               </p>
-              <div className="flex flex-wrap gap-1">
-                <span className="text-[10px] bg-purple-50 text-purple-600 px-2 py-0.5 rounded-full">Producto</span>
-                <span className="text-[10px] bg-purple-50 text-purple-600 px-2 py-0.5 rounded-full">Cliente</span>
-                <span className="text-[10px] bg-purple-50 text-purple-600 px-2 py-0.5 rounded-full">Orden</span>
+              <p className="text-[10px] font-medium text-purple-600 mb-1.5">Navegar a IDs por:</p>
+              <div className="grid grid-cols-2 gap-1">
+                <div className="flex items-center gap-1.5 text-[10px]">
+                  <Clock size={9} className="text-amber-500" />
+                  <span className="text-gray-600">Producto</span>
+                </div>
+                <div className="flex items-center gap-1.5 text-[10px]">
+                  <Clock size={9} className="text-amber-500" />
+                  <span className="text-gray-600">Cliente</span>
+                </div>
+                <div className="flex items-center gap-1.5 text-[10px]">
+                  <Clock size={9} className="text-amber-500" />
+                  <span className="text-gray-600">Orden</span>
+                </div>
+                <div className="flex items-center gap-1.5 text-[10px]">
+                  <Clock size={9} className="text-amber-500" />
+                  <span className="text-gray-600">App</span>
+                </div>
               </div>
             </motion.div>
 
@@ -408,20 +426,18 @@ export const sprintPlanningPresentation = {
                   <Headphones size={20} />
                 </div>
                 <div>
-                  <h4 className="font-bold text-tn-blue text-sm">Handoff a Support</h4>
+                  <h4 className="font-bold text-tn-blue text-sm">Apertura Chat de Ayuda</h4>
                   <StatusBadge status="not-started">Not Started</StatusBadge>
                 </div>
               </div>
-              <p className="text-xs text-gray-600 mb-2">
-                Derivar a soporte humano.
+              <p className="text-xs text-gray-600 mb-3">
+                Link a soporte humano cuando Lumi no puede resolver. Sin contexto de conversación (no conectado a ADA).
               </p>
               {/* Mini mockup del chip de ayuda */}
-              <div className="flex items-center gap-2 bg-gray-50 rounded-md px-2 py-1.5 border border-gray-200">
-                <MessageSquare size={12} className="text-tn-blue" />
-                <span className="text-[10px] text-gray-600">Preguntar a un Gurú</span>
-                <div className="w-3.5 h-3.5 bg-tn-blue rounded-full flex items-center justify-center ml-auto">
-                  <span className="text-[7px] text-white font-bold">1</span>
-                </div>
+              <div className="flex items-center gap-2 bg-gradient-to-r from-pink-50 to-rose-50 rounded-lg px-3 py-2 border border-pink-200">
+                <MessageSquare size={14} className="text-pink-500" />
+                <span className="text-xs text-pink-700 font-medium">Hablá con nosotros</span>
+                <ExternalLink size={12} className="text-pink-400 ml-auto" />
               </div>
             </motion.div>
 
@@ -442,12 +458,21 @@ export const sprintPlanningPresentation = {
                 </div>
               </div>
               <p className="text-xs text-gray-600 mb-2">
-                Costo por merchant desglosado.
+                Hoy no sabemos cuánto nos cuesta cada merchant.
               </p>
-              <div className="flex items-center gap-1.5">
-                <span className="text-[10px] bg-green-50 text-green-600 px-2 py-0.5 rounded-full border border-green-100">Actions</span>
-                <span className="text-[10px] text-gray-400">+</span>
-                <span className="text-[10px] bg-blue-50 text-blue-600 px-2 py-0.5 rounded-full border border-blue-100">Assistant</span>
+              <div className="space-y-1">
+                <div className="flex items-center gap-1.5 text-[10px]">
+                  <div className="w-1 h-1 rounded-full bg-gray-400" />
+                  <span className="text-gray-600">Desglosado por feature / assistant</span>
+                </div>
+                <div className="flex items-center gap-1.5 text-[10px]">
+                  <div className="w-1 h-1 rounded-full bg-gray-400" />
+                  <span className="text-gray-600">Input tokens / Output tokens</span>
+                </div>
+                <div className="flex items-center gap-1.5 text-[10px]">
+                  <div className="w-1 h-1 rounded-full bg-gray-400" />
+                  <span className="text-gray-600">Costo por texto / audio / imagen</span>
+                </div>
               </div>
             </motion.div>
           </div>

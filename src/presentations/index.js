@@ -1,5 +1,6 @@
 import { workflowPresentation, workflowPrintSlides } from './WorkflowPresentation';
 import { sprintPlanningPresentation, sprintPlanningPrintSlides } from './SprintPlanningPresentation';
+import { novemberReportPresentation, novemberReportPrintSlides } from './NovemberReportPresentation';
 
 export const presentations = [
   {
@@ -17,6 +18,14 @@ export const presentations = [
     description: 'Sprint Planning para Dev Team - Actions + Assistant',
     component: sprintPlanningPresentation,
     printSlides: sprintPlanningPrintSlides
+  },
+  {
+    id: 'reporte-noviembre-2025',
+    title: 'Reporte Noviembre 2025',
+    date: 'Noviembre 2025',
+    description: 'Reporte mensual de Lumi - Business & Product Report',
+    component: novemberReportPresentation,
+    printSlides: novemberReportPrintSlides
   }
 ];
 

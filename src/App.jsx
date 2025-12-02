@@ -8,7 +8,7 @@ import { SlideContainer } from './components/SlideContainer';
 // Import presentations manager
 import { presentations, getPrintSlides } from './presentations';
 
-import { ArrowLeft, ArrowRight, Download, Loader2 } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Download, Loader2, AlertCircle } from 'lucide-react';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import { motion } from 'framer-motion';
@@ -16,28 +16,45 @@ import { motion } from 'framer-motion';
 // Context for print mode
 import { PrintModeContext } from './context/PrintModeContext';
 
-// Get presentation index from URL query parameter
-const getPresentationIndexFromURL = () => {
+// Get presentation ID from URL query parameter
+const getPresentationIdFromURL = () => {
   const params = new URLSearchParams(window.location.search);
-  const presentationId = params.get('presentation');
-  if (presentationId) {
-    const index = presentations.findIndex(p => p.id === presentationId);
-    if (index !== -1) return index;
-  }
-  return 0;
+  return params.get('presentation') || null;
+};
+
+// 404 Page Component - No index, just error
+const NotFoundPage = ({ message }) => {
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex flex-col items-center justify-center p-8">
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="text-center"
+      >
+        <div className="w-20 h-20 bg-red-50 rounded-2xl shadow-lg flex items-center justify-center mx-auto mb-6 border border-red-100">
+          <AlertCircle size={40} className="text-red-400" />
+        </div>
+        <h1 className="text-6xl font-bold text-gray-300 mb-4">404</h1>
+        <p className="text-gray-500 text-lg mb-2">Presentación no encontrada</p>
+        {message && (
+          <p className="text-gray-400 text-sm">{message}</p>
+        )}
+      </motion.div>
+    </div>
+  );
 };
 
 function App() {
-  // Initialize with URL parameter - this runs synchronously on first render
-  const [currentPresentationIndex, setCurrentPresentationIndex] = useState(() => getPresentationIndexFromURL());
+  // Get presentation ID from URL
+  const [selectedPresentationId, setSelectedPresentationId] = useState(() => getPresentationIdFromURL());
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
   const [isExporting, setIsExporting] = useState(false);
 
   // Listen for URL changes (popstate for back/forward)
   useEffect(() => {
     const handleUrlChange = () => {
-      const newIndex = getPresentationIndexFromURL();
-      setCurrentPresentationIndex(newIndex);
+      const newId = getPresentationIdFromURL();
+      setSelectedPresentationId(newId);
       setCurrentSlideIndex(0);
     };
     
@@ -45,7 +62,20 @@ function App() {
     return () => window.removeEventListener('popstate', handleUrlChange);
   }, []);
 
-  const currentPresentation = presentations[currentPresentationIndex];
+  // If no presentation selected, show 404
+  if (!selectedPresentationId) {
+    return <NotFoundPage message="Usa una URL con ?presentation=ID para acceder" />;
+  }
+
+  // Find presentation by ID
+  const presentationIndex = presentations.findIndex(p => p.id === selectedPresentationId);
+  
+  // If presentation not found, show 404
+  if (presentationIndex === -1) {
+    return <NotFoundPage message={`"${selectedPresentationId}" no existe`} />;
+  }
+
+  const currentPresentation = presentations[presentationIndex];
   const activeSlides = currentPresentation.component.slides;
   const totalSlides = activeSlides.length;
   const CurrentSlideComponent = activeSlides[currentSlideIndex];
@@ -57,15 +87,6 @@ function App() {
   const prevSlide = () => {
     if (currentSlideIndex > 0) setCurrentSlideIndex(prev => prev - 1);
   };
-
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (e.key === 'ArrowRight' || e.key === 'Space') nextSlide();
-      if (e.key === 'ArrowLeft') prevSlide();
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [currentSlideIndex]);
 
   const exportAllToPDF = async () => {
     setIsExporting(true);
@@ -135,7 +156,7 @@ function App() {
         });
       }
       
-      pdf.save(`${currentPresentation.component.id}.pdf`);
+      pdf.save(`${currentPresentation.id}.pdf`);
     } catch (error) {
       console.error("Error generating PDF:", error);
       alert("Error generating PDF. Check console.");
@@ -143,6 +164,21 @@ function App() {
       setIsExporting(false);
     }
   };
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ') {
+        e.preventDefault();
+        if (currentSlideIndex < totalSlides - 1) setCurrentSlideIndex(prev => prev + 1);
+      }
+      if (e.key === 'ArrowLeft') {
+        if (currentSlideIndex > 0) setCurrentSlideIndex(prev => prev - 1);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [currentSlideIndex, totalSlides]);
 
   return (
     <div className="relative h-screen bg-gray-50 overflow-hidden">
@@ -167,7 +203,7 @@ function App() {
             opacity: 0
           }}
         >
-          {(getPrintSlides ? getPrintSlides(currentPresentationIndex) : activeSlides).map((slide, index) => (
+          {(getPrintSlides ? getPrintSlides(presentationIndex) : activeSlides).map((slide, index) => (
             <div 
               key={index} 
               className="print-slide" 
