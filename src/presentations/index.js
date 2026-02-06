@@ -1,6 +1,8 @@
 import { workflowPresentation, workflowPrintSlides } from './WorkflowPresentation';
 import { sprintPlanningPresentation, sprintPlanningPrintSlides } from './SprintPlanningPresentation';
 import { novemberReportPresentation, novemberReportPrintSlides } from './NovemberReportPresentation';
+import { bulkActionsPresentation, bulkActionsPrintSlides } from './BulkActionsPresentation';
+import { lumiOrdersPresentation, lumiOrdersPrintSlides } from './LumiOrdersPresentation';
 
 export const presentations = [
   {
@@ -26,6 +28,22 @@ export const presentations = [
     description: 'Reporte mensual de Lumi - Business & Product Report',
     component: novemberReportPresentation,
     printSlides: novemberReportPrintSlides
+  },
+  {
+    id: 'bulk-actions-flow',
+    title: 'Fluxo de Ação em Massa',
+    date: 'Dezembro 2025',
+    description: 'Bulk Actions - Fluxo completo de ações em massa no Lumi',
+    component: bulkActionsPresentation,
+    printSlides: bulkActionsPrintSlides
+  },
+  {
+    id: 'lumi-orders-capabilities',
+    title: 'Lumi em Orders',
+    date: 'Fevereiro 2026',
+    description: 'Capacidades, limitações e oportunidades do Lumi em Orders',
+    component: lumiOrdersPresentation,
+    printSlides: lumiOrdersPrintSlides
   }
 ];
 
