@@ -281,7 +281,6 @@ const translations = {
     risksSubtitle: 'Pontos de atencao para planejamento',
     risksLabel: 'Riscos Identificados',
     risksItems: [
-      { title: 'Design incompleto', desc: 'Varias funcionalidades da Frente 3 ainda nao possuem design definido', severity: 'alto' },
       { title: 'Dependencias de backend', desc: 'Sync lido/nao lido e integracoes multicanal dependem de trabalho de backend', severity: 'alto' },
       { title: 'Integracoes externas', desc: 'Conexao com Instagram/Messenger depende de APIs e aprovacoes externas', severity: 'medio' },
       { title: 'Escopo amplo', desc: '24 funcionalidades mapeadas que podem gerar pressao de entrega', severity: 'medio' },
@@ -292,7 +291,7 @@ const translations = {
     nextSteps: [
       { title: 'Validacao com Produto e Engenharia', desc: 'Alinhar priorizacoes e viabilidade tecnica' },
       { title: 'Definicao de Milestones', desc: 'Sequencia de entregas por etapa' },
-      { title: 'Detalhamento de Design', desc: 'Foco em itens P0 sem design definido' },
+      { title: 'Detalhamento de Design', desc: 'Foco em itens P0' },
       { title: 'Planejamento de Roadmap', desc: 'Cronograma e alocacao de recursos' },
     ],
     nextCta: 'O discovery nos deu a direcao. Agora vamos construir juntos.',
@@ -562,7 +561,6 @@ const translations = {
     risksSubtitle: 'Puntos de atencion para planificacion',
     risksLabel: 'Riesgos Identificados',
     risksItems: [
-      { title: 'Diseno incompleto', desc: 'Varias funcionalidades del Frente 3 aun no tienen diseno definido', severity: 'alto' },
       { title: 'Dependencias de backend', desc: 'Sync leido/no leido e integraciones multicanal dependen de trabajo de backend', severity: 'alto' },
       { title: 'Integraciones externas', desc: 'Conexion con Instagram/Messenger depende de APIs y aprobaciones externas', severity: 'medio' },
       { title: 'Alcance amplio', desc: '24 funcionalidades mapeadas que pueden generar presion de entrega', severity: 'medio' },
@@ -573,7 +571,7 @@ const translations = {
     nextSteps: [
       { title: 'Validacion con Producto e Ingenieria', desc: 'Alinear priorizaciones y viabilidad tecnica' },
       { title: 'Definicion de Milestones', desc: 'Secuencia de entregas por etapa' },
-      { title: 'Detalle de Diseno', desc: 'Foco en items P0 sin diseno definido' },
+      { title: 'Detalle de Diseno', desc: 'Foco en items P0' },
       { title: 'Planificacion de Roadmap', desc: 'Cronograma y asignacion de recursos' },
     ],
     nextCta: 'El discovery nos dio la direccion. Ahora vamos a construir juntos.',
