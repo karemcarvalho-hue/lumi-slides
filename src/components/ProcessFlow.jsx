@@ -1,15 +1,15 @@
 import React from 'react';
 import { SlideContainer } from './SlideContainer';
 import { motion } from 'framer-motion';
-import { CheckCircle, Inbox, Filter, FlaskConical, Zap, ChevronRight, AlertCircle, Search, Rocket, Lightbulb } from 'lucide-react';
+import { CheckCircle, Inbox, Filter, FlaskConical, Zap, ChevronRight, AlertCircle, Search, Rocket, Lightbulb, Eye, Play } from 'lucide-react';
 
 const icons = {
-  Inbox, Filter, FlaskConical, Zap, CheckCircle, AlertCircle, Search, Rocket, Lightbulb
+  Inbox, Filter, FlaskConical, Zap, CheckCircle, AlertCircle, Search, Rocket, Lightbulb, Eye, Play
 };
 
-export const ProcessFlow = ({ title, subtitle, steps, note }) => {
+export const ProcessFlow = ({ title, subtitle, steps, note, footerLabel }) => {
   return (
-    <SlideContainer>
+    <SlideContainer footerLabel={footerLabel}>
       <div className="mb-12 text-center">
         <h2 className="text-4xl font-bold text-tn-blue mb-3 tracking-tight">{title}</h2>
         {subtitle && <h3 className="text-lg text-tn-text font-light">{subtitle}</h3>}

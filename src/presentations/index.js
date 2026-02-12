@@ -3,6 +3,7 @@ import { sprintPlanningPresentation, sprintPlanningPrintSlides } from './SprintP
 import { novemberReportPresentation, novemberReportPrintSlides } from './NovemberReportPresentation';
 import { bulkActionsPresentation, bulkActionsPrintSlides } from './BulkActionsPresentation';
 import { lumiOrdersPresentation, lumiOrdersPrintSlides } from './LumiOrdersPresentation';
+import { discoveryPresentation, discoveryPrintSlides } from './DiscoveryPresentation';
 
 export const presentations = [
   {
@@ -44,6 +45,14 @@ export const presentations = [
     description: 'Capacidades, limitações e oportunidades do Lumi em Orders',
     component: lumiOrdersPresentation,
     printSlides: lumiOrdersPrintSlides
+  },
+  {
+    id: 'discovery-chat-panel',
+    title: 'Discovery & Insights: Novo Painel de Chat',
+    date: 'Fevereiro 2026',
+    description: 'Discovery, insights de pesquisa com usuários e priorização das 3 frentes estratégicas',
+    component: discoveryPresentation,
+    printSlides: discoveryPrintSlides
   }
 ];
 

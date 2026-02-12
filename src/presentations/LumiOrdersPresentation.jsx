@@ -42,10 +42,37 @@ const translations = {
     ],
     nonTransactionalNote: 'Não alteram nada na venda, são seguras',
     
-    // Slide 3
-    slide3Title: 'Ações Diretas do Lumi',
-    slide3Badge: 'Lumi FAZ bem',
+    // Slide 3 - V1
+    slide3Title: 'V1 - Entrega Atual',
+    slide3Badge: 'Lumi FAZ agora',
     slide3Items: [
+      {
+        title: 'Buscar vendas',
+        description: 'Por número da venda, nome, email, telefone do cliente ou valor.',
+        where: 'Chat conversacional'
+      },
+      {
+        title: 'Filtrar vendas',
+        description: 'Status, data, pagamento, envio, canal, cupons, tipo de venda e muito mais.',
+        where: 'Chat conversacional'
+      },
+      {
+        title: 'Responder perguntas',
+        description: 'Status, dados do cliente, produtos, valores, rastreio e informações da venda.',
+        where: 'Chat conversacional'
+      },
+      {
+        title: 'Explicar status',
+        description: 'Traduz status de pagamento e envio para linguagem simples e clara.',
+        where: 'Chat conversacional'
+      }
+    ],
+    slide3Note: 'V1 foca em consulta e informação - ações sem risco de alteração de dados',
+    
+    // Slide 3b - V2
+    slide3bTitle: 'V2 - Próxima Entrega',
+    slide3bBadge: 'Lumi FARÁ (V2)',
+    slide3bItems: [
       {
         title: 'Marcar pagamento',
         description: 'Muda status para pago. Só funciona se a venda não estiver paga. Registra no histórico.',
@@ -65,19 +92,9 @@ const translations = {
         title: 'Reabrir venda',
         description: 'Muda status de fechada para aberta. Valida estoque antes de executar.',
         where: 'Detalhe da venda'
-      },
-      {
-        title: 'Buscar vendas',
-        description: 'Por número da venda, nome, email, telefone do cliente ou valor.',
-        where: 'Chat conversacional'
-      },
-      {
-        title: 'Filtrar vendas',
-        description: 'Status, data, pagamento, envio, canal, cupons, tipo de venda e muito mais.',
-        where: 'Chat conversacional'
       }
     ],
-    slide3Note: 'Picking List: Marcar pagamento e empaquetar são ações-chave para o fluxo de separação de pedidos',
+    slide3bNote: 'V2 adiciona ações transacionais - chave para o fluxo de Picking List',
     
     // Slide 4
     slide4Title: 'Ações com Orientação',
@@ -183,16 +200,21 @@ const translations = {
     outOfOrders: 'Fora de Orders',
     
     // Slide 7
-    slide7Title: 'Oportunidades de Produto',
-    slide7Subtitle: 'O que pode virar feature do Lumi em Orders',
-    viableNowTitle: 'Viável Agora',
+    slide7Title: 'Roadmap de Produto',
+    slide7Subtitle: 'O que está em V1 e o que vem em V2',
+    viableNowTitle: 'V1 - Entrega Atual',
     viableNowItems: [
-      'Buscar, filtrar e explicar vendas',
-      'Marcar pagamento e empaquetar',
-      'Desempaquetar e reabrir vendas',
+      'Buscar e filtrar vendas',
+      'Responder perguntas sobre vendas',
       'Explicar status de envio e pagamento',
-      'Análise guiada por conversa',
-      'CTAs claros ("posso marcar como pago?")'
+      'Análise guiada por conversa'
+    ],
+    v2Title: 'V2 - Próxima Entrega',
+    v2Items: [
+      'Marcar pagamento como recebido',
+      'Marcar como empaquetada',
+      'Desempaquetar venda',
+      'Reabrir venda'
     ],
     asGuideTitle: 'Como Guia / Suporte',
     asGuideItems: [
@@ -230,14 +252,16 @@ const translations = {
     // Slide 9
     slide9Title: 'Resumo',
     slide9Subtitle: 'Visão consolidada das capacidades do Lumi em Orders',
-    does: 'FAZ',
-    doesItems: ['Buscar e filtrar', 'Marcar pagamento', 'Empaquetar', 'Desempaquetar', 'Reabrir venda', 'Responder perguntas'],
+    v1Label: 'V1 (Agora)',
+    v1Items: ['Buscar vendas', 'Filtrar vendas', 'Responder perguntas', 'Explicar status'],
+    v2Label: 'V2 (Próximo)',
+    v2Items: ['Marcar pagamento', 'Empaquetar', 'Desempaquetar', 'Reabrir venda'],
     guides: 'GUIA',
     guidesItems: ['Cancelamento', 'Reembolso', 'Edição de venda', 'Configurações', 'Problemas logísticos'],
     doesNot: 'NÃO FAZ',
     doesNotItems: ['Editar venda', 'Reembolsar', 'Cancelar', 'Comprar etiquetas'],
     finalCta: 'Este documento é base para: Backlog • Escopo • Experiência Conversacional',
-    finalCtaSub: 'Pronto para transformar insights em features'
+    finalCtaSub: 'V1 em produção • V2 no roadmap'
   },
   'es-AR': {
     // Title slide
@@ -267,10 +291,37 @@ const translations = {
     ],
     nonTransactionalNote: 'No alteran nada en la venta, son seguras',
     
-    // Slide 3
-    slide3Title: 'Acciones Directas de Lumi',
-    slide3Badge: 'Lumi HACE bien',
+    // Slide 3 - V1
+    slide3Title: 'V1 - Entrega Actual',
+    slide3Badge: 'Lumi HACE ahora',
     slide3Items: [
+      {
+        title: 'Buscar ventas',
+        description: 'Por número de venta, nombre, email, teléfono del cliente o valor.',
+        where: 'Chat conversacional'
+      },
+      {
+        title: 'Filtrar ventas',
+        description: 'Estado, fecha, pago, envío, canal, cupones, tipo de venta y mucho más.',
+        where: 'Chat conversacional'
+      },
+      {
+        title: 'Responder preguntas',
+        description: 'Estado, datos del cliente, productos, valores, seguimiento e información de la venta.',
+        where: 'Chat conversacional'
+      },
+      {
+        title: 'Explicar estados',
+        description: 'Traduce estados de pago y envío a lenguaje simple y claro.',
+        where: 'Chat conversacional'
+      }
+    ],
+    slide3Note: 'V1 se enfoca en consulta e información - acciones sin riesgo de alteración de datos',
+    
+    // Slide 3b - V2
+    slide3bTitle: 'V2 - Próxima Entrega',
+    slide3bBadge: 'Lumi HARÁ (V2)',
+    slide3bItems: [
       {
         title: 'Marcar pago',
         description: 'Cambia estado a pagado. Solo funciona si la venta no está pagada. Registra en el historial.',
@@ -290,19 +341,9 @@ const translations = {
         title: 'Reabrir venta',
         description: 'Cambia estado de cerrada a abierta. Valida stock antes de ejecutar.',
         where: 'Detalle de la venta'
-      },
-      {
-        title: 'Buscar ventas',
-        description: 'Por número de venta, nombre, email, teléfono del cliente o valor.',
-        where: 'Chat conversacional'
-      },
-      {
-        title: 'Filtrar ventas',
-        description: 'Estado, fecha, pago, envío, canal, cupones, tipo de venta y mucho más.',
-        where: 'Chat conversacional'
       }
     ],
-    slide3Note: 'Picking List: Marcar pago y empaquetar son acciones clave para el flujo de separación de pedidos',
+    slide3bNote: 'V2 agrega acciones transaccionales - clave para el flujo de Picking List',
     
     // Slide 4
     slide4Title: 'Acciones con Orientación',
@@ -408,16 +449,21 @@ const translations = {
     outOfOrders: 'Fuera de Orders',
     
     // Slide 7
-    slide7Title: 'Oportunidades de Producto',
-    slide7Subtitle: 'Lo que puede volverse feature de Lumi en Orders',
-    viableNowTitle: 'Viable Ahora',
+    slide7Title: 'Roadmap de Producto',
+    slide7Subtitle: 'Lo que está en V1 y lo que viene en V2',
+    viableNowTitle: 'V1 - Entrega Actual',
     viableNowItems: [
-      'Buscar, filtrar y explicar ventas',
-      'Marcar pago y empaquetar',
-      'Desempaquetar y reabrir ventas',
+      'Buscar y filtrar ventas',
+      'Responder preguntas sobre ventas',
       'Explicar estados de envío y pago',
-      'Análisis guiado por conversación',
-      'CTAs claros ("¿puedo marcar como pagado?")'
+      'Análisis guiado por conversación'
+    ],
+    v2Title: 'V2 - Próxima Entrega',
+    v2Items: [
+      'Marcar pago como recibido',
+      'Marcar como empaquetada',
+      'Desempaquetar venta',
+      'Reabrir venta'
     ],
     asGuideTitle: 'Como Guía / Soporte',
     asGuideItems: [
@@ -455,14 +501,16 @@ const translations = {
     // Slide 9
     slide9Title: 'Resumen',
     slide9Subtitle: 'Visión consolidada de las capacidades de Lumi en Orders',
-    does: 'HACE',
-    doesItems: ['Buscar y filtrar', 'Marcar pago', 'Empaquetar', 'Desempaquetar', 'Reabrir venta', 'Responder preguntas'],
+    v1Label: 'V1 (Ahora)',
+    v1Items: ['Buscar ventas', 'Filtrar ventas', 'Responder preguntas', 'Explicar estados'],
+    v2Label: 'V2 (Próximo)',
+    v2Items: ['Marcar pago', 'Empaquetar', 'Desempaquetar', 'Reabrir venta'],
     guides: 'GUÍA',
     guidesItems: ['Cancelación', 'Reembolso', 'Edición de venta', 'Configuraciones', 'Problemas logísticos'],
     doesNot: 'NO HACE',
     doesNotItems: ['Editar venta', 'Reembolsar', 'Cancelar', 'Comprar etiquetas'],
     finalCta: 'Este documento es base para: Backlog • Alcance • Experiencia Conversacional',
-    finalCtaSub: 'Listo para transformar insights en features'
+    finalCtaSub: 'V1 en producción • V2 en el roadmap'
   }
 };
 
@@ -679,14 +727,7 @@ const ActionTypesSlide = () => {
 
 const WhatLumiDoesSlide = () => {
   const t = useTranslations();
-  const icons = [CreditCard, Package, RefreshCw, Archive, Search, Filter];
-  const colors = ['green', 'green', 'blue', 'blue', 'purple', 'purple'];
-  
-  const colorClasses = {
-    green: 'bg-green-50 border-green-100 text-green-600',
-    blue: 'bg-blue-50 border-blue-100 text-blue-600',
-    purple: 'bg-purple-50 border-purple-100 text-purple-600'
-  };
+  const icons = [Search, Filter, MessageSquare, Eye];
   
   return (
     <div className="h-full flex flex-col">
@@ -698,7 +739,7 @@ const WhatLumiDoesSlide = () => {
         <h2 className="text-4xl font-bold text-tn-blue tracking-tight">{t.slide3Title}</h2>
       </div>
 
-      <div className="flex-1 grid grid-cols-3 gap-5">
+      <div className="flex-1 grid grid-cols-2 gap-6">
         {t.slide3Items.map((item, i) => {
           const Icon = icons[i];
           return (
@@ -707,13 +748,13 @@ const WhatLumiDoesSlide = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.08 }}
-              className="bg-white border border-gray-100 p-5 rounded-xl shadow-sm"
+              className="bg-white border border-green-200 p-6 rounded-xl shadow-sm"
             >
-              <div className={`w-10 h-10 ${colorClasses[colors[i]]} rounded-lg flex items-center justify-center mb-3 border`}>
-                <Icon size={20} />
+              <div className="w-12 h-12 bg-green-50 border border-green-100 text-green-600 rounded-lg flex items-center justify-center mb-4">
+                <Icon size={24} />
               </div>
-              <h3 className="text-lg font-bold text-tn-blue mb-2">{item.title}</h3>
-              <p className="text-xs text-tn-text opacity-80 leading-relaxed mb-3">{item.description}</p>
+              <h3 className="text-xl font-bold text-tn-blue mb-2">{item.title}</h3>
+              <p className="text-sm text-tn-text opacity-80 leading-relaxed mb-3">{item.description}</p>
               <div className="text-xs text-tn-lightblue font-medium">📍 {item.where}</div>
             </motion.div>
           );
@@ -726,9 +767,55 @@ const WhatLumiDoesSlide = () => {
         transition={{ delay: 0.5 }}
         className="mt-6 bg-green-50 border border-green-100 p-4 rounded-xl text-center"
       >
-        <p className="text-sm text-green-800">
-          <strong>{t.slide3Note.split(':')[0]}:</strong>{t.slide3Note.split(':')[1]}
-        </p>
+        <p className="text-sm text-green-800">{t.slide3Note}</p>
+      </motion.div>
+    </div>
+  );
+};
+
+const V2Slide = () => {
+  const t = useTranslations();
+  const icons = [CreditCard, Package, RefreshCw, Archive];
+  
+  return (
+    <div className="h-full flex flex-col">
+      <div className="mb-6 text-center">
+        <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 border border-blue-100 rounded-full mb-4">
+          <Rocket size={20} className="text-blue-600" />
+          <span className="text-blue-700 font-medium">{t.slide3bBadge}</span>
+        </div>
+        <h2 className="text-4xl font-bold text-tn-blue tracking-tight">{t.slide3bTitle}</h2>
+      </div>
+
+      <div className="flex-1 grid grid-cols-2 gap-6">
+        {t.slide3bItems.map((item, i) => {
+          const Icon = icons[i];
+          return (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.08 }}
+              className="bg-white border border-blue-200 p-6 rounded-xl shadow-sm"
+            >
+              <div className="w-12 h-12 bg-blue-50 border border-blue-100 text-blue-600 rounded-lg flex items-center justify-center mb-4">
+                <Icon size={24} />
+              </div>
+              <h3 className="text-xl font-bold text-tn-blue mb-2">{item.title}</h3>
+              <p className="text-sm text-tn-text opacity-80 leading-relaxed mb-3">{item.description}</p>
+              <div className="text-xs text-tn-lightblue font-medium">📍 {item.where}</div>
+            </motion.div>
+          );
+        })}
+      </div>
+
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.5 }}
+        className="mt-6 bg-blue-50 border border-blue-100 p-4 rounded-xl text-center"
+      >
+        <p className="text-sm text-blue-800">{t.slide3bNote}</p>
       </motion.div>
     </div>
   );
@@ -921,18 +1008,18 @@ const OpportunitiesSlide = () => {
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.1 }}
-          className="bg-amber-50 border border-amber-100 p-6 rounded-2xl"
+          className="bg-blue-50 border border-blue-100 p-6 rounded-2xl"
         >
           <div className="flex items-center gap-3 mb-5">
-            <div className="w-10 h-10 bg-amber-500 text-white rounded-lg flex items-center justify-center">
-              <Navigation size={20} />
+            <div className="w-10 h-10 bg-blue-500 text-white rounded-lg flex items-center justify-center">
+              <Rocket size={20} />
             </div>
-            <h3 className="text-xl font-bold text-tn-blue">{t.asGuideTitle}</h3>
+            <h3 className="text-xl font-bold text-tn-blue">{t.v2Title}</h3>
           </div>
           <ul className="space-y-3">
-            {t.asGuideItems.map((item, i) => (
-              <li key={i} className="flex items-start gap-2 text-sm text-amber-800">
-                <Navigation size={16} className="mt-0.5 flex-shrink-0 text-amber-600" />
+            {t.v2Items.map((item, i) => (
+              <li key={i} className="flex items-start gap-2 text-sm text-blue-800">
+                <Rocket size={16} className="mt-0.5 flex-shrink-0 text-blue-600" />
                 {item}
               </li>
             ))}
@@ -944,26 +1031,21 @@ const OpportunitiesSlide = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
-        className="mt-6 bg-gradient-to-r from-purple-50 to-blue-50 border border-purple-100 p-6 rounded-2xl"
+        className="mt-6 bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-100 p-6 rounded-2xl"
       >
         <div className="flex items-center gap-3 mb-4">
-          <div className="w-10 h-10 bg-purple-500 text-white rounded-lg flex items-center justify-center">
-            <Rocket size={20} />
+          <div className="w-10 h-10 bg-amber-500 text-white rounded-lg flex items-center justify-center">
+            <Navigation size={20} />
           </div>
-          <h3 className="text-xl font-bold text-tn-blue">{t.futureTitle}</h3>
+          <h3 className="text-xl font-bold text-tn-blue">{t.asGuideTitle}</h3>
         </div>
-        <div className="grid grid-cols-5 gap-4">
-          {t.futureItems.map((item, i) => {
-            const Icon = futureIcons[i];
-            return (
-              <div key={i} className="text-center">
-                <div className="w-12 h-12 bg-white border border-purple-100 rounded-xl flex items-center justify-center mx-auto mb-2 text-purple-600">
-                  <Icon size={24} />
-                </div>
-                <p className="text-xs text-tn-text font-medium">{item}</p>
-              </div>
-            );
-          })}
+        <div className="flex flex-wrap gap-3">
+          {t.asGuideItems.map((item, i) => (
+            <div key={i} className="flex items-center gap-2 bg-white border border-amber-200 rounded-lg px-4 py-2">
+              <Navigation size={14} className="text-amber-600" />
+              <span className="text-sm text-amber-800">{item}</span>
+            </div>
+          ))}
         </div>
       </motion.div>
     </div>
@@ -1050,20 +1132,20 @@ const SummarySlide = () => {
         <p className="text-lg text-tn-text font-light">{t.slide9Subtitle}</p>
       </div>
 
-      <div className="flex-1 grid grid-cols-3 gap-6">
+      <div className="flex-1 grid grid-cols-4 gap-5">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-green-50 border border-green-200 p-6 rounded-2xl"
+          className="bg-green-50 border border-green-200 p-5 rounded-2xl"
         >
-          <div className="text-center mb-5">
-            <div className="w-16 h-16 bg-green-500 text-white rounded-2xl flex items-center justify-center mx-auto mb-3">
-              <CheckCircle size={32} />
+          <div className="text-center mb-4">
+            <div className="w-14 h-14 bg-green-500 text-white rounded-2xl flex items-center justify-center mx-auto mb-2">
+              <CheckCircle size={28} />
             </div>
-            <h3 className="text-2xl font-bold text-green-700">{t.does}</h3>
+            <h3 className="text-xl font-bold text-green-700">{t.v1Label}</h3>
           </div>
           <ul className="space-y-2">
-            {t.doesItems.map((item, i) => (
+            {t.v1Items.map((item, i) => (
               <li key={i} className="flex items-center gap-2 text-sm text-green-800">
                 <div className="w-1.5 h-1.5 rounded-full bg-green-500"></div>
                 {item}
@@ -1076,13 +1158,35 @@ const SummarySlide = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="bg-amber-50 border border-amber-200 p-6 rounded-2xl"
+          className="bg-blue-50 border border-blue-200 p-5 rounded-2xl"
         >
-          <div className="text-center mb-5">
-            <div className="w-16 h-16 bg-amber-500 text-white rounded-2xl flex items-center justify-center mx-auto mb-3">
-              <Navigation size={32} />
+          <div className="text-center mb-4">
+            <div className="w-14 h-14 bg-blue-500 text-white rounded-2xl flex items-center justify-center mx-auto mb-2">
+              <Rocket size={28} />
             </div>
-            <h3 className="text-2xl font-bold text-amber-700">{t.guides}</h3>
+            <h3 className="text-xl font-bold text-blue-700">{t.v2Label}</h3>
+          </div>
+          <ul className="space-y-2">
+            {t.v2Items.map((item, i) => (
+              <li key={i} className="flex items-center gap-2 text-sm text-blue-800">
+                <div className="w-1.5 h-1.5 rounded-full bg-blue-500"></div>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </motion.div>
+
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.15 }}
+          className="bg-amber-50 border border-amber-200 p-5 rounded-2xl"
+        >
+          <div className="text-center mb-4">
+            <div className="w-14 h-14 bg-amber-500 text-white rounded-2xl flex items-center justify-center mx-auto mb-2">
+              <Navigation size={28} />
+            </div>
+            <h3 className="text-xl font-bold text-amber-700">{t.guides}</h3>
           </div>
           <ul className="space-y-2">
             {t.guidesItems.map((item, i) => (
@@ -1098,13 +1202,13 @@ const SummarySlide = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="bg-red-50 border border-red-200 p-6 rounded-2xl"
+          className="bg-red-50 border border-red-200 p-5 rounded-2xl"
         >
-          <div className="text-center mb-5">
-            <div className="w-16 h-16 bg-red-500 text-white rounded-2xl flex items-center justify-center mx-auto mb-3">
-              <XCircle size={32} />
+          <div className="text-center mb-4">
+            <div className="w-14 h-14 bg-red-500 text-white rounded-2xl flex items-center justify-center mx-auto mb-2">
+              <XCircle size={28} />
             </div>
-            <h3 className="text-2xl font-bold text-red-700">{t.doesNot}</h3>
+            <h3 className="text-xl font-bold text-red-700">{t.doesNot}</h3>
           </div>
           <ul className="space-y-2">
             {t.doesNotItems.map((item, i) => (
@@ -1149,6 +1253,12 @@ export const lumiOrdersPresentation = {
     <SlideContainer key="what-lumi-does">
       <PresentationWrapper>
         <WhatLumiDoesSlide />
+      </PresentationWrapper>
+    </SlideContainer>,
+    
+    <SlideContainer key="v2-slide">
+      <PresentationWrapper>
+        <V2Slide />
       </PresentationWrapper>
     </SlideContainer>,
     

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { usePrintMode } from '../context/PrintModeContext';
 
-export const SlideContainer = ({ children, className = "", forPrint: forPrintProp = false }) => {
+export const SlideContainer = ({ children, className = "", forPrint: forPrintProp = false, footerLabel = "Lumi Product" }) => {
   // Check both prop and context for print mode
   const contextPrintMode = usePrintMode();
   const forPrint = forPrintProp || contextPrintMode;
@@ -43,7 +43,7 @@ export const SlideContainer = ({ children, className = "", forPrint: forPrintPro
 
           {/* Footer */}
           <div className="absolute bottom-10 right-16 opacity-40 z-20">
-            <span className="text-tn-blue font-semibold text-sm tracking-widest uppercase">Lumi Product</span>
+            <span className="text-tn-blue font-semibold text-sm tracking-widest uppercase">{footerLabel}</span>
           </div>
         </div>
       </div>
@@ -67,7 +67,7 @@ export const SlideContainer = ({ children, className = "", forPrint: forPrintPro
 
         {/* Footer */}
         <div className="absolute bottom-8 right-12 opacity-40 z-20">
-          <span className="text-tn-blue font-semibold text-xs tracking-widest uppercase">Lumi Product</span>
+          <span className="text-tn-blue font-semibold text-xs tracking-widest uppercase">{footerLabel}</span>
         </div>
       </div>
     </div>
