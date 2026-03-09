@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="es-AR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -157,15 +157,26 @@
   ::-webkit-scrollbar { height:6px; width:6px; }
   ::-webkit-scrollbar-track { background:var(--surface); border-radius:3px; }
   ::-webkit-scrollbar-thumb { background:var(--surface-2); border-radius:3px; }
+
+  body.lang-pt .es{display:none!important} body.lang-es .pt{display:none!important}
+  .lang-toggle{position:fixed;top:16px;right:20px;display:flex;gap:0;z-index:1100;border-radius:10px;overflow:hidden;border:1px solid var(--border)}
+  .lang-btn{padding:6px 14px;font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;background:var(--surface);color:var(--text-muted);border:none;cursor:pointer;transition:all .2s}
+  .lang-btn.active{background:var(--accent);color:white}
+  .lang-btn:hover:not(.active){background:var(--surface-2)}
 </style>
 </head>
-<body>
+<body class="lang-es">
+
+<div class="lang-toggle">
+  <button class="lang-btn" id="btn-pt" onclick="setLang('pt')">PT-BR</button>
+  <button class="lang-btn active" id="btn-es" onclick="setLang('es')">ES-AR</button>
+</div>
 
 <div class="overlay" id="overlay" onclick="closePanel()"></div>
 <div class="panel" id="panel">
   <div class="panel__header">
     <div><div class="panel__wave" id="panelWave"></div><div class="panel__title" id="panelTitle"></div></div>
-    <button class="panel__close" onclick="closePanel()" aria-label="Fechar">&times;</button>
+    <button class="panel__close" onclick="closePanel()" aria-label=""><span class="pt" aria-hidden="true">Fechar</span><span class="es" aria-hidden="true">Cerrar</span>&times;</button>
   </div>
   <div class="panel__body" id="panelBody"></div>
 </div>
@@ -174,17 +185,17 @@
 <div class="header">
   <div class="header__left">
     <h1>Lumi <span>Team Roadmap</span></h1>
-    <p class="header__sub">Q1–Q2 2026 &nbsp;·&nbsp; Backend + Design + Frontend &nbsp;·&nbsp; Baseado em 3.902 conversas reais &nbsp;·&nbsp; Ordenado por impacto</p>
+    <p class="header__sub"><span class="pt">Q1–Q2 2026 &nbsp;·&nbsp; Backend + Design + Frontend &nbsp;·&nbsp; Baseado em 3.902 conversas reais &nbsp;·&nbsp; Ordenado por impacto</span><span class="es">Q1–Q2 2026 &nbsp;·&nbsp; Backend + Design + Frontend &nbsp;·&nbsp; Basado en 3.902 conversaciones reales &nbsp;·&nbsp; Ordenado por impacto</span></p>
   </div>
   <div class="legend">
     <div class="legend-item"><div class="legend-dot" style="background:var(--accent)"></div> Backend</div>
     <div class="legend-item"><div class="legend-dot" style="background:var(--orange)"></div> Design</div>
     <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div> Frontend</div>
-    <div class="legend-item"><div class="legend-dot" style="background:var(--blue)"></div> Na sprint</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--blue)"></div> <span class="pt">Na sprint</span><span class="es">En la sprint</span></div>
     <div style="width:1px;height:16px;background:var(--border)"></div>
-    <div class="legend-item"><div class="task__status task__status--doing" style="position:static;width:9px;height:9px"></div> Em progresso</div>
-    <div class="legend-item"><div class="task__status task__status--todo" style="position:static;width:9px;height:9px"></div> A fazer</div>
-    <div class="legend-item"><div class="task__status task__status--blocked" style="position:static;width:9px;height:9px"></div> Bloqueado/Sem issue</div>
+    <div class="legend-item"><div class="task__status task__status--doing" style="position:static;width:9px;height:9px"></div> <span class="pt">Em progresso</span><span class="es">En progreso</span></div>
+    <div class="legend-item"><div class="task__status task__status--todo" style="position:static;width:9px;height:9px"></div> <span class="pt">A fazer</span><span class="es">Por hacer</span></div>
+    <div class="legend-item"><div class="task__status task__status--blocked" style="position:static;width:9px;height:9px"></div> <span class="pt">Bloqueado/Sem issue</span><span class="es">Bloqueado/Sin issue</span></div>
   </div>
 </div>
 
@@ -192,18 +203,18 @@
 <div class="summary">
   <div class="summary-card summary-card--w1">
     <div class="summary-card__wave">Wave 1 · Quick Wins</div>
-    <div class="summary-card__title">Prompt tuning + Error state + Truncamento</div>
-    <div class="summary-card__meta"><span>Mar–Abr · ~8 dias total</span><span class="summary-card__threads">~1.600 threads</span></div>
+    <div class="summary-card__title"><span class="pt">Prompt tuning + Error state + Truncamento</span><span class="es">Prompt tuning + Error state + Truncamiento</span></div>
+    <div class="summary-card__meta"><span><span class="pt">Mar–Abr · ~8 dias total</span><span class="es">Mar–Abr · ~8 días total</span></span><span class="summary-card__threads">~1.600 threads</span></div>
   </div>
   <div class="summary-card summary-card--w2">
     <div class="summary-card__wave">Wave 2 · Feature Gaps</div>
-    <div class="summary-card__title">Intent classification + Action cards + Formulario</div>
-    <div class="summary-card__meta"><span>Abr–Jun · ~20 dias total</span><span class="summary-card__threads">~900+ threads</span></div>
+    <div class="summary-card__title"><span class="pt">Intent classification + Action cards + Formulario</span><span class="es">Intent classification + Action cards + Formulario</span></div>
+    <div class="summary-card__meta"><span><span class="pt">Abr–Jun · ~20 dias total</span><span class="es">Abr–Jun · ~20 días total</span></span><span class="summary-card__threads">~900+ threads</span></div>
   </div>
   <div class="summary-card summary-card--w3">
     <div class="summary-card__wave">Wave 3 · Experiencias</div>
-    <div class="summary-card__title">Promocoes · Storefront · Stats · Export</div>
-    <div class="summary-card__meta"><span>Jun+ · variavel</span><span class="summary-card__threads">~160+ threads</span></div>
+    <div class="summary-card__title"><span class="pt">Promocoes · Storefront · Stats · Export</span><span class="es">Promociones · Storefront · Stats · Export</span></div>
+    <div class="summary-card__meta"><span><span class="pt">Jun+ · variavel</span><span class="es">Jun+ · variable</span></span><span class="summary-card__threads">~160+ threads</span></div>
   </div>
 </div>
 
@@ -222,17 +233,17 @@
 
   <!-- LANE: Human in the Loop (transversal) -->
   <div class="lane">
-    <div class="lane__label"><div class="lane__label-name">Human in<br>the Loop</div><div class="lane__label-count">estrategia · 40.7%</div></div>
+    <div class="lane__label"><div class="lane__label-name">Human in<br>the Loop</div><div class="lane__label-count"><span class="pt">estrategia</span><span class="es">estrategia</span> · 40.7%</div></div>
     <div class="lane__content">
       <div class="lane__grid"><div class="lane__grid-cell lane__grid-cell--now"></div><div class="lane__grid-cell lane__grid-cell--now"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div></div>
       <div class="lane__tasks">
         <div class="task-row">
           <div class="task task--hitl" onclick="openPanel('hitl')" style="width:calc(14/20*100%);margin-left:calc(0.5/20*100%)">
-            <span class="task__id" style="color:var(--red)">~1.587 threads (40.7%) · 0 issues na sprint</span>
+            <span class="task__id" style="color:var(--red)"><span class="pt">~1.587 threads (40.7%) · 0 issues na sprint</span><span class="es">~1.587 threads (40.7%) · 0 issues en la sprint</span></span>
             <span style="font-size:.76rem;display:flex;gap:18px;flex-wrap:wrap">
-              <span><span style="color:var(--accent-light)">Escalar</span> → fallback + error state</span>
-              <span><span style="color:var(--orange)">Perguntar</span> → confirmation card</span>
-              <span><span style="color:var(--red)">Confirmar</span> → intent + action cards</span>
+              <span><span style="color:var(--accent-light)"><span class="pt">Escalar</span><span class="es">Escalar</span></span> → fallback + error state</span>
+              <span><span style="color:var(--orange)"><span class="pt">Perguntar</span><span class="es">Preguntar</span></span> → confirmation card</span>
+              <span><span style="color:var(--red)"><span class="pt">Confirmar</span><span class="es">Confirmar</span></span> → intent + action cards</span>
             </span>
             <div class="task__status task__status--blocked"></div>
           </div>
@@ -243,33 +254,33 @@
 
   <!-- LANE: Backend -->
   <div class="lane">
-    <div class="lane__label"><div class="lane__label-name">Backend<br>(Cirrus)</div><div class="lane__label-count">prompt + orquestrador</div></div>
+    <div class="lane__label"><div class="lane__label-name">Backend<br>(Cirrus)</div><div class="lane__label-count">prompt + <span class="pt">orquestrador</span><span class="es">orquestador</span></div></div>
     <div class="lane__content">
       <div class="lane__grid"><div class="lane__grid-cell lane__grid-cell--now"></div><div class="lane__grid-cell lane__grid-cell--now"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div></div>
       <div class="lane__tasks">
         <div class="task-row">
           <div class="task task--be" onclick="openPanel('be-fallback')" style="width:calc(2/20*100%);margin-left:calc(0.5/20*100%)">
-            <span class="task__id">BE · Fallback chain</span>Dead-ends → nunca terminar sem proximo passo<span class="task__threads">~591 threads · 2-3d · P0</span><div class="task__status task__status--blocked"></div>
+            <span class="task__id">BE · Fallback chain</span><span class="pt">Dead-ends → nunca terminar sem proximo passo</span><span class="es">Dead-ends → nunca terminar sin próximo paso</span><span class="task__threads">~591 threads · 2-3d · P0</span><div class="task__status task__status--blocked"></div>
           </div>
           <div class="task task--be" onclick="openPanel('be-verbosidade')" style="width:calc(1.5/20*100%)">
-            <span class="task__id">BE · Anti-verbosidade</span>Prompt: max 3 paragrafos, sem padding<span class="task__threads">~506 threads · 1-2d · P0</span><div class="task__status task__status--blocked"></div>
+            <span class="task__id">BE · Anti-verbosidade</span><span class="pt">Prompt: max 3 paragrafos, sem padding</span><span class="es">Prompt: max 3 párrafos, sin padding</span><span class="task__threads">~506 threads · 1-2d · P0</span><div class="task__status task__status--blocked"></div>
           </div>
           <div class="task task--be" onclick="openPanel('be-guardrail')" style="width:calc(1.5/20*100%)">
-            <span class="task__id">BE · Anti-guardrail</span>Trocar "nao posso" por "me conta mais"<span class="task__threads">~260 threads · 1-2d · P1</span><div class="task__status task__status--blocked"></div>
+            <span class="task__id">BE · Anti-guardrail</span><span class="pt">Trocar "nao posso" por "me conta mais"</span><span class="es">Cambiar 'no puedo' por 'contame más'</span><span class="task__threads">~260 threads · 1-2d · P1</span><div class="task__status task__status--blocked"></div>
           </div>
           <div class="task task--be" onclick="openPanel('be-navigator')" style="width:calc(1.5/20*100%)">
-            <span class="task__id">BE · Navigator audit</span>Corrigir URLs desatualizadas<span class="task__threads">~107 threads · 1-2d · P1</span><div class="task__status task__status--blocked"></div>
+            <span class="task__id">BE · Navigator audit</span><span class="pt">Corrigir URLs desatualizadas</span><span class="es">Corregir URLs desactualizadas</span><span class="task__threads">~107 threads · 1-2d · P1</span><div class="task__status task__status--blocked"></div>
           </div>
         </div>
         <div class="task-row">
           <div class="task task--be" onclick="openPanel('be-intent')" style="width:calc(2.5/20*100%);margin-left:calc(4.5/20*100%)">
-            <span class="task__id">BE · Intent classification</span>Distinguir "faz pra mim" vs "me explica"<span class="task__threads">~736 threads · 2-3d · P0</span><div class="task__status task__status--blocked"></div>
+            <span class="task__id">BE · Intent classification</span><span class="pt">Distinguir "faz pra mim" vs "me explica"</span><span class="es">Distinguir 'hacelo por mí' vs 'explicame'</span><span class="task__threads">~736 threads · 2-3d · P0</span><div class="task__status task__status--blocked"></div>
           </div>
           <div class="task task--be" onclick="openPanel('be-awareness')" style="width:calc(2/20*100%)">
-            <span class="task__id">BE · Awareness</span>Features/plano da loja no contexto<span class="task__threads">~108 threads · 3-5d</span><div class="task__status task__status--blocked"></div>
+            <span class="task__id">BE · Awareness</span><span class="pt">Features/plano da loja no contexto</span><span class="es">Features/plan de la tienda en contexto</span><span class="task__threads">~108 threads · 3-5d</span><div class="task__status task__status--blocked"></div>
           </div>
           <div class="task task--be" onclick="openPanel('be-structured')" style="width:calc(3/20*100%);margin-left:calc(1/20*100%)">
-            <span class="task__id">BE · Structured data</span>Enviar steps, actions, stats como JSON<span class="task__threads">desbloqueia Wave 2 front</span><div class="task__status task__status--todo"></div>
+            <span class="task__id">BE · Structured data</span>Enviar steps, actions, stats como JSON<span class="task__threads"><span class="pt">desbloqueia Wave 2 front</span><span class="es">desbloquea Wave 2 front</span></span><div class="task__status task__status--todo"></div>
           </div>
         </div>
         <div class="task-row">
@@ -277,7 +288,7 @@
             <span class="task__id">BE · SubAgent promocoes</span>CRUD completo via Lumi<span class="task__threads">~63 threads · AIL-60</span><div class="task__status task__status--todo"></div>
           </div>
           <div class="task task--be" onclick="openPanel('be-storefront')" style="width:calc(3/20*100%);margin-left:calc(0.5/20*100%)">
-            <span class="task__id">BE · Storefront</span>Integracao com editor de temas<span class="task__threads">~61 threads</span><div class="task__status task__status--todo"></div>
+            <span class="task__id">BE · Storefront</span><span class="pt">Integracao com editor de temas</span><span class="es">Integración con editor de temas</span><span class="task__threads">~61 threads</span><div class="task__status task__status--todo"></div>
           </div>
         </div>
       </div>
@@ -292,38 +303,38 @@
       <div class="lane__tasks">
         <div class="task-row">
           <div class="task task--ux" onclick="openPanel('d01-audit')" style="width:calc(1.5/20*100%);margin-left:calc(0.5/20*100%)">
-            <span class="task__id">D0.1 Audit</span>Padroes de falha<span class="task__threads">2d · fundacao</span><div class="task__status task__status--doing"></div>
+            <span class="task__id">D0.1 Audit</span><span class="pt">Padroes de falha</span><span class="es">Patrones de falla</span><span class="task__threads">2d · <span class="pt">fundacao</span><span class="es">fundación</span></span><div class="task__status task__status--doing"></div>
           </div>
           <div class="task task--ux" onclick="openPanel('d02-inventario')" style="width:calc(1/20*100%)">
             <span class="task__id">D0.2</span>Inventario<span class="task__threads">1d</span><div class="task__status task__status--todo"></div>
           </div>
           <div class="task task--ux" onclick="openPanel('d11-error')" style="width:calc(2/20*100%);margin-left:calc(0.5/20*100%)">
-            <span class="task__id">D1.1 Error State</span>Card com fallback visual<span class="task__threads">~591 threads · 1-2d</span><div class="task__status task__status--todo"></div>
+            <span class="task__id">D1.1 Error State</span><span class="pt">Card com fallback visual</span><span class="es">Card con fallback visual</span><span class="task__threads">~591 threads · 1-2d</span><div class="task__status task__status--todo"></div>
           </div>
           <div class="task task--ux" onclick="openPanel('d12-truncamento')" style="width:calc(1/20*100%)">
-            <span class="task__id">D1.2</span>Truncamento<span class="task__threads">~506 · 1d</span><div class="task__status task__status--todo"></div>
+            <span class="task__id">D1.2</span><span class="pt">Truncamento</span><span class="es">Truncamiento</span><span class="task__threads">~506 · 1d</span><div class="task__status task__status--todo"></div>
           </div>
           <div class="task task--ux" onclick="openPanel('d13-confirmacao')" style="width:calc(1/20*100%)">
-            <span class="task__id">D1.3</span>Confirmacao<span class="task__threads">transversal</span><div class="task__status task__status--todo"></div>
+            <span class="task__id">D1.3</span><span class="pt">Confirmacao</span><span class="es">Confirmación</span><span class="task__threads">transversal</span><div class="task__status task__status--todo"></div>
           </div>
         </div>
         <div class="task-row">
           <div class="task task--ux" onclick="openPanel('d21-action')" style="width:calc(3/20*100%);margin-left:calc(5.5/20*100%)">
-            <span class="task__id">D2.1 Action Cards</span>Botoes contextuais no chat<span class="task__threads">~736 threads · 3-5d</span><div class="task__status task__status--todo"></div>
+            <span class="task__id">D2.1 Action Cards</span><span class="pt">Botoes contextuais no chat</span><span class="es">Botones contextuales en el chat</span><span class="task__threads">~736 threads · 3-5d</span><div class="task__status task__status--todo"></div>
           </div>
           <div class="task task--ux" onclick="openPanel('d22-checklist')" style="width:calc(2/20*100%)">
-            <span class="task__id">D2.2 Checklist</span>Instrucoes interativas<span class="task__threads">~500+ · 2-3d</span><div class="task__status task__status--todo"></div>
+            <span class="task__id">D2.2 Checklist</span><span class="pt">Instrucoes interativas</span><span class="es">Instrucciones interactivas</span><span class="task__threads">~500+ · 2-3d</span><div class="task__status task__status--todo"></div>
           </div>
           <div class="task task--ux" onclick="openPanel('d23-datacards')" style="width:calc(2/20*100%)">
-            <span class="task__id">D2.3 Data Cards</span>Stats inline<span class="task__threads">qualidade · 2-3d</span><div class="task__status task__status--todo"></div>
+            <span class="task__id">D2.3 Data Cards</span>Stats inline<span class="task__threads"><span class="pt">qualidade</span><span class="es">calidad</span> · 2-3d</span><div class="task__status task__status--todo"></div>
           </div>
         </div>
         <div class="task-row">
           <div class="task task--ux" onclick="openPanel('d24-formulario')" style="width:calc(3/20*100%);margin-left:calc(9/20*100%)">
-            <span class="task__id">D2.4 Formulario</span>Criar produto inline<span class="task__threads">~140 threads · 3-5d</span><div class="task__status task__status--blocked"></div>
+            <span class="task__id">D2.4 Formulario</span><span class="pt">Criar produto inline</span><span class="es">Crear producto inline</span><span class="task__threads">~140 threads · 3-5d</span><div class="task__status task__status--blocked"></div>
           </div>
           <div class="task task--ux" onclick="openPanel('d31-promocoes')" style="width:calc(3/20*100%);margin-left:calc(1/20*100%)">
-            <span class="task__id">D3.1 Promocoes</span>Fluxo completo<span class="task__threads">~63 threads</span><div class="task__status task__status--todo"></div>
+            <span class="task__id">D3.1 Promocoes</span><span class="pt">Fluxo completo</span><span class="es">Flujo completo</span><span class="task__threads">~63 threads</span><div class="task__status task__status--todo"></div>
           </div>
           <div class="task task--ux" onclick="openPanel('d32-storefront')" style="width:calc(2/20*100%)">
             <span class="task__id">D3.2 Storefront</span>Preview + editor<span class="task__threads">~61 threads</span><div class="task__status task__status--todo"></div>
@@ -341,29 +352,29 @@
       <div class="lane__tasks">
         <div class="task-row">
           <div class="task task--fe" onclick="openPanel('fe-truncamento')" style="width:calc(1.5/20*100%);margin-left:calc(3.5/20*100%)">
-            <span class="task__id">FE · Truncamento</span>"Ver mais" expandivel<span class="task__threads">~506 · 1d · front puro</span><div class="task__status task__status--todo"></div>
+            <span class="task__id">FE · Truncamento</span><span class="pt">"Ver mais" expandivel</span><span class="es">'Ver más' expandible</span><span class="task__threads">~506 · 1d · front puro</span><div class="task__status task__status--todo"></div>
           </div>
           <div class="task task--fe" onclick="openPanel('fe-error')" style="width:calc(2/20*100%);margin-left:calc(0.5/20*100%)">
-            <span class="task__id">FE · Error State</span>Componente com slots<span class="task__threads">~591 · 1-2d · dep: BE fallback</span><div class="task__status task__status--blocked"></div>
+            <span class="task__id">FE · Error State</span><span class="pt">Componente com slots</span><span class="es">Componente con slots</span><span class="task__threads">~591 · 1-2d · dep: BE fallback</span><div class="task__status task__status--blocked"></div>
           </div>
           <div class="task task--fe" onclick="openPanel('fe-confirmacao')" style="width:calc(1.5/20*100%)">
-            <span class="task__id">FE · Confirmacao</span>Card de acao<span class="task__threads">dep: BE structured data</span><div class="task__status task__status--blocked"></div>
+            <span class="task__id">FE · Confirmacao</span><span class="pt">Card de acao</span><span class="es">Card de acción</span><span class="task__threads">dep: BE structured data</span><div class="task__status task__status--blocked"></div>
           </div>
         </div>
         <div class="task-row">
           <div class="task task--fe" onclick="openPanel('fe-action')" style="width:calc(3/20*100%);margin-left:calc(8/20*100%)">
-            <span class="task__id">FE · Action Cards</span>Botoes/links contextuais<span class="task__threads">~736 · 3-5d · dep: BE intent + D2.1</span><div class="task__status task__status--blocked"></div>
+            <span class="task__id">FE · Action Cards</span><span class="pt">Botoes/links contextuais</span><span class="es">Botones/links contextuales</span><span class="task__threads">~736 · 3-5d · dep: BE intent + D2.1</span><div class="task__status task__status--blocked"></div>
           </div>
           <div class="task task--fe" onclick="openPanel('fe-checklist')" style="width:calc(2.5/20*100%)">
-            <span class="task__id">FE · Checklist</span>Steps interativos<span class="task__threads">~500+ · 2-3d · dep: BE steps</span><div class="task__status task__status--blocked"></div>
+            <span class="task__id">FE · Checklist</span><span class="pt">Steps interativos</span><span class="es">Steps interactivos</span><span class="task__threads">~500+ · 2-3d · dep: BE steps</span><div class="task__status task__status--blocked"></div>
           </div>
           <div class="task task--fe" onclick="openPanel('fe-datacards')" style="width:calc(2/20*100%)">
-            <span class="task__id">FE · Data Cards</span>KPIs + mini-tabelas<span class="task__threads">dep: BE stats</span><div class="task__status task__status--blocked"></div>
+            <span class="task__id">FE · Data Cards</span><span class="pt">KPIs + mini-tabelas</span><span class="es">KPIs + mini-tablas</span><span class="task__threads">dep: BE stats</span><div class="task__status task__status--blocked"></div>
           </div>
         </div>
         <div class="task-row">
           <div class="task task--fe" onclick="openPanel('fe-formulario')" style="width:calc(3.5/20*100%);margin-left:calc(10/20*100%)">
-            <span class="task__id">FE · Formulario Inline</span>Campos + preview no chat<span class="task__threads">~140 · 5-8d · dep: AIL-155 + D2.4</span><div class="task__status task__status--blocked"></div>
+            <span class="task__id">FE · Formulario Inline</span><span class="pt">Campos + preview no chat</span><span class="es">Campos + preview en el chat</span><span class="task__threads">~140 · 5-8d · dep: AIL-155 + D2.4</span><div class="task__status task__status--blocked"></div>
           </div>
           <div class="task task--fe" onclick="openPanel('fe-progress')" style="width:calc(2/20*100%);margin-left:calc(1/20*100%)">
             <span class="task__id">FE · Progress</span>Bulk ops<span class="task__threads">~22 · 2-3d</span><div class="task__status task__status--todo"></div>
@@ -375,13 +386,13 @@
 
   <!-- LANE: Na Sprint (o que ja esta em andamento) -->
   <div class="lane">
-    <div class="lane__label"><div class="lane__label-name">Na Sprint<br>(Cycle 2)</div><div class="lane__label-count">40 issues · 6.2%</div></div>
+    <div class="lane__label"><div class="lane__label-name"><span class="pt">Na Sprint</span><span class="es">En Sprint</span><br>(Cycle 2)</div><div class="lane__label-count">40 issues · 6.2%</div></div>
     <div class="lane__content">
       <div class="lane__grid"><div class="lane__grid-cell lane__grid-cell--now"></div><div class="lane__grid-cell lane__grid-cell--now"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div></div>
       <div class="lane__tasks">
         <div class="task-row">
           <div class="task task--sprint" onclick="openPanel('sprint-catalogo')" style="width:calc(3/20*100%);margin-left:calc(0.2/20*100%)">
-            <span class="task__id">Catalogo sem navegar · ~20 issues</span>AIL-91 + sub-issues + AIL-155<span class="task__threads">~77 threads · 2.0%</span><div class="task__status task__status--doing"></div>
+            <span class="task__id"><span class="pt">Catalogo sem navegar</span><span class="es">Catálogo sin navegar</span> · ~20 issues</span>AIL-91 + sub-issues + AIL-155<span class="task__threads">~77 threads · 2.0%</span><div class="task__status task__status--doing"></div>
           </div>
           <div class="task task--sprint" onclick="openPanel('sprint-workbook')" style="width:calc(2.5/20*100%)">
             <span class="task__id">Workbook / Export · 10 issues</span>AIL-1, AIL-7, AIL-100, etc.<span class="task__threads">~8 threads · 0.2%</span><div class="task__status task__status--doing"></div>
@@ -395,13 +406,13 @@
         </div>
         <div class="task-row">
           <div class="task task--sprint" onclick="openPanel('sprint-promocoes')" style="width:calc(2/20*100%);margin-left:calc(0.2/20*100%)">
-            <span class="task__id">Promocoes · AIL-60</span>Todo<span class="task__threads">~63 threads · 1.6%</span><div class="task__status task__status--todo"></div>
+            <span class="task__id">Promocoes · AIL-60</span><span class="pt">Todo</span><span class="es">Por hacer</span><span class="task__threads">~63 threads · 1.6%</span><div class="task__status task__status--todo"></div>
           </div>
           <div class="task task--sprint" onclick="openPanel('sprint-handoff')" style="width:calc(1.5/20*100%)">
-            <span class="task__id">Handoff · AIL-129</span>Todo<span class="task__threads">~16 threads</span><div class="task__status task__status--todo"></div>
+            <span class="task__id">Handoff · AIL-129</span><span class="pt">Todo</span><span class="es">Por hacer</span><span class="task__threads">~16 threads</span><div class="task__status task__status--todo"></div>
           </div>
           <div class="task task--sprint" onclick="openPanel('sprint-thinking')" style="width:calc(1.5/20*100%)">
-            <span class="task__id">Thinking · AIL-80/81</span>Todo<span class="task__threads">UX interna</span><div class="task__status task__status--todo"></div>
+            <span class="task__id">Thinking · AIL-80/81</span><span class="pt">Todo</span><span class="es">Por hacer</span><span class="task__threads">UX interna</span><div class="task__status task__status--todo"></div>
           </div>
         </div>
       </div>
@@ -410,7 +421,7 @@
 
   <!-- Now line -->
   <div style="position:absolute;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--accent),rgba(108,92,231,.2));z-index:5;left:calc(140px + (0.75/20)*(100% - 140px));pointer-events:none">
-    <div style="position:absolute;top:6px;left:50%;transform:translateX(-50%);font-size:.58rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--accent-light);background:var(--bg);padding:2px 10px;border-radius:4px;white-space:nowrap;border:1px solid rgba(108,92,231,.3)">Hoje</div>
+    <div style="position:absolute;top:6px;left:50%;transform:translateX(-50%);font-size:.58rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--accent-light);background:var(--bg);padding:2px 10px;border-radius:4px;white-space:nowrap;border:1px solid rgba(108,92,231,.3)"><span class="pt">Hoje</span><span class="es">Hoy</span></div>
   </div>
 
 </div>
@@ -420,13 +431,13 @@
 <div class="footer">
   <div class="footer__left">
     Lumi Team Roadmap &nbsp;·&nbsp; Q1–Q2 2026 &nbsp;·&nbsp; Karem Carvalho + time AI Lumi<br>
-    Baseado em analise de 3.902 threads &nbsp;·&nbsp; 1.546 lojas &nbsp;·&nbsp; Nov/2025–Mar/2026<br>
-    <strong style="color:var(--red)">59.2% do impacto (threads com dor) nao tem nenhuma issue na sprint</strong>
+    <span class="pt">Baseado em analise de 3.902 threads</span><span class="es">Basado en análisis de 3.902 threads</span> &nbsp;·&nbsp; <span class="pt">1.546 lojas</span><span class="es">1.546 tiendas</span> &nbsp;·&nbsp; Nov/2025–Mar/2026<br>
+    <strong style="color:var(--red)"><span class="pt">59.2% do impacto (threads com dor) nao tem nenhuma issue na sprint</span><span class="es">59.2% del impacto (threads con dolor) no tiene ningún issue en la sprint</span></strong>
   </div>
   <div class="footer__right">
-    <div class="footer__stat"><div class="footer__stat-number" style="color:var(--red)">59.2%</div><div class="footer__stat-label">sem issue</div></div>
-    <div class="footer__stat"><div class="footer__stat-number" style="color:var(--green)">6.2%</div><div class="footer__stat-label">na sprint</div></div>
-    <div class="footer__stat"><div class="footer__stat-number" style="color:var(--accent-light)">~2.300</div><div class="footer__stat-label">threads com dor</div></div>
+    <div class="footer__stat"><div class="footer__stat-number" style="color:var(--red)">59.2%</div><div class="footer__stat-label"><span class="pt">sem issue</span><span class="es">sin issue</span></div></div>
+    <div class="footer__stat"><div class="footer__stat-number" style="color:var(--green)">6.2%</div><div class="footer__stat-label"><span class="pt">na sprint</span><span class="es">en la sprint</span></div></div>
+    <div class="footer__stat"><div class="footer__stat-number" style="color:var(--accent-light)">~2.300</div><div class="footer__stat-label"><span class="pt">threads com dor</span><span class="es">threads con dolor</span></div></div>
     <div class="footer__stat"><div class="footer__stat-number" style="color:var(--orange)">~40%</div><div class="footer__stat-label">meta wave 1+2</div></div>
   </div>
 </div>
@@ -1348,6 +1359,14 @@ function closePanel() {
   document.getElementById('overlay').classList.remove('overlay--open');
   document.getElementById('panel').classList.remove('panel--open');
   if (activeEl) { activeEl.classList.remove('task--active'); activeEl = null; }
+}
+
+function setLang(lang){
+  document.body.className='lang-'+lang;
+  document.documentElement.lang=lang==='pt'?'pt-BR':'es-AR';
+  document.getElementById('btn-pt').className='lang-btn'+(lang==='pt'?' active':'');
+  document.getElementById('btn-es').className='lang-btn'+(lang==='es'?' active':'');
+  var btn=document.getElementById('panelClose');if(btn)btn.setAttribute('aria-label',lang==='pt'?'Fechar':'Cerrar');
 }
 
 document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closePanel(); });
