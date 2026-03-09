@@ -259,6 +259,53 @@
   .panel__convo-tag--pattern { background: var(--purple-dim); color: var(--accent-light); }
   .panel__convo-empty { text-align: center; padding: 40px 20px; color: var(--text-muted); font-size: .85rem; }
 
+  /* ─── NOTES TAB ─── */
+  .panel__notes-section { margin-bottom: 20px; }
+  .panel__notes-label { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--accent-light); margin-bottom: 8px; }
+
+  .panel__status-selector { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 20px; }
+  .panel__status-btn {
+    padding: 8px 16px; border-radius: 8px; font-size: .75rem; font-weight: 600; cursor: pointer;
+    background: var(--surface-2); border: 2px solid var(--border); color: var(--text-dim); transition: all .2s;
+  }
+  .panel__status-btn:hover { border-color: var(--text-muted); color: var(--text); }
+  .panel__status-btn--active-todo { border-color: var(--text-muted); background: rgba(136,136,168,.15); color: var(--text); }
+  .panel__status-btn--active-doing { border-color: var(--orange); background: var(--orange-dim); color: var(--orange); }
+  .panel__status-btn--active-done { border-color: var(--green); background: var(--green-dim); color: var(--green); }
+  .panel__status-btn--active-blocked { border-color: var(--red); background: var(--red-dim); color: var(--red); }
+  .panel__status-btn--active-review { border-color: var(--blue); background: var(--blue-dim); color: var(--blue); }
+
+  .panel__textarea {
+    width: 100%; min-height: 120px; padding: 14px 16px; border-radius: 10px;
+    background: var(--surface-2); border: 1px solid var(--border); color: var(--text);
+    font-family: 'Inter', sans-serif; font-size: .85rem; line-height: 1.6; resize: vertical;
+    transition: border-color .2s;
+  }
+  .panel__textarea:focus { outline: none; border-color: var(--accent-light); }
+  .panel__textarea::placeholder { color: var(--text-muted); }
+
+  .panel__save-btn {
+    margin-top: 10px; padding: 10px 24px; border-radius: 8px; font-size: .78rem; font-weight: 700;
+    background: var(--accent); color: white; border: none; cursor: pointer; transition: all .2s;
+    text-transform: uppercase; letter-spacing: .06em;
+  }
+  .panel__save-btn:hover { background: var(--accent-light); }
+  .panel__save-indicator { display: inline-block; margin-left: 12px; font-size: .72rem; color: var(--green); opacity: 0; transition: opacity .3s; }
+  .panel__save-indicator--visible { opacity: 1; }
+
+  .panel__comment-list { margin-top: 16px; }
+  .panel__comment {
+    background: var(--surface-2); border-radius: 10px; padding: 14px 18px; margin-bottom: 8px;
+    border-left: 3px solid var(--accent-light); position: relative;
+  }
+  .panel__comment-date { font-size: .65rem; color: var(--text-muted); margin-bottom: 6px; }
+  .panel__comment-text { font-size: .85rem; line-height: 1.6; color: var(--text); white-space: pre-wrap; }
+  .panel__comment-delete {
+    position: absolute; top: 10px; right: 12px; background: none; border: none;
+    color: var(--text-muted); cursor: pointer; font-size: .85rem; padding: 4px; border-radius: 4px;
+  }
+  .panel__comment-delete:hover { background: var(--red-dim); color: var(--red); }
+
   .panel__deps { display: flex; flex-wrap: wrap; gap: 8px; }
   .panel__dep-tag {
     padding: 4px 12px; border-radius: 20px; font-size: .72rem; font-weight: 600;
@@ -1282,9 +1329,133 @@ function renderConversationsTab(t) {
   return html;
 }
 
+// ─── localStorage helpers ───
+var STORAGE_KEY = 'lumi_roadmap_';
+function loadTaskData(taskId) {
+  try {
+    var raw = localStorage.getItem(STORAGE_KEY + taskId);
+    return raw ? JSON.parse(raw) : { status: null, comments: [] };
+  } catch(e) { return { status: null, comments: [] }; }
+}
+function saveTaskData(taskId, data) {
+  try { localStorage.setItem(STORAGE_KEY + taskId, JSON.stringify(data)); } catch(e) {}
+}
+
+var currentPanelTaskId = null;
+var STATUS_OPTIONS = [
+  { id: 'todo', label: 'A fazer', icon: '○' },
+  { id: 'doing', label: 'Em progresso', icon: '◑' },
+  { id: 'review', label: 'Em review', icon: '◉' },
+  { id: 'done', label: 'Concluido', icon: '●' },
+  { id: 'blocked', label: 'Bloqueado', icon: '✕' }
+];
+
+function setTaskStatus(taskId, status) {
+  var data = loadTaskData(taskId);
+  data.status = status;
+  saveTaskData(taskId, data);
+  // Update buttons
+  document.querySelectorAll('.panel__status-btn').forEach(function(btn) {
+    btn.className = 'panel__status-btn' + (btn.dataset.status === status ? ' panel__status-btn--active-' + status : '');
+  });
+  // Update card dot on the roadmap
+  updateCardStatus(taskId, status);
+}
+
+function updateCardStatus(taskId, status) {
+  var cards = document.querySelectorAll('[onclick*="openPanel(\'' + taskId + '\')"]');
+  cards.forEach(function(card) {
+    var dot = card.querySelector('.task__status');
+    if (dot) {
+      dot.className = 'task__status task__status--' + status;
+    }
+  });
+}
+
+function addComment(taskId) {
+  var textarea = document.getElementById('noteTextarea');
+  var text = textarea.value.trim();
+  if (!text) return;
+  var data = loadTaskData(taskId);
+  data.comments.push({
+    text: text,
+    date: new Date().toISOString().slice(0,16).replace('T',' ')
+  });
+  saveTaskData(taskId, data);
+  textarea.value = '';
+  renderCommentsList(taskId);
+  // Flash save indicator
+  var indicator = document.getElementById('saveIndicator');
+  if (indicator) { indicator.classList.add('panel__save-indicator--visible'); setTimeout(function(){ indicator.classList.remove('panel__save-indicator--visible'); }, 2000); }
+}
+
+function deleteComment(taskId, idx) {
+  var data = loadTaskData(taskId);
+  data.comments.splice(idx, 1);
+  saveTaskData(taskId, data);
+  renderCommentsList(taskId);
+}
+
+function renderCommentsList(taskId) {
+  var container = document.getElementById('commentsList');
+  if (!container) return;
+  var data = loadTaskData(taskId);
+  var comments = data.comments || [];
+  if (comments.length === 0) {
+    container.innerHTML = '<div style="text-align:center;padding:20px;color:var(--text-muted);font-size:.82rem;">Nenhuma nota ainda. Escreva acima e clique Salvar.</div>';
+    return;
+  }
+  var html = '';
+  for (var i = comments.length - 1; i >= 0; i--) {
+    var c = comments[i];
+    html += '<div class="panel__comment">';
+    html += '<div class="panel__comment-date">' + c.date + '</div>';
+    html += '<div class="panel__comment-text">' + c.text.replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>') + '</div>';
+    html += '<button class="panel__comment-delete" onclick="deleteComment(\'' + taskId + '\',' + i + ')" title="Apagar">&times;</button>';
+    html += '</div>';
+  }
+  container.innerHTML = html;
+}
+
+function renderNotesTab(taskId) {
+  var data = loadTaskData(taskId);
+  var currentStatus = data.status;
+  var html = '';
+
+  // Status selector
+  html += '<div class="panel__notes-section">';
+  html += '<div class="panel__notes-label">Status de andamento</div>';
+  html += '<div class="panel__status-selector">';
+  for (var i = 0; i < STATUS_OPTIONS.length; i++) {
+    var s = STATUS_OPTIONS[i];
+    var activeClass = (currentStatus === s.id) ? ' panel__status-btn--active-' + s.id : '';
+    html += '<button class="panel__status-btn' + activeClass + '" data-status="' + s.id + '" onclick="setTaskStatus(\'' + taskId + '\',\'' + s.id + '\')">' + s.icon + ' ' + s.label + '</button>';
+  }
+  html += '</div></div>';
+
+  // New comment input
+  html += '<div class="panel__notes-section">';
+  html += '<div class="panel__notes-label">Adicionar nota</div>';
+  html += '<textarea class="panel__textarea" id="noteTextarea" placeholder="Escreva sua nota, comentario ou observacao sobre esta task..."></textarea>';
+  html += '<div style="display:flex;align-items:center">';
+  html += '<button class="panel__save-btn" onclick="addComment(\'' + taskId + '\')">Salvar nota</button>';
+  html += '<span class="panel__save-indicator" id="saveIndicator">✓ Salvo!</span>';
+  html += '</div></div>';
+
+  // Existing comments
+  html += '<div class="panel__notes-section">';
+  html += '<div class="panel__notes-label">Minhas notas</div>';
+  html += '<div id="commentsList"></div>';
+  html += '</div>';
+
+  return html;
+}
+
 function openPanel(id) {
   var t = TASKS[id];
   if (!t) return;
+
+  currentPanelTaskId = id;
 
   if (activeTask) activeTask.classList.remove('task--active');
   activeTask = event.currentTarget;
@@ -1295,11 +1466,14 @@ function openPanel(id) {
   document.getElementById('panelTitle').textContent = t.title;
 
   var convoCount = (t.conversations && t.conversations.length) || 0;
+  var data = loadTaskData(id);
+  var notesCount = (data.comments && data.comments.length) || 0;
 
   var html = '';
   html += '<div class="panel__tabs">';
   html += '<button class="panel__tab panel__tab--active" data-tab="details" onclick="switchTab(\'details\')">Detalhes</button>';
   html += '<button class="panel__tab" data-tab="conversations" onclick="switchTab(\'conversations\')">Conversas' + (convoCount > 0 ? ' (' + convoCount + ')' : '') + '</button>';
+  html += '<button class="panel__tab" data-tab="notes" onclick="switchTab(\'notes\')">Minhas notas' + (notesCount > 0 ? ' (' + notesCount + ')' : '') + '</button>';
   html += '</div>';
 
   html += '<div class="panel__tab-content panel__tab-content--active" id="tab-details">';
@@ -1310,21 +1484,40 @@ function openPanel(id) {
   html += renderConversationsTab(t);
   html += '</div>';
 
+  html += '<div class="panel__tab-content" id="tab-notes">';
+  html += renderNotesTab(id);
+  html += '</div>';
+
   document.getElementById('panelBody').innerHTML = html;
   document.getElementById('panel').classList.add('panel--open');
   document.getElementById('overlay').classList.add('overlay--open');
   document.getElementById('panelBody').scrollTop = 0;
+
+  // Render comments list after DOM is ready
+  renderCommentsList(id);
 }
 
 function closePanel() {
   document.getElementById('panel').classList.remove('panel--open');
   document.getElementById('overlay').classList.remove('overlay--open');
   if (activeTask) { activeTask.classList.remove('task--active'); activeTask = null; }
+  currentPanelTaskId = null;
 }
 
 document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') closePanel();
 });
+
+// On page load, restore saved statuses to card dots
+(function restoreStatuses() {
+  var allTaskIds = Object.keys(TASKS);
+  for (var i = 0; i < allTaskIds.length; i++) {
+    var data = loadTaskData(allTaskIds[i]);
+    if (data.status) {
+      updateCardStatus(allTaskIds[i], data.status);
+    }
+  }
+})();
 
 function setLang(lang){
   document.body.className='lang-'+lang;
