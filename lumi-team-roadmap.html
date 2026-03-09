@@ -230,6 +230,11 @@
 <!-- INSIGHTS (Novos da analise de dados) -->
 <div class="insights">
   <div class="insights__title"><span class="pt">Insights da analise · Fev–Mar 2026</span><span class="es">Insights del análisis · Feb–Mar 2026</span></div>
+  <div class="insight-card" style="margin-bottom:14px;border-color:var(--accent);border-width:2px" onclick="openPanel('insight-orchestrator')">
+    <div class="insight-card__number" style="color:var(--accent-light)"><span class="pt">CAUSA RAIZ</span><span class="es">CAUSA RAÍZ</span></div>
+    <div class="insight-card__title"><span class="pt">Fixes individuais funcionaram. O gargalo agora é o orquestrador.</span><span class="es">Los fixes individuales funcionaron. El cuello de botella ahora es el orquestador.</span></div>
+    <div class="insight-card__meta"><span class="pt">Cada fix aplicado a agentes específicos funcionou, mas o orquestrador continua roteando para agentes novos/errados sem os fixes. Impacta os 5 problemas persistentes. → BE · Orchestrator Refactor (#1 prioridade)</span><span class="es">Cada fix aplicado a agentes específicos funcionó, pero el orquestador sigue enrutando a agentes nuevos/incorrectos sin los fixes. Impacta los 5 problemas persistentes. → BE · Orchestrator Refactor (#1 prioridad)</span></div>
+  </div>
   <div class="insights__grid">
     <div class="insight-card" onclick="openPanel('insight-1')">
       <div class="insight-card__number">Insight 1</div>
@@ -290,7 +295,10 @@
       <div class="lane__grid"><div class="lane__grid-cell lane__grid-cell--now"></div><div class="lane__grid-cell lane__grid-cell--now"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div></div>
       <div class="lane__tasks">
         <div class="task-row">
-          <div class="task task--be" onclick="openPanel('be-fallback')" style="width:calc(2/20*100%);margin-left:calc(0.5/20*100%)">
+          <div class="task task--be" onclick="openPanel('be-orchestrator')" style="width:calc(3.5/20*100%);margin-left:calc(0.5/20*100%);box-shadow:0 0 0 2px var(--accent-light)">
+            <span class="task__id">BE · Orchestrator Refactor</span><span class="pt">Meta-fix: aplica constraints em TODOS os agentes</span><span class="es">Meta-fix: aplica constraints en TODOS los agentes</span><span class="task__threads">5-8d · Wave 1 · P0 · <span class="pt">desbloqueia</span><span class="es">desbloquea</span> demais BE</span><div class="task__status task__status--blocked"></div>
+          </div>
+          <div class="task task--be" onclick="openPanel('be-fallback')" style="width:calc(2/20*100%)">
             <span class="task__id">BE · Fallback chain</span><span class="pt">Dead-ends → nunca terminar sem proximo passo</span><span class="es">Dead-ends → nunca terminar sin próximo paso</span><span class="task__threads">~254 threads · 2-3d · P0</span><div class="task__status task__status--blocked"></div>
           </div>
           <div class="task task--be" onclick="openPanel('be-verbosidade')" style="width:calc(1.5/20*100%)">
@@ -501,6 +509,62 @@
 
 <script>
 const TASKS = {
+  'insight-orchestrator': {
+    wave: 'Causa Raiz',
+    title: 'Orquestrador — Gargalo de todos os 5 problemas',
+    sections: [
+      { type:'context', html:'<div class="panel__context-title">Evidencia qualitativa</div>Cada fix aplicado a agentes especificos (support, catalog, orders) <strong>funcionou</strong>. Porem o orquestrador continua roteando para agentes novos ou incorretos que nao tem os fixes. O resultado: melhoramos um agente e o orquestrador manda o usuario para outro sem melhoria.' },
+      { type:'problem', html:'<strong>ROOT CAUSE = camada de orquestracao</strong>, nao agentes isolados. Fixes em verbosidade, misaligned, dead-ends, routing e guardrails funcionam quando o agente certo responde — mas o orquestrador escolhe o agente errado ou nao sabe para onde enviar.' },
+      { type:'impact', cards:[
+        { number:'5', cls:'red', label:'problemas afetados (meta-fix)' },
+        { number:'44,9%', cls:'orange', label:'dead-ends com 0 agentes' },
+        { number:'30,9%', cls:'orange', label:'envolvem 2+ agentes (routing errado)' },
+        { number:'50%', cls:'accent', label:'guardrails = dead-end' }
+      ]},
+      { type:'quote', text:'Verbosity: support -9.3pp, catalog -5.8pp (bullets funcionaram). MAS navigator 0→20.5%, stats 0→11.6% (agentes novos nao fixados). Misaligned: orders 30→8.1% (fixado), MAS stats 0→14.4%, catalog_search/helpjuice 0→27.8% (novos agentes).', author:'Analise Fev-Mar 2026' },
+      { type:'solutions', items:[
+        { icon:'BE', cls:'be', text:'<strong>BE · Orchestrator Refactor</strong> — Aplicar prompt constraints consistentemente em TODOS os agentes via orquestrador; implementar fallback chain quando nenhum agente matcha; deduplicar respostas multi-agente; melhorar intent classification antes do routing.' }
+      ]},
+      { type:'meta', items:[
+        { label:'Esforco', value:'5-8 dias (Wave 1)' },
+        { label:'Prioridade', value:'#1 — P0' },
+        { label:'Desbloqueia', value:'Todos os 5 BE tasks (fallback, verbosidade, guardrail, etc.)' },
+        { label:'Impacto', value:'Meta-fix para verbosidade, misaligned, dead-ends, routing, guardrails' }
+      ]}
+    ]
+  },
+  'be-orchestrator': {
+    wave: 'Wave 1 · Backend',
+    title: 'Orchestrator Refactor — Meta-fix para os 5 problemas',
+    sections: [
+      { type:'context', html:'<div class="panel__context-title">Causa raiz</div>Todos os fixes aplicados a agentes individuais funcionaram (support -9.3pp verbosity, orders 30→8.1% misaligned). Mas o orquestrador roteia para agentes novos/errados que nao tem os fixes. Navigator 0→20.5%, stats 0→11.6%, catalog_search 0→27.8% — agentes que surgiram sem as melhorias.' },
+      { type:'problem', html:'<strong>A ROOT CAUSE e a camada de orquestracao</strong>. O orquestrador: (a) nao aplica constraints de prompt em todos os agentes, (b) nao tem fallback quando nenhum agente matcha (44.9% dead-ends com 0 agentes), (c) envia para multiplos agentes (30.9% envolvem 2+), (d) classifica intent apos rotear em vez de antes.' },
+      { type:'impact', cards:[
+        { number:'5', cls:'red', label:'problemas resolvidos (meta-fix)' },
+        { number:'5-8d', cls:'accent', label:'esforco Wave 1' },
+        { number:'P0', cls:'red', label:'prioridade #1' },
+        { number:'Todos BE', cls:'green', label:'desbloqueados' }
+      ]},
+      { type:'solutions', items:[
+        { icon:'BE', cls:'be', text:'<strong>(a) Constraints em TODOS:</strong> Aplicar regras de prompt (verbosidade, guardrail, formato) via orquestrador para todos os agentes, nao apenas os que foram manualmente editados.' },
+        { icon:'BE', cls:'be', text:'<strong>(b) Fallback chain:</strong> Quando nenhum agente matcha, nunca terminar em dead-end. Oferecer link admin, suporte, ou reformular pergunta.' },
+        { icon:'BE', cls:'be', text:'<strong>(c) Deduplicar multi-agente:</strong> Se 2+ agentes respondem, mesclar/deduplicar resposta em vez de enviar duplicados ou conflitantes.' },
+        { icon:'BE', cls:'be', text:'<strong>(d) Intent antes do routing:</strong> Classificar intent (ACTION/EXPLAIN/NAVIGATE) antes de escolher o agente. Routing errado gera misaligned.' }
+      ]},
+      { type:'meta', items:[
+        { label:'Responsavel', value:'Backend (Orquestrador)' },
+        { label:'Esforco', value:'5-8 dias' },
+        { label:'Desbloqueia', value:'BE Fallback, Anti-verbosidade, Anti-guardrail, Intent, etc.' },
+        { label:'Status', value:'Sem issue na sprint' }
+      ]},
+      { type:'deps', tags:[
+        { text:'BE Fallback (depende deste)', cls:'blocked' },
+        { text:'BE Anti-verbosidade (depende deste)', cls:'blocked' },
+        { text:'BE Anti-guardrail (depende deste)', cls:'blocked' },
+        { text:'BE Intent (depende deste)', cls:'blocked' }
+      ]}
+    ]
+  },
   'hitl': {
     wave: 'Estrategia Transversal',
     title: 'Human in the Loop',
@@ -526,6 +590,7 @@ const TASKS = {
         { label:'Wave', value:'Wave 1 a Wave 2 (continuo)' }
       ]},
       { type:'deps', tags:[
+        { text:'BE Orchestrator Refactor', cls:'blocked' },
         { text:'BE Fallback Chain', cls:'blocked' },
         { text:'BE Intent Classification', cls:'blocked' },
         { text:'D1.1 Error State', cls:'blocked' },
@@ -560,7 +625,7 @@ const TASKS = {
         { label:'Responsavel', value:'Backend (Cirrus)' },
         { label:'Esforco', value:'2-3 dias' },
         { label:'Desbloqueia', value:'D1.1 Error State · FE Error State' },
-        { label:'Status', value:'Sem issue na sprint' }
+        { label:'Depende de', value:'BE · Orchestrator Refactor (aplicar em todos agentes)' }
       ]}
     ]
   },
@@ -589,7 +654,7 @@ const TASKS = {
         { label:'Responsavel', value:'Backend (prompt)' },
         { label:'Esforco', value:'1-2 dias' },
         { label:'Desbloqueia', value:'D1.2 Truncamento · FE Truncamento' },
-        { label:'Status', value:'Sem issue na sprint' }
+        { label:'Depende de', value:'BE · Orchestrator Refactor (constraints via orquestrador)' }
       ]}
     ]
   },
@@ -617,7 +682,7 @@ const TASKS = {
         { label:'Responsavel', value:'Backend (prompt)' },
         { label:'Esforco', value:'1-2 dias' },
         { label:'Conecta com', value:'Human in the Loop — Nivel 2' },
-        { label:'Status', value:'Sem issue na sprint' }
+        { label:'Depende de', value:'BE · Orchestrator Refactor (guardrail via orquestrador)' }
       ]}
     ]
   },
@@ -641,7 +706,7 @@ const TASKS = {
         { label:'Responsavel', value:'Backend (Navigator)' },
         { label:'Esforco', value:'1-2 dias' },
         { label:'Impacto', value:'Confianca do lojista nos links' },
-        { label:'Status', value:'Sem issue na sprint' }
+        { label:'Depende de', value:'BE · Orchestrator Refactor (routing para agente certo)' }
       ]}
     ]
   },
@@ -670,9 +735,10 @@ const TASKS = {
         { label:'Responsavel', value:'Backend (Orquestrador)' },
         { label:'Esforco', value:'2-3 dias' },
         { label:'Desbloqueia', value:'D2.1 Action Cards · FE Action Cards' },
-        { label:'Status', value:'Sem issue na sprint' }
+        { label:'Depende de', value:'BE · Orchestrator Refactor (intent antes do routing)' }
       ]},
       { type:'deps', tags:[
+        { text:'BE Orchestrator Refactor', cls:'blocked' },
         { text:'BE Structured Data (saida JSON)', cls:'blocked' },
         { text:'D2.1 Action Cards (UI)', cls:'blocked' }
       ]}
@@ -698,7 +764,7 @@ const TASKS = {
         { label:'Responsavel', value:'Backend (Orquestrador)' },
         { label:'Esforco', value:'3-5 dias' },
         { label:'Conecta com', value:'Catalogo sem navegar (AIL-91)' },
-        { label:'Status', value:'Sem issue na sprint' }
+        { label:'Depende de', value:'BE · Orchestrator Refactor (contexto em todos agentes)' }
       ]}
     ]
   },
@@ -722,9 +788,10 @@ const TASKS = {
         { label:'Responsavel', value:'Backend (Orquestrador)' },
         { label:'Esforco', value:'3-5 dias' },
         { label:'Desbloqueia', value:'FE Action, Checklist, Data, Form, Confirmacao' },
-        { label:'Status', value:'A fazer (nao na sprint)' }
+        { label:'Depende de', value:'BE · Orchestrator Refactor (saida JSON consistente)' }
       ]},
       { type:'deps', tags:[
+        { text:'BE Orchestrator Refactor', cls:'blocked' },
         { text:'BE Intent Classification (entrada)', cls:'blocked' },
         { text:'FE Action Cards (consumidor)', cls:'blocked' },
         { text:'FE Checklist (consumidor)', cls:'blocked' },
