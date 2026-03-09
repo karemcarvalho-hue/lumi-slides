@@ -230,6 +230,35 @@
   .panel__meta-label { font-size: .65rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: .06em; }
   .panel__meta-value { font-size: .88rem; font-weight: 600; margin-top: 4px; }
 
+  /* ─── TABS ─── */
+  .panel__tabs { display: flex; gap: 0; border-bottom: 2px solid var(--border); margin-bottom: 20px; }
+  .panel__tab {
+    padding: 10px 20px; font-size: .78rem; font-weight: 600; text-transform: uppercase; letter-spacing: .06em;
+    color: var(--text-muted); cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -2px;
+    transition: all .2s; background: none; border-top: none; border-left: none; border-right: none;
+  }
+  .panel__tab:hover { color: var(--text-dim); }
+  .panel__tab--active { color: var(--accent-light); border-bottom-color: var(--accent-light); }
+  .panel__tab-content { display: none; }
+  .panel__tab-content--active { display: block; }
+
+  /* ─── CONVERSATION CARDS ─── */
+  .panel__convo { background: var(--surface-2); border-radius: 10px; padding: 14px 18px; margin-bottom: 10px; border-left: 3px solid var(--text-muted); }
+  .panel__convo--bad { border-left-color: var(--red); }
+  .panel__convo--mixed { border-left-color: var(--orange); }
+  .panel__convo--good { border-left-color: var(--green); }
+  .panel__convo-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+  .panel__convo-date { font-size: .7rem; color: var(--text-muted); font-weight: 500; }
+  .panel__convo-verdict { font-size: .62rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; padding: 2px 8px; border-radius: 4px; }
+  .panel__convo-verdict--bad { background: var(--red-dim); color: var(--red); }
+  .panel__convo-verdict--mixed { background: var(--orange-dim); color: var(--orange); }
+  .panel__convo-verdict--good { background: var(--green-dim); color: var(--green); }
+  .panel__convo-intent { font-size: .85rem; line-height: 1.5; color: var(--text); font-weight: 500; margin-bottom: 6px; }
+  .panel__convo-meta { display: flex; gap: 12px; flex-wrap: wrap; }
+  .panel__convo-tag { font-size: .65rem; padding: 2px 8px; border-radius: 4px; background: var(--surface-3); color: var(--text-dim); }
+  .panel__convo-tag--pattern { background: var(--purple-dim); color: var(--accent-light); }
+  .panel__convo-empty { text-align: center; padding: 40px 20px; color: var(--text-muted); font-size: .85rem; }
+
   .panel__deps { display: flex; flex-wrap: wrap; gap: 8px; }
   .panel__dep-tag {
     padding: 4px 12px; border-radius: 20px; font-size: .72rem; font-weight: 600;
@@ -1158,51 +1187,30 @@ var TASKS = {
 
 var activeTask = null;
 
-function openPanel(id) {
-  var t = TASKS[id];
-  if (!t) return;
+function switchTab(tabId) {
+  document.querySelectorAll('.panel__tab').forEach(function(t){ t.classList.remove('panel__tab--active'); });
+  document.querySelectorAll('.panel__tab-content').forEach(function(c){ c.classList.remove('panel__tab-content--active'); });
+  document.querySelector('[data-tab="'+tabId+'"]').classList.add('panel__tab--active');
+  document.getElementById('tab-'+tabId).classList.add('panel__tab-content--active');
+}
 
-  if (activeTask) activeTask.classList.remove('task--active');
-  activeTask = event.currentTarget;
-  activeTask.classList.add('task--active');
-
-  document.getElementById('panelWave').textContent = t.wave;
-  document.getElementById('panelWave').style.color = t.waveColor;
-  document.getElementById('panelTitle').textContent = t.title;
-
+function renderDetailsTab(t) {
   var html = '';
-
-  // Context
   if (t.context) {
-    html += '<div class="panel__section">';
-    html += '<div class="panel__context">' + t.context + '</div>';
-    html += '</div>';
+    html += '<div class="panel__section"><div class="panel__context">' + t.context + '</div></div>';
   }
-
-  // Problem
-  html += '<div class="panel__section">';
-  html += '<div class="panel__section-title">Problema</div>';
-  html += '<div class="panel__problem">' + t.problem + '</div>';
-  html += '</div>';
-
-  // Impact
-  html += '<div class="panel__section">';
-  html += '<div class="panel__section-title">Impacto nos lojistas</div>';
-  html += '<div class="panel__impact-grid">';
+  html += '<div class="panel__section"><div class="panel__section-title">Problema</div><div class="panel__problem">' + t.problem + '</div></div>';
+  html += '<div class="panel__section"><div class="panel__section-title">Impacto nos lojistas</div><div class="panel__impact-grid">';
   for (var i = 0; i < t.impact.length; i++) {
     var imp = t.impact[i];
     html += '<div class="panel__impact-card"><div class="panel__impact-number panel__impact-number--' + imp.color + '">' + imp.number + '</div><div class="panel__impact-label">' + imp.label + '</div></div>';
   }
   html += '</div></div>';
-
-  // Scenarios
   if (t.scenarios && t.scenarios.length > 0) {
-    html += '<div class="panel__section">';
-    html += '<div class="panel__section-title">Cenarios reais</div>';
+    html += '<div class="panel__section"><div class="panel__section-title">Cenarios reais</div>';
     for (var s = 0; s < t.scenarios.length; s++) {
       var sc = t.scenarios[s];
-      html += '<div class="panel__scenario">';
-      html += '<div class="panel__scenario-label">' + sc.label + '</div>';
+      html += '<div class="panel__scenario"><div class="panel__scenario-label">' + sc.label + '</div>';
       for (var m = 0; m < sc.msgs.length; m++) {
         var msg = sc.msgs[m];
         var whoClass = msg.type === 'merchant' ? 'panel__msg-who--merchant' : (msg.type === 'lumi-ok' ? 'panel__msg-who--lumi-ok' : (msg.type === 'ideal' ? 'panel__msg-who--lumi-ok' : 'panel__msg-who--lumi'));
@@ -1215,32 +1223,21 @@ function openPanel(id) {
     }
     html += '</div>';
   }
-
-  // Evidence (quotes from merchants)
   if (t.evidence && t.evidence.length > 0) {
-    html += '<div class="panel__section">';
-    html += '<div class="panel__section-title">O que os lojistas dizem</div>';
+    html += '<div class="panel__section"><div class="panel__section-title">O que os lojistas dizem</div>';
     for (var j = 0; j < t.evidence.length; j++) {
       var ev = t.evidence[j];
       html += '<div class="panel__quote">"' + ev.text + '"<span class="panel__quote-author">— ' + ev.author + '</span></div>';
     }
     html += '</div>';
   }
-
-  // Solution
-  html += '<div class="panel__section">';
-  html += '<div class="panel__section-title">Solucao proposta</div>';
-  html += '<ul class="panel__solution-list">';
+  html += '<div class="panel__section"><div class="panel__section-title">Solucao proposta</div><ul class="panel__solution-list">';
   for (var k = 0; k < t.solution.length; k++) {
     var sol = t.solution[k];
     html += '<li class="panel__solution-item"><div class="panel__solution-icon panel__solution-icon--' + sol.type + '">' + sol.icon + '</div><div class="panel__solution-text">' + sol.text + '</div></li>';
   }
   html += '</ul></div>';
-
-  // Meta
-  html += '<div class="panel__section">';
-  html += '<div class="panel__section-title">Detalhes</div>';
-  html += '<div class="panel__meta-grid">';
+  html += '<div class="panel__section"><div class="panel__section-title">Detalhes</div><div class="panel__meta-grid">';
   html += '<div class="panel__meta-item"><div class="panel__meta-label">Esforco</div><div class="panel__meta-value">' + t.effort + '</div></div>';
   html += '<div class="panel__meta-item"><div class="panel__meta-label">Status</div><div class="panel__meta-value">' + t.status + '</div></div>';
   html += '<div class="panel__meta-item"><div class="panel__meta-label">Timeline</div><div class="panel__meta-value">' + t.timeline + '</div></div>';
@@ -1248,8 +1245,71 @@ function openPanel(id) {
   for (var d = 0; d < t.deps.length; d++) {
     html += '<span class="panel__dep-tag panel__dep-tag--' + t.deps[d].type + '">' + t.deps[d].label + '</span>';
   }
-  html += '</div></div></div>';
-  html += '</div></div>';
+  html += '</div></div></div></div></div>';
+  return html;
+}
+
+function renderConversationsTab(t) {
+  var convos = t.conversations || [];
+  if (convos.length === 0) {
+    return '<div class="panel__convo-empty">Nenhuma conversa mapeada para esta task.</div>';
+  }
+  var html = '<div class="panel__section"><div class="panel__section-title">Conversas reais de lojistas · ' + convos.length + ' exemplos</div>';
+  html += '<div style="font-size:.78rem;color:var(--text-muted);margin-bottom:16px;">Conversas recentes (Fev-Mar 2026) extraidas das anotacoes. Cada card mostra o que o lojista queria, o resultado, e os modulos do Lumi envolvidos.</div>';
+  for (var i = 0; i < convos.length; i++) {
+    var c = convos[i];
+    html += '<div class="panel__convo panel__convo--' + c.verdict + '">';
+    html += '<div class="panel__convo-header">';
+    html += '<div class="panel__convo-date">' + c.date + '</div>';
+    var verdictLabel = c.verdict === 'bad' ? 'Falhou' : (c.verdict === 'mixed' ? 'Parcial' : 'Resolveu');
+    html += '<div class="panel__convo-verdict panel__convo-verdict--' + c.verdict + '">' + verdictLabel + '</div>';
+    html += '</div>';
+    html += '<div class="panel__convo-intent">' + c.intent + '</div>';
+    html += '<div class="panel__convo-meta">';
+    if (c.agents && c.agents !== 'nenhum') {
+      html += '<div class="panel__convo-tag">Modulos: ' + c.agents + '</div>';
+    }
+    if (c.patterns) {
+      var patterns = c.patterns.split(', ');
+      for (var p = 0; p < patterns.length; p++) {
+        if (patterns[p] && patterns[p] !== 'mixed') {
+          html += '<div class="panel__convo-tag panel__convo-tag--pattern">' + patterns[p] + '</div>';
+        }
+      }
+    }
+    html += '</div></div>';
+  }
+  html += '</div>';
+  return html;
+}
+
+function openPanel(id) {
+  var t = TASKS[id];
+  if (!t) return;
+
+  if (activeTask) activeTask.classList.remove('task--active');
+  activeTask = event.currentTarget;
+  activeTask.classList.add('task--active');
+
+  document.getElementById('panelWave').textContent = t.wave;
+  document.getElementById('panelWave').style.color = t.waveColor;
+  document.getElementById('panelTitle').textContent = t.title;
+
+  var convoCount = (t.conversations && t.conversations.length) || 0;
+
+  var html = '';
+  html += '<div class="panel__tabs">';
+  html += '<button class="panel__tab panel__tab--active" data-tab="details" onclick="switchTab(\'details\')">Detalhes</button>';
+  html += '<button class="panel__tab" data-tab="conversations" onclick="switchTab(\'conversations\')">Conversas' + (convoCount > 0 ? ' (' + convoCount + ')' : '') + '</button>';
+  html += '</div>';
+
+  html += '<div class="panel__tab-content panel__tab-content--active" id="tab-details">';
+  html += renderDetailsTab(t);
+  html += '</div>';
+
+  html += '<div class="panel__tab-content" id="tab-conversations">';
+  html += renderConversationsTab(t);
+  html += '</div>';
 
   document.getElementById('panelBody').innerHTML = html;
   document.getElementById('panel').classList.add('panel--open');
