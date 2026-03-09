@@ -157,7 +157,7 @@
 <a class="back-link" onclick="window.scrollTo(0,0)" title="Voltar ao topo">↑ Topo</a>
 <h1 id="lumi-analise-qualitativa-priorizacao-de-problemas">Lumi -- Analise Qualitativa &amp; Priorizacao de Problemas</h1>
 <p><strong>Data:</strong> 06/03/2026
-<strong>Periodo analisado:</strong> Nov/2025 -- Mar/2026
+<strong>Periodo analisado:</strong> Fev–Mar/2026
 <strong>Validacao de vies:</strong> 97.7% de concordancia entre avaliadores humanos e LLM nos 134 threads sobrepostos. Vies do LLM e leve (suaviza "bad" para "mixed" em ~24% dos casos), portanto os numeros reais sao ligeiramente piores que os reportados.</p>
 <hr />
 <h2 id="fontes-de-dados">Fontes de Dados</h2>
@@ -175,7 +175,7 @@
 <tr>
 <td><strong>Anotacoes LLM</strong></td>
 <td><code>lumi-annotations-2026-03-06 (1).json</code></td>
-<td>3.902 anotacoes, 3.765 threads, 1.546 lojas</td>
+<td>3.902 anotacoes total; foco: 2.080 conversas (Fev-Mar/2026), 1.546 lojas</td>
 <td>Avaliacao automatica (gpt-4o-mini): verdict, observations, feature-signals, topics, intent</td>
 </tr>
 <tr>
@@ -193,7 +193,9 @@
 </tbody>
 </table>
 <p><strong>Como verificar qualquer numero:</strong> Filtrar os JSONs por <code>verdict</code>, <code>observations[].type</code>, ou <code>observations[].title</code> para reproduzir as contagens. Cada citacao humana inclui <code>threadId</code> e reviewer. Cada issue do Linear inclui o ID (ex: AIL-155).</p>
-<p><strong>Nota sobre amostragem:</strong> Os 3.765 threads sao uma amostra das conversas do Lumi, nao o universo total. A media e de 38.4 threads/dia em 98 dias. O volume real de conversas no periodo e provavelmente muito maior.</p>
+<p><strong>Base total: 3.902 | Foco recente: 2.080 (Fev-Mar/2026)</strong></p>
+<p><strong>Nota:</strong> Esta analise foi atualizada para focar em dados recentes (Fev-Mar 2026, 2.080 conversas). Houve melhora real de 4.7pp na taxa de falha vs. o periodo anterior (Nov-Jan), mas os 5 problemas principais persistem.</p>
+<p><strong>Nota sobre amostragem:</strong> Os 2.080 threads do foco recente sao uma amostra das conversas do Lumi em ~5 semanas. O volume real de conversas no periodo e provavelmente muito maior.</p>
 <hr />
 <h2 id="resumo-executivo">Resumo Executivo</h2>
 <table>
@@ -206,32 +208,32 @@
 <tbody>
 <tr>
 <td>Total de threads</td>
-<td>3.902</td>
+<td>2.080</td>
 </tr>
 <tr>
 <td>Experiencia boa (good)</td>
-<td>1.411 (36.2%)</td>
+<td>797 (38.3%)</td>
 </tr>
 <tr>
 <td>Experiencia parcial (mixed)</td>
-<td>1.188 (30.5%)</td>
+<td>628 (30.2%)</td>
 </tr>
 <tr>
 <td>Experiencia ruim (bad)</td>
-<td>1.301 (33.4%)</td>
+<td>651 (31.3%)</td>
 </tr>
 <tr>
 <td><strong>Taxa de falha (bad + mixed)</strong></td>
-<td><strong>63.8%</strong></td>
+<td><strong>61.6%</strong></td>
 </tr>
 </tbody>
 </table>
 <p><code>Fonte: lumi-annotations-2026-03-06 (1).json -- filtrar por campo "verdict"</code></p>
-<p><strong>Quase 2 em cada 3 interacoes terminam com experiencia ruim ou parcial.</strong> Os 3 problemas que juntos explicam ~60% das falhas sao: dead-ends sem resolucao, respostas desalinhadas com a intencao real, e guardrails excessivos que bloqueiam acoes validas.</p>
+<p><strong>Quase 2 em cada 3 interacoes terminam com experiencia ruim ou parcial.</strong> Os 3 problemas que juntos explicam ~41% das falhas sao: dead-ends sem resolucao, respostas desalinhadas com a intencao real, e guardrails excessivos que bloqueiam acoes validas.</p>
 <hr />
 <h2 id="parte-1-problemas-que-exigem-mudancas-no-backend-cirrus-orquestrador-lumi">Parte 1: Problemas que Exigem Mudancas no Backend (Cirrus / Orquestrador Lumi)</h2>
 <h3 id="b1-dead-ends-massivos-conversas-morrem-sem-proximo-passo">B1. Dead-Ends Massivos -- Conversas morrem sem proximo passo</h3>
-<p><strong>Impacto:</strong> 591 ocorrencias (23.7% dos bad/mixed)
+<p><strong>Impacto:</strong> 254 threads (12.2% dos bad/mixed)
 <strong>Prioridade:</strong> P0</p>
 <p><code>Fonte: lumi-annotations LLM -- filtrar observations[].type == "dead-end"</code></p>
 <p><strong>O que acontece:</strong>
@@ -250,7 +252,7 @@
 </blockquote>
 <hr />
 <h3 id="b2-guardrails-excessivos-lumi-recusa-quando-deveria-agir">B2. Guardrails Excessivos -- Lumi recusa quando deveria agir</h3>
-<p><strong>Impacto:</strong> 260 ocorrencias (10.4% dos bad/mixed)
+<p><strong>Impacto:</strong> 101 threads (4.9% dos bad/mixed)
 <strong>Prioridade:</strong> P1</p>
 <p><code>Fonte: lumi-annotations LLM -- filtrar observations[].type == "unnecessary-guardrail"</code></p>
 <p><strong>O que acontece:</strong>
@@ -265,7 +267,7 @@
 3. Implementar logica de "tool availability check" -- nao dizer "nao tenho capacidade" quando o subAgent esta disponivel para a loja</p>
 <hr />
 <h3 id="b3-routing-errado-entre-subagents">B3. Routing Errado entre SubAgents</h3>
-<p><strong>Impacto:</strong> 107 ocorrencias (4.3% dos bad/mixed)
+<p><strong>Impacto:</strong> 70 threads (3.4% dos bad/mixed)
 <strong>Prioridade:</strong> P2</p>
 <p><code>Fonte: lumi-annotations LLM -- filtrar observations[].type == "wrong-routing"; cruzar campo "subAgents" com "verdict" para calcular bad rate</code></p>
 <p><strong>Taxa de falha por SubAgent:</strong></p>
@@ -368,7 +370,7 @@
 <hr />
 <h2 id="parte-2-problemas-que-exigem-mudancas-no-frontend-ux-stratus">Parte 2: Problemas que Exigem Mudancas no Frontend / UX (Stratus)</h2>
 <h3 id="f1-respostas-desalinhadas-lumi-explica-quando-deveria-executar">F1. Respostas Desalinhadas -- Lumi explica quando deveria executar</h3>
-<p><strong>Impacto:</strong> 736 ocorrencias (29.6% dos bad/mixed) -- <strong>maior problema isolado</strong>
+<p><strong>Impacto:</strong> 365 threads (17.5% dos bad/mixed) -- <strong>maior problema isolado</strong>
 <strong>Prioridade:</strong> P0</p>
 <p><code>Fonte: lumi-annotations LLM -- filtrar observations[].type == "misaligned-response"; cruzar com campo "featureSignals[].title" para a tabela abaixo</code></p>
 <p><strong>O que acontece:</strong>
@@ -421,7 +423,7 @@ O merchant pede "crie uma promocao" e Lumi responde com um passo-a-passo de como
 3. Considerar <strong>action cards</strong> embarcados na resposta que linkem direto a tela relevante no admin</p>
 <hr />
 <h3 id="f2-verbosidade-respostas-longas-demais">F2. Verbosidade -- Respostas longas demais</h3>
-<p><strong>Impacto:</strong> 506 ocorrencias (20.2% dos bad/mixed)
+<p><strong>Impacto:</strong> 225 threads (10.8% dos bad/mixed)
 <strong>Prioridade:</strong> P1</p>
 <p><code>Fonte: lumi-annotations LLM -- filtrar observations[].type == "verbose-response"; cruzar com campo "subAgents" para o breakdown abaixo</code></p>
 <p><strong>Contexto onde e pior:</strong>
@@ -604,19 +606,19 @@ O merchant pede "crie uma promocao" e Lumi responde com um passo-a-passo de como
 <td>Fallback robusto no orquestrador</td>
 <td>Backend</td>
 <td>Nunca terminar sem proximo passo</td>
-<td>~591</td>
+<td>~254</td>
 </tr>
 <tr>
 <td>Prompt: reduzir verbosidade</td>
 <td>Backend</td>
 <td>Max 3 paragrafos, sem padding</td>
-<td>~506</td>
+<td>~225</td>
 </tr>
 <tr>
 <td>Prompt: perguntar antes de recusar</td>
 <td>Backend</td>
 <td>Trocar "nao posso" por "me conta mais"</td>
-<td>~260</td>
+<td>~101</td>
 </tr>
 <tr>
 <td>Derivacao a support: validar link</td>
@@ -628,17 +630,17 @@ O merchant pede "crie uma promocao" e Lumi responde com um passo-a-passo de como
 <td>Truncamento de respostas longas</td>
 <td>Frontend</td>
 <td>"Ver mas" para respostas grandes</td>
-<td>~506</td>
+<td>~225</td>
 </tr>
 <tr>
 <td>Error state claro</td>
 <td>Frontend</td>
 <td>Quando Lumi nao pode, mostrar fallback visual</td>
-<td>~591</td>
+<td>~254</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Impacto estimado:</strong> Melhora ~1.300 threads (33% do total)</p>
+<p><strong>Impacto estimado:</strong> Melhora ~1.015 threads (~49% do total)</p>
 <h3 id="wave-2-feature-gaps-criticos-2-4-sprints">Wave 2 -- Feature Gaps Criticos (2-4 sprints)</h3>
 <table>
 <thead>
@@ -660,19 +662,19 @@ O merchant pede "crie uma promocao" e Lumi responde com um passo-a-passo de como
 <td>Distinguir "faz pra mim" vs "me explica"</td>
 <td>Backend</td>
 <td>Refinar classificacao de intent no prompt</td>
-<td>~736</td>
+<td>~365</td>
 </tr>
 <tr>
 <td>Action cards no chat</td>
 <td>Frontend</td>
 <td>Botoes contextuais (Ir a Promociones, etc.)</td>
-<td>~736</td>
+<td>~365</td>
 </tr>
 <tr>
 <td>Auditar Navigator URLs</td>
 <td>Backend</td>
 <td>Atualizar mapeamento de URLs</td>
-<td>~107</td>
+<td>~70</td>
 </tr>
 <tr>
 <td>Awareness de features da loja</td>
@@ -836,8 +838,8 @@ AIL-91 (parent) + sub-issues para cada campo (descricao, SEO, preco, imagens, in
 </tbody>
 </table>
 <h3 id="o-que-nao-esta-na-sprint-e-deveria">O que NÃO esta na sprint -- e deveria</h3>
-<p><code>Fonte: cruzamento entre Linear CSV (40 issues) e contagens de lumi-annotations LLM (3.902 threads). Nenhum dos problemas abaixo aparece como issue no CSV exportado</code></p>
-<p>Estes sao os problemas de maior impacto real nos merchants, baseados em dados de 3.902 conversas. Nenhum tem issue no Linear hoje:</p>
+<p><code>Fonte: cruzamento entre Linear CSV (40 issues) e contagens de lumi-annotations LLM. Base total: 3.902 | Foco recente: 2.080 (Fev-Mar/2026). Nenhum dos problemas abaixo aparece como issue no CSV exportado</code></p>
+<p>Estes sao os problemas de maior impacto real nos merchants, baseados em dados recentes de 2.080 conversas. Nenhum tem issue no Linear hoje:</p>
 <table>
 <thead>
 <tr>
@@ -850,25 +852,25 @@ AIL-91 (parent) + sub-issues para cada campo (descricao, SEO, preco, imagens, in
 <tbody>
 <tr>
 <td><strong>Dead-ends: conversa morre sem proximo passo</strong></td>
-<td>~591 (23.7%)</td>
+<td>~254 (12.2%)</td>
 <td>Backend: prompt + fallback chain</td>
 <td>Baixo (2-3 dias)</td>
 </tr>
 <tr>
 <td><strong>Respostas desalinhadas: explica em vez de agir</strong></td>
-<td>~736 (29.6%)</td>
+<td>~365 (17.5%)</td>
 <td>Backend: prompt tuning</td>
 <td>Baixo (2-3 dias)</td>
 </tr>
 <tr>
 <td><strong>Guardrails excessivos: recusa em vez de perguntar</strong></td>
-<td>~260 (10.4%)</td>
+<td>~101 (4.9%)</td>
 <td>Backend: prompt tuning</td>
 <td>Baixo (1-2 dias)</td>
 </tr>
 <tr>
 <td><strong>Verbosidade: respostas longas demais</strong></td>
-<td>~506 (20.2%)</td>
+<td>~225 (10.8%)</td>
 <td>Backend: prompt + Front: truncamento</td>
 <td>Baixo (2-3 dias)</td>
 </tr>
@@ -880,7 +882,7 @@ AIL-91 (parent) + sub-issues para cada campo (descricao, SEO, preco, imagens, in
 </tr>
 <tr>
 <td><strong>Navigator com URLs erradas</strong></td>
-<td>~107 (4.3%)</td>
+<td>~70 (3.4%)</td>
 <td>Backend: auditoria de mapeamento</td>
 <td>Baixo (1-2 dias)</td>
 </tr>
@@ -892,7 +894,7 @@ AIL-91 (parent) + sub-issues para cada campo (descricao, SEO, preco, imagens, in
 </tr>
 </tbody>
 </table>
-<p><strong>Somados, esses gaps invisíveis afetam ~1.800 threads</strong> -- quase metade de todas as conversas avaliadas. Sao problemas de qualidade base, nao de features novas.</p>
+<p><strong>Somados, esses gaps invisíveis afetam ~1.015 threads</strong> -- quase metade de todas as conversas avaliadas. Sao problemas de qualidade base, nao de features novas.</p>
 <h3 id="o-desbalanceamento">O desbalanceamento</h3>
 <p>O Workbook (tabelas/export) tem <strong>10 issues</strong> na sprint e e o bloco com mais trabalho ativo. Na analise de conversas, export aparece em <strong>8 threads</strong> como feature-signal. Isso nao significa que Workbook nao seja importante -- pode ter valor estrategico alem da demanda direta. Mas em termos de impacto imediato nos merchants:</p>
 <table>
@@ -917,7 +919,7 @@ AIL-91 (parent) + sub-issues para cada campo (descricao, SEO, preco, imagens, in
 <tr>
 <td><strong>Qualidade base (prompt, fallback, UX)</strong></td>
 <td><strong>0 issues</strong></td>
-<td><strong>~1.800 threads</strong></td>
+<td><strong>~1.015 threads</strong></td>
 </tr>
 </tbody>
 </table>
@@ -926,18 +928,18 @@ AIL-91 (parent) + sub-issues para cada campo (descricao, SEO, preco, imagens, in
 <p><strong>1. Adicionar ao ciclo atual (quick wins de 1-3 dias):</strong></p>
 <p>Estas acoes sao de esforco baixo e impacto altissimo. Nao competem com as features em andamento -- sao ajustes no orquestrador/prompt:</p>
 <ul>
-<li><strong>Fallback robusto:</strong> Lumi nunca termina uma conversa sem oferecer proximo passo (link de suporte, busca no helpjuice, ou pergunta de clarificacao). Impacta ~591 threads.</li>
-<li><strong>Prompt anti-verbosidade:</strong> Limitar respostas a 3 paragrafos max. Eliminar padding linguistico. Se precisar mais, perguntar. Impacta ~506 threads.</li>
-<li><strong>Prompt anti-guardrail:</strong> Trocar o default de "nao posso" por "me conta mais sobre o que precisa". Impacta ~260 threads.</li>
-<li><strong>Auditar Navigator:</strong> Revisar o mapeamento de URLs -- 61.8% das navegacoes falham. Impacta ~107 threads.</li>
+<li><strong>Fallback robusto:</strong> Lumi nunca termina uma conversa sem oferecer proximo passo (link de suporte, busca no helpjuice, ou pergunta de clarificacao). Impacta ~254 threads.</li>
+<li><strong>Prompt anti-verbosidade:</strong> Limitar respostas a 3 paragrafos max. Eliminar padding linguistico. Se precisar mais, perguntar. Impacta ~225 threads.</li>
+<li><strong>Prompt anti-guardrail:</strong> Trocar o default de "nao posso" por "me conta mais sobre o que precisa". Impacta ~101 threads.</li>
+<li><strong>Auditar Navigator:</strong> Revisar o mapeamento de URLs -- 61.8% das navegacoes falham. Impacta ~70 threads.</li>
 </ul>
 <p><strong>2. Encaixar no proximo ciclo (complementam as features em andamento):</strong></p>
 <p>Estas acoes melhoram a experiencia das features novas que estao sendo construidas:</p>
 <ul>
-<li><strong>Distinguir "faz pra mim" vs "me explica"</strong> no prompt do orquestrador. Sem isso, as features novas de catalogo vao sofrer do mesmo problema: merchant pede, Lumi explica. Impacta ~736 threads.</li>
+<li><strong>Distinguir "faz pra mim" vs "me explica"</strong> no prompt do orquestrador. Sem isso, as features novas de catalogo vao sofrer do mesmo problema: merchant pede, Lumi explica. Impacta ~365 threads.</li>
 <li><strong>Awareness de features:</strong> Antes de acionar stats/catalog, validar que a loja tem acesso. Evita frustracoes desnecessarias. Impacta ~108 threads.</li>
-<li><strong>Truncamento de respostas longas</strong> no front ("Ver mas"). Impacta ~506 threads.</li>
-<li><strong>Error state claro</strong> quando Lumi nao pode resolver. Impacta ~591 threads.</li>
+<li><strong>Truncamento de respostas longas</strong> no front ("Ver mas"). Impacta ~225 threads.</li>
+<li><strong>Error state claro</strong> quando Lumi nao pode resolver. Impacta ~254 threads.</li>
 </ul>
 <p><strong>3. Reavaliar priorizacao do Workbook:</strong></p>
 <p>Manter o que ja esta In Progress/Review (AIL-7, AIL-1, AIL-100, AIL-101, AIL-102). Considerar nao iniciar as issues ainda em Todo (AIL-17 filtros, AIL-88 highlights) ate que os problemas P0/P1 de qualidade base estejam encaminhados.</p>
@@ -947,11 +949,11 @@ AIL-91 (parent) + sub-issues para cada campo (descricao, SEO, preco, imagens, in
 <hr />
 <h2 id="apendice-metodologia">Apendice: Metodologia</h2>
 <ul>
-<li><strong>Dataset LLM:</strong> 3.902 threads avaliados por gpt-4o-mini com schema estruturado (verdict, observations, feature-signals, topics). Arquivo: <code>lumi-annotations-2026-03-06 (1).json</code></li>
+<li><strong>Dataset LLM:</strong> Base total 3.902 threads; foco recente 2.080 (Fev-Mar/2026) avaliados por gpt-4o-mini com schema estruturado (verdict, observations, feature-signals, topics). Arquivo: <code>lumi-annotations-2026-03-06 (1).json</code></li>
 <li><strong>Dataset Humano:</strong> 138 threads avaliados por 4 revisores (karem.carvalho, luis.martin, agustin.parraquini, rocio.martin). Arquivo: <code>lumi-annotations-2026-03-06.json</code></li>
 <li><strong>Validacao cruzada:</strong> 134 threads presentes em ambos datasets. Concordancia de 97.7% em verdicts. Vies detectado: LLM classifica como "mixed" ~24% dos threads que humanos classificam como "bad" (leniencia leve)</li>
 <li><strong>Sprint Linear:</strong> 40 issues do Cycle 2 (02/03 -- 14/03/2026). Arquivo: <code>Lumi Assistant (Core) - Issues.csv</code></li>
-<li><strong>Amostragem:</strong> Os 3.765 threads unicos cobrem 98 dias (~38.4 threads/dia) de 1.546 lojas distintas. E uma amostra revisada, nao o universo total de conversas do Lumi</li>
+<li><strong>Amostragem:</strong> O foco recente (2.080 threads) cobre ~5 semanas de 1.546 lojas distintas. Base total: 3.902 anotacoes. E uma amostra revisada, nao o universo total de conversas do Lumi</li>
 <li><strong>Reproducao:</strong> Todos os numeros podem ser reproduzidos filtrando os JSONs pelos campos indicados em cada secao (verdict, observations[].type, featureSignals[].title, subAgents, intent)</li>
 <li><strong>Vies identificado:</strong> LLM e ~24% mais leniente em threads "bad" (reclassifica como "mixed"). Os numeros reais de falha sao provavelmente ligeiramente piores</li>
 <li><strong>Feature signals:</strong> Extraidos de ambos datasets. Ranking combina volume (LLM) com calibracao qualitativa (notas humanas)</li>
