@@ -1,0 +1,1357 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lumi Team Roadmap — Q1–Q2 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+  :root {
+    --bg: #0f0f13; --surface: #1a1a24; --surface-2: #24243a; --surface-3: #2e2e4a;
+    --accent: #6C5CE7; --accent-light: #a29bfe;
+    --green: #00cec9; --green-dim: rgba(0,206,201,.15);
+    --red: #ff6b6b; --red-dim: rgba(255,107,107,.12);
+    --orange: #fdcb6e; --orange-dim: rgba(253,203,110,.12);
+    --blue: #74b9ff; --blue-dim: rgba(116,185,255,.12);
+    --purple-dim: rgba(108,92,231,.15);
+    --text: #f0f0f5; --text-dim: #8888a8; --text-muted: #55556a;
+    --border: #2a2a40; --lane-border: #1f1f35;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Inter',-apple-system,sans-serif; background:var(--bg); color:var(--text); min-height:100vh; overflow-x:hidden; }
+
+  .header { padding:40px 48px 0; display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:20px; }
+  .header__left h1 { font-size:2rem; font-weight:800; letter-spacing:-.03em; line-height:1.2; }
+  .header__left h1 span { color:var(--accent-light); }
+  .header__sub { font-size:.88rem; color:var(--text-dim); margin-top:6px; line-height:1.5; }
+
+  .legend { display:flex; gap:18px; align-items:center; flex-wrap:wrap; }
+  .legend-item { display:flex; align-items:center; gap:7px; font-size:.75rem; font-weight:500; color:var(--text-dim); }
+  .legend-dot { width:11px; height:11px; border-radius:4px; flex-shrink:0; }
+
+  .summary { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; padding:24px 48px; }
+  .summary-card { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:18px 20px; position:relative; overflow:hidden; }
+  .summary-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; }
+  .summary-card--w1::before { background:var(--green); }
+  .summary-card--w2::before { background:var(--orange); }
+  .summary-card--w3::before { background:var(--blue); }
+  .summary-card__wave { font-size:.65rem; font-weight:700; text-transform:uppercase; letter-spacing:.1em; margin-bottom:4px; }
+  .summary-card--w1 .summary-card__wave { color:var(--green); }
+  .summary-card--w2 .summary-card__wave { color:var(--orange); }
+  .summary-card--w3 .summary-card__wave { color:var(--blue); }
+  .summary-card__title { font-size:1rem; font-weight:700; margin-bottom:8px; }
+  .summary-card__meta { display:flex; justify-content:space-between; align-items:center; font-size:.78rem; }
+  .summary-card__meta span:first-child { color:var(--text-dim); }
+  .summary-card__threads { font-weight:700; padding:2px 8px; border-radius:10px; font-size:.72rem; }
+  .summary-card--w1 .summary-card__threads { background:var(--green-dim); color:var(--green); }
+  .summary-card--w2 .summary-card__threads { background:var(--orange-dim); color:var(--orange); }
+  .summary-card--w3 .summary-card__threads { background:var(--blue-dim); color:var(--blue); }
+
+  .timeline-wrapper { padding:10px 48px 60px; overflow-x:auto; -webkit-overflow-scrolling:touch; }
+  .timeline { min-width:1100px; position:relative; }
+  .months { display:grid; grid-template-columns:140px repeat(5,1fr); border-bottom:2px solid var(--border); position:sticky; top:0; z-index:10; background:var(--bg); }
+  .months__label { display:flex; align-items:center; justify-content:center; padding:14px 8px; font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.1em; color:var(--text-muted); }
+  .months__month { padding:10px 8px; text-align:center; border-left:1px solid var(--border); }
+  .months__month-name { font-size:.9rem; font-weight:700; color:var(--text); }
+  .months__month-sub { font-size:.68rem; color:var(--text-muted); margin-top:2px; }
+  .months__month--current { background:rgba(108,92,231,.06); }
+  .months__month--current .months__month-name { color:var(--accent-light); }
+
+  .lane { display:grid; grid-template-columns:140px 1fr; min-height:100px; border-bottom:1px solid var(--lane-border); }
+  .lane:last-child { border-bottom:none; }
+  .lane__label { padding:20px 14px; display:flex; flex-direction:column; justify-content:center; gap:4px; border-right:1px solid var(--border); background:var(--surface); }
+  .lane__label-name { font-size:.78rem; font-weight:700; line-height:1.3; }
+  .lane__label-count { font-size:.65rem; color:var(--text-muted); }
+  .lane__content { position:relative; padding:14px 0; min-height:100px; }
+  .lane__grid { position:absolute; inset:0; display:grid; grid-template-columns:repeat(20,1fr); pointer-events:none; }
+  .lane__grid-cell { border-left:1px solid rgba(42,42,64,.25); }
+  .lane__grid-cell:nth-child(4n+1) { border-left:1px solid rgba(42,42,64,.6); }
+  .lane__grid-cell--now { background:rgba(108,92,231,.04); }
+  .lane__tasks { position:relative; display:flex; flex-direction:column; gap:8px; padding:0 6px; z-index:2; }
+  .task-row { display:flex; gap:6px; align-items:flex-start; min-height:44px; }
+
+  .task { position:relative; border-radius:10px; padding:10px 14px; font-size:.78rem; font-weight:600; line-height:1.35; cursor:pointer; flex-shrink:0; border:1px solid transparent; user-select:none; transition:transform .15s ease,box-shadow .15s ease; }
+  .task:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(0,0,0,.4); z-index:10; }
+  .task--active { box-shadow:0 0 0 2px var(--accent-light),0 8px 24px rgba(0,0,0,.4)!important; z-index:10!important; }
+  .task__id { font-size:.6rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em; opacity:.7; display:block; margin-bottom:2px; }
+  .task__threads { font-size:.62rem; font-weight:500; opacity:.7; margin-top:3px; display:block; }
+  .task__status { position:absolute; top:8px; right:8px; width:8px; height:8px; border-radius:50%; }
+  .task__status--todo { background:var(--text-muted); }
+  .task__status--doing { background:var(--orange); box-shadow:0 0 6px var(--orange); }
+  .task__status--done { background:var(--green); }
+  .task__status--blocked { background:var(--red); }
+
+  .task--be { background:linear-gradient(135deg,rgba(108,92,231,.18),rgba(108,92,231,.08)); border-color:rgba(108,92,231,.3); }
+  .task--ux { background:linear-gradient(135deg,rgba(253,203,110,.15),rgba(253,203,110,.05)); border-color:rgba(253,203,110,.3); }
+  .task--fe { background:linear-gradient(135deg,rgba(0,206,201,.18),rgba(0,206,201,.06)); border-color:rgba(0,206,201,.3); }
+  .task--sprint { background:linear-gradient(135deg,rgba(116,185,255,.15),rgba(116,185,255,.05)); border-color:rgba(116,185,255,.25); }
+  .task--hitl { background:linear-gradient(90deg,rgba(255,107,107,.12),rgba(108,92,231,.12)); border:1px dashed rgba(255,107,107,.4); }
+
+  .dep-arrow { position:absolute; font-size:.65rem; color:var(--text-muted); pointer-events:none; z-index:3; }
+
+  .footer { padding:20px 48px 40px; display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border); margin:0 48px; flex-wrap:wrap; gap:16px; }
+  .footer__left { font-size:.78rem; color:var(--text-muted); line-height:1.6; }
+  .footer__right { display:flex; gap:10px; }
+  .footer__stat { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:10px 16px; text-align:center; }
+  .footer__stat-number { font-size:1.3rem; font-weight:800; }
+  .footer__stat-label { font-size:.65rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:.06em; margin-top:2px; }
+
+  @media (max-width:900px) { .header,.summary,.timeline-wrapper,.footer { padding-left:20px; padding-right:20px; } .summary { grid-template-columns:1fr; } .footer { margin:0 20px; } }
+  .overlay { position:fixed; inset:0; background:rgba(0,0,0,.5); z-index:900; opacity:0; visibility:hidden; transition:opacity .3s ease,visibility .3s ease; backdrop-filter:blur(4px); }
+  .overlay--open { opacity:1; visibility:visible; }
+  .panel { position:fixed; top:0; right:0; bottom:0; width:520px; max-width:92vw; background:var(--surface); border-left:1px solid var(--border); z-index:1000; transform:translateX(100%); transition:transform .35s cubic-bezier(.4,0,.2,1); display:flex; flex-direction:column; overflow:hidden; }
+  .panel--open { transform:translateX(0); }
+  .panel__header { padding:28px 32px 20px; border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:flex-start; flex-shrink:0; }
+  .panel__wave { font-size:.65rem; font-weight:700; text-transform:uppercase; letter-spacing:.1em; margin-bottom:6px; }
+  .panel__title { font-size:1.4rem; font-weight:800; letter-spacing:-.02em; line-height:1.25; }
+  .panel__close { width:36px; height:36px; border-radius:10px; border:1px solid var(--border); background:var(--surface-2); color:var(--text); font-size:1.1rem; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background .15s; flex-shrink:0; }
+  .panel__close:hover { background:var(--surface-3); }
+  .panel__body { flex:1; overflow-y:auto; padding:24px 32px 40px; }
+  .panel__section { margin-bottom:24px; }
+  .panel__section-title { font-size:.68rem; font-weight:700; text-transform:uppercase; letter-spacing:.1em; color:var(--text-muted); margin-bottom:10px; display:flex; align-items:center; gap:8px; }
+  .panel__section-title::after { content:''; flex:1; height:1px; background:var(--border); }
+  .panel__problem { background:var(--red-dim); border:1px solid rgba(255,107,107,.2); border-radius:12px; padding:16px 20px; font-size:.9rem; line-height:1.6; color:var(--text-dim); }
+  .panel__problem strong { color:var(--text); }
+  .panel__context { background:var(--surface-2); border-radius:12px; padding:16px 20px; margin-bottom:16px; font-size:.88rem; line-height:1.65; color:var(--text-dim); }
+  .panel__context strong { color:var(--text); }
+  .panel__context-title { font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--accent-light); margin-bottom:8px; }
+  .panel__impact-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .panel__impact-card { background:var(--surface-2); border-radius:10px; padding:14px 16px; text-align:center; }
+  .panel__impact-number { font-size:1.6rem; font-weight:800; }
+  .panel__impact-number--red { color:var(--red); }
+  .panel__impact-number--orange { color:var(--orange); }
+  .panel__impact-number--green { color:var(--green); }
+  .panel__impact-number--accent { color:var(--accent-light); }
+  .panel__impact-label { font-size:.72rem; color:var(--text-muted); margin-top:2px; }
+  .panel__quote { border-left:3px solid var(--accent); padding:12px 18px; margin-bottom:10px; background:rgba(108,92,231,.05); border-radius:0 10px 10px 0; font-style:italic; color:var(--text-dim); font-size:.88rem; line-height:1.55; }
+  .panel__quote-author { font-style:normal; font-size:.72rem; color:var(--text-muted); margin-top:4px; display:block; }
+  .panel__solution-list { list-style:none; }
+  .panel__solution-item { display:flex; gap:12px; padding:10px 0; border-bottom:1px solid var(--border); align-items:flex-start; }
+  .panel__solution-item:last-child { border-bottom:none; }
+  .panel__solution-icon { width:26px; height:26px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:.65rem; font-weight:700; flex-shrink:0; margin-top:2px; }
+  .panel__solution-icon--ux { background:rgba(253,203,110,.2); color:var(--orange); }
+  .panel__solution-icon--fe { background:rgba(0,206,201,.2); color:var(--green); }
+  .panel__solution-icon--be { background:rgba(108,92,231,.2); color:var(--accent-light); }
+  .panel__solution-text { font-size:.85rem; line-height:1.5; color:var(--text-dim); }
+  .panel__solution-text strong { color:var(--text); }
+  .panel__meta-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .panel__meta-item { background:var(--surface-2); border-radius:10px; padding:12px 14px; }
+  .panel__meta-label { font-size:.65rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:.06em; }
+  .panel__meta-value { font-size:.88rem; font-weight:600; margin-top:4px; }
+  .panel__deps { display:flex; flex-wrap:wrap; gap:8px; }
+  .panel__dep-tag { padding:4px 12px; border-radius:20px; font-size:.72rem; font-weight:600; background:var(--surface-2); color:var(--text-dim); border:1px solid var(--border); }
+  .panel__dep-tag--blocked { border-color:rgba(255,107,107,.3); color:var(--red); }
+  .panel__dep-tag--ready { border-color:rgba(0,206,201,.3); color:var(--green); }
+  .panel__scenario { margin-bottom:16px; border-radius:12px; overflow:hidden; border:1px solid var(--border); }
+  .panel__scenario-label { font-size:.62rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em; padding:8px 16px 4px; color:var(--text-muted); background:var(--surface-2); }
+  .panel__msg { padding:10px 16px; display:flex; gap:10px; align-items:flex-start; }
+  .panel__msg+.panel__msg { border-top:1px solid var(--border); }
+  .panel__msg-who { font-size:.65rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em; min-width:60px; padding-top:2px; flex-shrink:0; }
+  .panel__msg-who--merchant { color:var(--green); }
+  .panel__msg-who--lumi { color:var(--red); }
+  .panel__msg-who--lumi-ok { color:var(--green); }
+  .panel__msg-text { font-size:.85rem; line-height:1.55; color:var(--text-dim); }
+  .panel__msg-text em { color:var(--text); font-style:normal; font-weight:600; }
+  .panel__msg--ideal { background:rgba(0,206,201,.04); }
+
+  ::-webkit-scrollbar { height:6px; width:6px; }
+  ::-webkit-scrollbar-track { background:var(--surface); border-radius:3px; }
+  ::-webkit-scrollbar-thumb { background:var(--surface-2); border-radius:3px; }
+</style>
+</head>
+<body>
+
+<div class="overlay" id="overlay" onclick="closePanel()"></div>
+<div class="panel" id="panel">
+  <div class="panel__header">
+    <div><div class="panel__wave" id="panelWave"></div><div class="panel__title" id="panelTitle"></div></div>
+    <button class="panel__close" onclick="closePanel()" aria-label="Fechar">&times;</button>
+  </div>
+  <div class="panel__body" id="panelBody"></div>
+</div>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header__left">
+    <h1>Lumi <span>Team Roadmap</span></h1>
+    <p class="header__sub">Q1–Q2 2026 &nbsp;·&nbsp; Backend + Design + Frontend &nbsp;·&nbsp; Baseado em 3.902 conversas reais &nbsp;·&nbsp; Ordenado por impacto</p>
+  </div>
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background:var(--accent)"></div> Backend</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--orange)"></div> Design</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div> Frontend</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--blue)"></div> Na sprint</div>
+    <div style="width:1px;height:16px;background:var(--border)"></div>
+    <div class="legend-item"><div class="task__status task__status--doing" style="position:static;width:9px;height:9px"></div> Em progresso</div>
+    <div class="legend-item"><div class="task__status task__status--todo" style="position:static;width:9px;height:9px"></div> A fazer</div>
+    <div class="legend-item"><div class="task__status task__status--blocked" style="position:static;width:9px;height:9px"></div> Bloqueado/Sem issue</div>
+  </div>
+</div>
+
+<!-- SUMMARY -->
+<div class="summary">
+  <div class="summary-card summary-card--w1">
+    <div class="summary-card__wave">Wave 1 · Quick Wins</div>
+    <div class="summary-card__title">Prompt tuning + Error state + Truncamento</div>
+    <div class="summary-card__meta"><span>Mar–Abr · ~8 dias total</span><span class="summary-card__threads">~1.600 threads</span></div>
+  </div>
+  <div class="summary-card summary-card--w2">
+    <div class="summary-card__wave">Wave 2 · Feature Gaps</div>
+    <div class="summary-card__title">Intent classification + Action cards + Formulario</div>
+    <div class="summary-card__meta"><span>Abr–Jun · ~20 dias total</span><span class="summary-card__threads">~900+ threads</span></div>
+  </div>
+  <div class="summary-card summary-card--w3">
+    <div class="summary-card__wave">Wave 3 · Experiencias</div>
+    <div class="summary-card__title">Promocoes · Storefront · Stats · Export</div>
+    <div class="summary-card__meta"><span>Jun+ · variavel</span><span class="summary-card__threads">~160+ threads</span></div>
+  </div>
+</div>
+
+<!-- TIMELINE -->
+<div class="timeline-wrapper">
+<div class="timeline">
+
+  <div class="months">
+    <div class="months__label">Disciplina</div>
+    <div class="months__month months__month--current"><div class="months__month-name">Marco</div><div class="months__month-sub">S2 – S5</div></div>
+    <div class="months__month"><div class="months__month-name">Abril</div><div class="months__month-sub">S6 – S9</div></div>
+    <div class="months__month"><div class="months__month-name">Maio</div><div class="months__month-sub">S10 – S13</div></div>
+    <div class="months__month"><div class="months__month-name">Junho</div><div class="months__month-sub">S14 – S17</div></div>
+    <div class="months__month"><div class="months__month-name">Julho+</div><div class="months__month-sub">S18 – S21</div></div>
+  </div>
+
+  <!-- LANE: Human in the Loop (transversal) -->
+  <div class="lane">
+    <div class="lane__label"><div class="lane__label-name">Human in<br>the Loop</div><div class="lane__label-count">estrategia · 40.7%</div></div>
+    <div class="lane__content">
+      <div class="lane__grid"><div class="lane__grid-cell lane__grid-cell--now"></div><div class="lane__grid-cell lane__grid-cell--now"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div></div>
+      <div class="lane__tasks">
+        <div class="task-row">
+          <div class="task task--hitl" onclick="openPanel('hitl')" style="width:calc(14/20*100%);margin-left:calc(0.5/20*100%)">
+            <span class="task__id" style="color:var(--red)">~1.587 threads (40.7%) · 0 issues na sprint</span>
+            <span style="font-size:.76rem;display:flex;gap:18px;flex-wrap:wrap">
+              <span><span style="color:var(--accent-light)">Escalar</span> → fallback + error state</span>
+              <span><span style="color:var(--orange)">Perguntar</span> → confirmation card</span>
+              <span><span style="color:var(--red)">Confirmar</span> → intent + action cards</span>
+            </span>
+            <div class="task__status task__status--blocked"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LANE: Backend -->
+  <div class="lane">
+    <div class="lane__label"><div class="lane__label-name">Backend<br>(Cirrus)</div><div class="lane__label-count">prompt + orquestrador</div></div>
+    <div class="lane__content">
+      <div class="lane__grid"><div class="lane__grid-cell lane__grid-cell--now"></div><div class="lane__grid-cell lane__grid-cell--now"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div></div>
+      <div class="lane__tasks">
+        <div class="task-row">
+          <div class="task task--be" onclick="openPanel('be-fallback')" style="width:calc(2/20*100%);margin-left:calc(0.5/20*100%)">
+            <span class="task__id">BE · Fallback chain</span>Dead-ends → nunca terminar sem proximo passo<span class="task__threads">~591 threads · 2-3d · P0</span><div class="task__status task__status--blocked"></div>
+          </div>
+          <div class="task task--be" onclick="openPanel('be-verbosidade')" style="width:calc(1.5/20*100%)">
+            <span class="task__id">BE · Anti-verbosidade</span>Prompt: max 3 paragrafos, sem padding<span class="task__threads">~506 threads · 1-2d · P0</span><div class="task__status task__status--blocked"></div>
+          </div>
+          <div class="task task--be" onclick="openPanel('be-guardrail')" style="width:calc(1.5/20*100%)">
+            <span class="task__id">BE · Anti-guardrail</span>Trocar "nao posso" por "me conta mais"<span class="task__threads">~260 threads · 1-2d · P1</span><div class="task__status task__status--blocked"></div>
+          </div>
+          <div class="task task--be" onclick="openPanel('be-navigator')" style="width:calc(1.5/20*100%)">
+            <span class="task__id">BE · Navigator audit</span>Corrigir URLs desatualizadas<span class="task__threads">~107 threads · 1-2d · P1</span><div class="task__status task__status--blocked"></div>
+          </div>
+        </div>
+        <div class="task-row">
+          <div class="task task--be" onclick="openPanel('be-intent')" style="width:calc(2.5/20*100%);margin-left:calc(4.5/20*100%)">
+            <span class="task__id">BE · Intent classification</span>Distinguir "faz pra mim" vs "me explica"<span class="task__threads">~736 threads · 2-3d · P0</span><div class="task__status task__status--blocked"></div>
+          </div>
+          <div class="task task--be" onclick="openPanel('be-awareness')" style="width:calc(2/20*100%)">
+            <span class="task__id">BE · Awareness</span>Features/plano da loja no contexto<span class="task__threads">~108 threads · 3-5d</span><div class="task__status task__status--blocked"></div>
+          </div>
+          <div class="task task--be" onclick="openPanel('be-structured')" style="width:calc(3/20*100%);margin-left:calc(1/20*100%)">
+            <span class="task__id">BE · Structured data</span>Enviar steps, actions, stats como JSON<span class="task__threads">desbloqueia Wave 2 front</span><div class="task__status task__status--todo"></div>
+          </div>
+        </div>
+        <div class="task-row">
+          <div class="task task--be" onclick="openPanel('be-promocoes')" style="width:calc(3/20*100%);margin-left:calc(12/20*100%)">
+            <span class="task__id">BE · SubAgent promocoes</span>CRUD completo via Lumi<span class="task__threads">~63 threads · AIL-60</span><div class="task__status task__status--todo"></div>
+          </div>
+          <div class="task task--be" onclick="openPanel('be-storefront')" style="width:calc(3/20*100%);margin-left:calc(0.5/20*100%)">
+            <span class="task__id">BE · Storefront</span>Integracao com editor de temas<span class="task__threads">~61 threads</span><div class="task__status task__status--todo"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LANE: Design -->
+  <div class="lane">
+    <div class="lane__label"><div class="lane__label-name">Design<br>(Karem)</div><div class="lane__label-count">specs + componentes</div></div>
+    <div class="lane__content">
+      <div class="lane__grid"><div class="lane__grid-cell lane__grid-cell--now"></div><div class="lane__grid-cell lane__grid-cell--now"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div></div>
+      <div class="lane__tasks">
+        <div class="task-row">
+          <div class="task task--ux" onclick="openPanel('d01-audit')" style="width:calc(1.5/20*100%);margin-left:calc(0.5/20*100%)">
+            <span class="task__id">D0.1 Audit</span>Padroes de falha<span class="task__threads">2d · fundacao</span><div class="task__status task__status--doing"></div>
+          </div>
+          <div class="task task--ux" onclick="openPanel('d02-inventario')" style="width:calc(1/20*100%)">
+            <span class="task__id">D0.2</span>Inventario<span class="task__threads">1d</span><div class="task__status task__status--todo"></div>
+          </div>
+          <div class="task task--ux" onclick="openPanel('d11-error')" style="width:calc(2/20*100%);margin-left:calc(0.5/20*100%)">
+            <span class="task__id">D1.1 Error State</span>Card com fallback visual<span class="task__threads">~591 threads · 1-2d</span><div class="task__status task__status--todo"></div>
+          </div>
+          <div class="task task--ux" onclick="openPanel('d12-truncamento')" style="width:calc(1/20*100%)">
+            <span class="task__id">D1.2</span>Truncamento<span class="task__threads">~506 · 1d</span><div class="task__status task__status--todo"></div>
+          </div>
+          <div class="task task--ux" onclick="openPanel('d13-confirmacao')" style="width:calc(1/20*100%)">
+            <span class="task__id">D1.3</span>Confirmacao<span class="task__threads">transversal</span><div class="task__status task__status--todo"></div>
+          </div>
+        </div>
+        <div class="task-row">
+          <div class="task task--ux" onclick="openPanel('d21-action')" style="width:calc(3/20*100%);margin-left:calc(5.5/20*100%)">
+            <span class="task__id">D2.1 Action Cards</span>Botoes contextuais no chat<span class="task__threads">~736 threads · 3-5d</span><div class="task__status task__status--todo"></div>
+          </div>
+          <div class="task task--ux" onclick="openPanel('d22-checklist')" style="width:calc(2/20*100%)">
+            <span class="task__id">D2.2 Checklist</span>Instrucoes interativas<span class="task__threads">~500+ · 2-3d</span><div class="task__status task__status--todo"></div>
+          </div>
+          <div class="task task--ux" onclick="openPanel('d23-datacards')" style="width:calc(2/20*100%)">
+            <span class="task__id">D2.3 Data Cards</span>Stats inline<span class="task__threads">qualidade · 2-3d</span><div class="task__status task__status--todo"></div>
+          </div>
+        </div>
+        <div class="task-row">
+          <div class="task task--ux" onclick="openPanel('d24-formulario')" style="width:calc(3/20*100%);margin-left:calc(9/20*100%)">
+            <span class="task__id">D2.4 Formulario</span>Criar produto inline<span class="task__threads">~140 threads · 3-5d</span><div class="task__status task__status--blocked"></div>
+          </div>
+          <div class="task task--ux" onclick="openPanel('d31-promocoes')" style="width:calc(3/20*100%);margin-left:calc(1/20*100%)">
+            <span class="task__id">D3.1 Promocoes</span>Fluxo completo<span class="task__threads">~63 threads</span><div class="task__status task__status--todo"></div>
+          </div>
+          <div class="task task--ux" onclick="openPanel('d32-storefront')" style="width:calc(2/20*100%)">
+            <span class="task__id">D3.2 Storefront</span>Preview + editor<span class="task__threads">~61 threads</span><div class="task__status task__status--todo"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LANE: Frontend -->
+  <div class="lane">
+    <div class="lane__label"><div class="lane__label-name">Frontend<br>(Stratus)</div><div class="lane__label-count">componentes de chat</div></div>
+    <div class="lane__content">
+      <div class="lane__grid"><div class="lane__grid-cell lane__grid-cell--now"></div><div class="lane__grid-cell lane__grid-cell--now"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div></div>
+      <div class="lane__tasks">
+        <div class="task-row">
+          <div class="task task--fe" onclick="openPanel('fe-truncamento')" style="width:calc(1.5/20*100%);margin-left:calc(3.5/20*100%)">
+            <span class="task__id">FE · Truncamento</span>"Ver mais" expandivel<span class="task__threads">~506 · 1d · front puro</span><div class="task__status task__status--todo"></div>
+          </div>
+          <div class="task task--fe" onclick="openPanel('fe-error')" style="width:calc(2/20*100%);margin-left:calc(0.5/20*100%)">
+            <span class="task__id">FE · Error State</span>Componente com slots<span class="task__threads">~591 · 1-2d · dep: BE fallback</span><div class="task__status task__status--blocked"></div>
+          </div>
+          <div class="task task--fe" onclick="openPanel('fe-confirmacao')" style="width:calc(1.5/20*100%)">
+            <span class="task__id">FE · Confirmacao</span>Card de acao<span class="task__threads">dep: BE structured data</span><div class="task__status task__status--blocked"></div>
+          </div>
+        </div>
+        <div class="task-row">
+          <div class="task task--fe" onclick="openPanel('fe-action')" style="width:calc(3/20*100%);margin-left:calc(8/20*100%)">
+            <span class="task__id">FE · Action Cards</span>Botoes/links contextuais<span class="task__threads">~736 · 3-5d · dep: BE intent + D2.1</span><div class="task__status task__status--blocked"></div>
+          </div>
+          <div class="task task--fe" onclick="openPanel('fe-checklist')" style="width:calc(2.5/20*100%)">
+            <span class="task__id">FE · Checklist</span>Steps interativos<span class="task__threads">~500+ · 2-3d · dep: BE steps</span><div class="task__status task__status--blocked"></div>
+          </div>
+          <div class="task task--fe" onclick="openPanel('fe-datacards')" style="width:calc(2/20*100%)">
+            <span class="task__id">FE · Data Cards</span>KPIs + mini-tabelas<span class="task__threads">dep: BE stats</span><div class="task__status task__status--blocked"></div>
+          </div>
+        </div>
+        <div class="task-row">
+          <div class="task task--fe" onclick="openPanel('fe-formulario')" style="width:calc(3.5/20*100%);margin-left:calc(10/20*100%)">
+            <span class="task__id">FE · Formulario Inline</span>Campos + preview no chat<span class="task__threads">~140 · 5-8d · dep: AIL-155 + D2.4</span><div class="task__status task__status--blocked"></div>
+          </div>
+          <div class="task task--fe" onclick="openPanel('fe-progress')" style="width:calc(2/20*100%);margin-left:calc(1/20*100%)">
+            <span class="task__id">FE · Progress</span>Bulk ops<span class="task__threads">~22 · 2-3d</span><div class="task__status task__status--todo"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LANE: Na Sprint (o que ja esta em andamento) -->
+  <div class="lane">
+    <div class="lane__label"><div class="lane__label-name">Na Sprint<br>(Cycle 2)</div><div class="lane__label-count">40 issues · 6.2%</div></div>
+    <div class="lane__content">
+      <div class="lane__grid"><div class="lane__grid-cell lane__grid-cell--now"></div><div class="lane__grid-cell lane__grid-cell--now"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div></div>
+      <div class="lane__tasks">
+        <div class="task-row">
+          <div class="task task--sprint" onclick="openPanel('sprint-catalogo')" style="width:calc(3/20*100%);margin-left:calc(0.2/20*100%)">
+            <span class="task__id">Catalogo sem navegar · ~20 issues</span>AIL-91 + sub-issues + AIL-155<span class="task__threads">~77 threads · 2.0%</span><div class="task__status task__status--doing"></div>
+          </div>
+          <div class="task task--sprint" onclick="openPanel('sprint-workbook')" style="width:calc(2.5/20*100%)">
+            <span class="task__id">Workbook / Export · 10 issues</span>AIL-1, AIL-7, AIL-100, etc.<span class="task__threads">~8 threads · 0.2%</span><div class="task__status task__status--doing"></div>
+          </div>
+          <div class="task task--sprint" onclick="openPanel('sprint-streaming')" style="width:calc(1.5/20*100%)">
+            <span class="task__id">Fake Streaming</span>AIL-49<span class="task__threads">UX</span><div class="task__status task__status--doing"></div>
+          </div>
+          <div class="task task--sprint" onclick="openPanel('sprint-coach')" style="width:calc(1.5/20*100%)">
+            <span class="task__id">Coach Agent</span>AIL-23, AIL-24<span class="task__threads">educativo</span><div class="task__status task__status--doing"></div>
+          </div>
+        </div>
+        <div class="task-row">
+          <div class="task task--sprint" onclick="openPanel('sprint-promocoes')" style="width:calc(2/20*100%);margin-left:calc(0.2/20*100%)">
+            <span class="task__id">Promocoes · AIL-60</span>Todo<span class="task__threads">~63 threads · 1.6%</span><div class="task__status task__status--todo"></div>
+          </div>
+          <div class="task task--sprint" onclick="openPanel('sprint-handoff')" style="width:calc(1.5/20*100%)">
+            <span class="task__id">Handoff · AIL-129</span>Todo<span class="task__threads">~16 threads</span><div class="task__status task__status--todo"></div>
+          </div>
+          <div class="task task--sprint" onclick="openPanel('sprint-thinking')" style="width:calc(1.5/20*100%)">
+            <span class="task__id">Thinking · AIL-80/81</span>Todo<span class="task__threads">UX interna</span><div class="task__status task__status--todo"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Now line -->
+  <div style="position:absolute;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--accent),rgba(108,92,231,.2));z-index:5;left:calc(140px + (0.75/20)*(100% - 140px));pointer-events:none">
+    <div style="position:absolute;top:6px;left:50%;transform:translateX(-50%);font-size:.58rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--accent-light);background:var(--bg);padding:2px 10px;border-radius:4px;white-space:nowrap;border:1px solid rgba(108,92,231,.3)">Hoje</div>
+  </div>
+
+</div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footer__left">
+    Lumi Team Roadmap &nbsp;·&nbsp; Q1–Q2 2026 &nbsp;·&nbsp; Karem Carvalho + time AI Lumi<br>
+    Baseado em analise de 3.902 threads &nbsp;·&nbsp; 1.546 lojas &nbsp;·&nbsp; Nov/2025–Mar/2026<br>
+    <strong style="color:var(--red)">59.2% do impacto (threads com dor) nao tem nenhuma issue na sprint</strong>
+  </div>
+  <div class="footer__right">
+    <div class="footer__stat"><div class="footer__stat-number" style="color:var(--red)">59.2%</div><div class="footer__stat-label">sem issue</div></div>
+    <div class="footer__stat"><div class="footer__stat-number" style="color:var(--green)">6.2%</div><div class="footer__stat-label">na sprint</div></div>
+    <div class="footer__stat"><div class="footer__stat-number" style="color:var(--accent-light)">~2.300</div><div class="footer__stat-label">threads com dor</div></div>
+    <div class="footer__stat"><div class="footer__stat-number" style="color:var(--orange)">~40%</div><div class="footer__stat-label">meta wave 1+2</div></div>
+  </div>
+</div>
+
+<script>
+const TASKS = {
+  'hitl': {
+    wave: 'Estrategia Transversal',
+    title: 'Human in the Loop',
+    sections: [
+      { type:'context', html:'<div class="panel__context-title">Contexto</div>A Lumi hoje opera de forma 100% autonoma: quando nao sabe responder, inventa ou trava. O lojista fica sem saida. <strong>Human in the Loop</strong> significa que a Lumi reconhece seus limites e oferece caminhos reais ao inves de becos sem saida.' },
+      { type:'problem', html:'Resolve 3 problemas simultaneamente:<br><strong>Dead-ends</strong> (~591 threads) — conversa termina sem proximo passo<br><strong>Guardrails excessivos</strong> (~260 threads) — "nao posso ajudar" sem alternativa<br><strong>Respostas desalinhadas</strong> (~736 threads) — Lumi faz/explica o oposto do pedido' },
+      { type:'impact', cards:[
+        { number:'~1.587', cls:'red', label:'threads afetadas' },
+        { number:'40.7%', cls:'orange', label:'do total de threads' },
+        { number:'0', cls:'red', label:'issues na sprint' },
+        { number:'3', cls:'accent', label:'problemas resolvidos' }
+      ]},
+      { type:'quote', text:'"Necesito hacer un descuento del 20% en camperas" — Lumi explica como fazer desconto no admin mas nao oferece criar a promocao. Lojista tem que sair do chat e fazer manualmente.', author:'Lojista · threadId: conv-promo-manual' },
+      { type:'solutions', items:[
+        { icon:'BE', cls:'be', text:'<strong>Nivel 1 — Escalar quando falha:</strong> Fallback chain no backend. Quando Lumi nao consegue resolver, oferece error state card com "Falar com suporte", "Ir ao admin", ou link direto.' },
+        { icon:'UX', cls:'ux', text:'<strong>Nivel 2 — Perguntar quando tem duvida:</strong> Confirmation card antes de executar acoes. "Voce quer que eu crie um cupom de 20%? [Sim, criar] [Nao, so explica]"' },
+        { icon:'BE', cls:'be', text:'<strong>Nivel 3 — Confirmar antes de agir:</strong> Intent classification no backend + Action cards no frontend. Distinguir "faz pra mim" vs "me ensina como".' }
+      ]},
+      { type:'meta', items:[
+        { label:'Esforco total', value:'~15-20 dias (BE+UX+FE)' },
+        { label:'Prioridade', value:'P0 — deve iniciar na Wave 1' },
+        { label:'Status', value:'Bloqueado — 0 issues na sprint' },
+        { label:'Wave', value:'Wave 1 a Wave 2 (continuo)' }
+      ]},
+      { type:'deps', tags:[
+        { text:'BE Fallback Chain', cls:'blocked' },
+        { text:'BE Intent Classification', cls:'blocked' },
+        { text:'D1.1 Error State', cls:'blocked' },
+        { text:'D1.3 Confirmacao', cls:'blocked' },
+        { text:'D2.1 Action Cards', cls:'blocked' }
+      ]}
+    ]
+  },
+  'be-fallback': {
+    wave: 'Wave 1 · Backend',
+    title: 'Fallback Chain — Dead-ends',
+    sections: [
+      { type:'context', html:'<div class="panel__context-title">Contexto</div>Quando a Lumi nao consegue resolver o pedido do lojista, a conversa simplesmente para. Nao ha proximo passo, nao ha sugestao, nao ha redirecionamento. O lojista fica abandonado no chat.' },
+      { type:'problem', html:'<strong>591 threads</strong> (15.1%) terminam em dead-end. Lumi diz algo generico e o lojista nao sabe o que fazer a seguir. Nao ha link para admin, nao ha botao para escalar, nao ha sugestao de acao.' },
+      { type:'impact', cards:[
+        { number:'591', cls:'red', label:'threads afetadas' },
+        { number:'15.1%', cls:'orange', label:'do total' },
+        { number:'2-3d', cls:'accent', label:'esforco estimado' },
+        { number:'P0', cls:'red', label:'prioridade' }
+      ]},
+      { type:'scenario', label:'Cenario real', messages:[
+        { who:'Lojista', cls:'merchant', text:'"Quero mudar o layout da minha loja, como faco?"' },
+        { who:'Lumi', cls:'lumi', text:'"Voce pode personalizar o layout no editor de temas do admin."' },
+        { who:'Lojista', cls:'merchant', text:'"Mas onde fica isso? Nao estou achando"' },
+        { who:'Lumi', cls:'lumi', text:'"[silencio / resposta generica sem link]"' }
+      ]},
+      { type:'solutions', items:[
+        { icon:'BE', cls:'be', text:'<strong>Implementar fallback chain:</strong> Quando Lumi detecta que nao pode resolver, retornar JSON estruturado com: link direto para a secao relevante do admin, botao "Falar com suporte", e sugestoes alternativas.' },
+        { icon:'BE', cls:'be', text:'<strong>Configurar prompt:</strong> "NUNCA termine uma conversa sem oferecer um proximo passo concreto. Se nao sabe a resposta, oferecer 3 alternativas: link, suporte, ou reformular a pergunta."' }
+      ]},
+      { type:'meta', items:[
+        { label:'Responsavel', value:'Backend (Cirrus)' },
+        { label:'Esforco', value:'2-3 dias' },
+        { label:'Desbloqueia', value:'D1.1 Error State · FE Error State' },
+        { label:'Status', value:'Sem issue na sprint' }
+      ]}
+    ]
+  },
+  'be-verbosidade': {
+    wave: 'Wave 1 · Backend',
+    title: 'Anti-verbosidade — Respostas longas',
+    sections: [
+      { type:'context', html:'<div class="panel__context-title">Contexto</div>Lumi frequentemente responde com paragrafos longos, repetitivos, e com "padding" textual desnecessario. Lojistas estao no celular, em horario de rush, e precisam de respostas diretas.' },
+      { type:'problem', html:'<strong>506 threads</strong> (13.0%) com respostas excessivamente longas. Lojista pede algo simples e recebe um tutorial completo. Informacao util se perde no meio do texto.' },
+      { type:'impact', cards:[
+        { number:'506', cls:'red', label:'threads afetadas' },
+        { number:'13.0%', cls:'orange', label:'do total' },
+        { number:'1-2d', cls:'accent', label:'esforco estimado' },
+        { number:'P0', cls:'red', label:'prioridade' }
+      ]},
+      { type:'scenario', label:'Cenario real', messages:[
+        { who:'Lojista', cls:'merchant', text:'"Como altero o frete?"' },
+        { who:'Lumi', cls:'lumi', text:'"O frete e uma parte muito importante da sua loja... existem diversas formas... voce pode acessar o menu de configuracoes... [5 paragrafos]"' }
+      ]},
+      { type:'solutions', items:[
+        { icon:'BE', cls:'be', text:'<strong>Prompt tuning:</strong> Regra: maximo 3 paragrafos. Primeiro paragrafo = resposta direta. Demais = detalhes opcionais.' },
+        { icon:'BE', cls:'be', text:'<strong>Eliminar padding:</strong> Remover frases como "Boa pergunta!", "Claro, vou te ajudar!", "Espero ter ajudado!". Ir direto ao ponto.' },
+        { icon:'UX', cls:'ux', text:'<strong>Frontend — "Ver mais":</strong> Truncar apos 3 linhas com botao expandir (D1.2).' }
+      ]},
+      { type:'meta', items:[
+        { label:'Responsavel', value:'Backend (prompt)' },
+        { label:'Esforco', value:'1-2 dias' },
+        { label:'Desbloqueia', value:'D1.2 Truncamento · FE Truncamento' },
+        { label:'Status', value:'Sem issue na sprint' }
+      ]}
+    ]
+  },
+  'be-guardrail': {
+    wave: 'Wave 1 · Backend',
+    title: 'Anti-guardrail — Recusas desnecessarias',
+    sections: [
+      { type:'context', html:'<div class="panel__context-title">Contexto</div>Lumi recusa pedidos legitimos com "nao posso ajudar com isso" quando o lojista pede algo perfeitamente dentro do escopo. A resposta correta seria tentar entender melhor ou redirecionar.' },
+      { type:'problem', html:'<strong>260 threads</strong> (6.7%) com guardrails ativados desnecessariamente. Lojista pede ajuda com marketing, precos, ou configuracao e Lumi bloqueia a conversa.' },
+      { type:'impact', cards:[
+        { number:'260', cls:'red', label:'threads afetadas' },
+        { number:'6.7%', cls:'orange', label:'do total' },
+        { number:'1-2d', cls:'accent', label:'esforco estimado' },
+        { number:'P1', cls:'orange', label:'prioridade' }
+      ]},
+      { type:'scenario', label:'Cenario real', messages:[
+        { who:'Lojista', cls:'merchant', text:'"Me ajuda a definir o preco dos meus produtos?"' },
+        { who:'Lumi', cls:'lumi', text:'"Desculpe, nao posso ajudar com definicao de precos."' }
+      ]},
+      { type:'solutions', items:[
+        { icon:'BE', cls:'be', text:'<strong>Substituir "nao posso" por "me conta mais":</strong> Prompt: trocar recusas por perguntas de esclarecimento. "Voce quer que eu sugira uma faixa de preco baseada no mercado ou quer ajuda para configurar o preco no admin?"' },
+        { icon:'BE', cls:'be', text:'<strong>Whitelist ampla:</strong> Revisar lista de topicos bloqueados. Manter guardrails apenas para: dados financeiros sensiveis, acoes irreversiveis sem confirmacao.' }
+      ]},
+      { type:'meta', items:[
+        { label:'Responsavel', value:'Backend (prompt)' },
+        { label:'Esforco', value:'1-2 dias' },
+        { label:'Conecta com', value:'Human in the Loop — Nivel 2' },
+        { label:'Status', value:'Sem issue na sprint' }
+      ]}
+    ]
+  },
+  'be-navigator': {
+    wave: 'Wave 1 · Backend',
+    title: 'Navigator Audit — URLs erradas',
+    sections: [
+      { type:'context', html:'<div class="panel__context-title">Contexto</div>O SubAgent Navigator envia lojistas para URLs que nao existem mais, paginas erradas, ou secoes desatualizadas do admin. Lojista confia no link, clica, e cai em 404 ou pagina irrelevante.' },
+      { type:'problem', html:'<strong>107 threads</strong> (2.7%) com URLs incorretas ou desatualizadas. Lojista perde confianca na Lumi quando links nao funcionam.' },
+      { type:'impact', cards:[
+        { number:'107', cls:'red', label:'threads afetadas' },
+        { number:'2.7%', cls:'orange', label:'do total' },
+        { number:'1-2d', cls:'accent', label:'esforco estimado' },
+        { number:'P1', cls:'orange', label:'prioridade' }
+      ]},
+      { type:'solutions', items:[
+        { icon:'BE', cls:'be', text:'<strong>Audit completo:</strong> Mapear todas as URLs do Navigator contra rotas atuais do admin. Remover/atualizar links quebrados.' },
+        { icon:'BE', cls:'be', text:'<strong>Validacao dinamica:</strong> Antes de enviar link, verificar se a rota existe no frontend. Se nao existir, usar fallback generico.' }
+      ]},
+      { type:'meta', items:[
+        { label:'Responsavel', value:'Backend (Navigator)' },
+        { label:'Esforco', value:'1-2 dias' },
+        { label:'Impacto', value:'Confianca do lojista nos links' },
+        { label:'Status', value:'Sem issue na sprint' }
+      ]}
+    ]
+  },
+  'be-intent': {
+    wave: 'Wave 2 · Backend',
+    title: 'Intent Classification — "Faz pra mim" vs "Me explica"',
+    sections: [
+      { type:'context', html:'<div class="panel__context-title">Contexto</div>Lumi nao distingue entre um lojista que quer que ela execute uma acao ("cria um cupom de 20%") e um que quer aprender a fazer ("como crio um cupom?"). Isso causa respostas completamente desalinhadas com a expectativa.' },
+      { type:'problem', html:'<strong>736 threads</strong> (18.9%) com respostas desalinhadas com a intencao. Maior problema individual da Lumi. Lojista pede acao e recebe tutorial, ou pede explicacao e Lumi tenta executar.' },
+      { type:'impact', cards:[
+        { number:'736', cls:'red', label:'threads afetadas' },
+        { number:'18.9%', cls:'orange', label:'do total' },
+        { number:'2-3d', cls:'accent', label:'esforco estimado' },
+        { number:'P0', cls:'red', label:'prioridade' }
+      ]},
+      { type:'scenario', label:'Cenario real', messages:[
+        { who:'Lojista', cls:'merchant', text:'"Necesito hacer un descuento del 20% en camperas"' },
+        { who:'Lumi', cls:'lumi', text:'"Para crear un descuento, ve a Promociones en el menu lateral, luego haz clic en..." [tutorial de 5 passos]' },
+        { who:'Ideal', cls:'lumi-ok', text:'"Voy a crear un cupón de 20% para camperas. [Crear cupón] [Solo explícame cómo]"' }
+      ]},
+      { type:'solutions', items:[
+        { icon:'BE', cls:'be', text:'<strong>Classificacao de intent:</strong> Adicionar layer pre-processamento que classifica a mensagem em: ACTION (executar), EXPLAIN (ensinar), NAVIGATE (redirecionar), INFO (consultar dados).' },
+        { icon:'BE', cls:'be', text:'<strong>Response routing:</strong> Baseado na intent, rotear para resposta adequada. ACTION → executa + confirma. EXPLAIN → tutorial passo a passo.' }
+      ]},
+      { type:'meta', items:[
+        { label:'Responsavel', value:'Backend (Orquestrador)' },
+        { label:'Esforco', value:'2-3 dias' },
+        { label:'Desbloqueia', value:'D2.1 Action Cards · FE Action Cards' },
+        { label:'Status', value:'Sem issue na sprint' }
+      ]},
+      { type:'deps', tags:[
+        { text:'BE Structured Data (saida JSON)', cls:'blocked' },
+        { text:'D2.1 Action Cards (UI)', cls:'blocked' }
+      ]}
+    ]
+  },
+  'be-awareness': {
+    wave: 'Wave 2 · Backend',
+    title: 'Store Awareness — Contexto do plano/features',
+    sections: [
+      { type:'context', html:'<div class="panel__context-title">Contexto</div>Lumi nao sabe qual plano o lojista tem, quais features estao disponiveis, nem o estado atual da loja. Sugere funcionalidades que o lojista nao pode usar.' },
+      { type:'problem', html:'<strong>108 threads</strong> (2.8%) onde Lumi sugere features indisponiveis no plano do lojista, causando frustracao e perda de confianca.' },
+      { type:'impact', cards:[
+        { number:'108', cls:'red', label:'threads afetadas' },
+        { number:'2.8%', cls:'orange', label:'do total' },
+        { number:'3-5d', cls:'accent', label:'esforco estimado' },
+        { number:'P2', cls:'orange', label:'prioridade' }
+      ]},
+      { type:'solutions', items:[
+        { icon:'BE', cls:'be', text:'<strong>Injetar contexto da loja no prompt:</strong> Plano atual, features ativas, limites de uso, integrações configuradas. Antes de cada resposta, filtrar sugestoes pelo que o lojista realmente pode usar.' },
+        { icon:'BE', cls:'be', text:'<strong>Upsell inteligente:</strong> Se a feature solicitada requer upgrade, dizer claramente: "Essa funcionalidade esta disponivel no plano X. [Ver planos]"' }
+      ]},
+      { type:'meta', items:[
+        { label:'Responsavel', value:'Backend (Orquestrador)' },
+        { label:'Esforco', value:'3-5 dias' },
+        { label:'Conecta com', value:'Catalogo sem navegar (AIL-91)' },
+        { label:'Status', value:'Sem issue na sprint' }
+      ]}
+    ]
+  },
+  'be-structured': {
+    wave: 'Wave 2 · Backend',
+    title: 'Structured Data — Saidas JSON para o frontend',
+    sections: [
+      { type:'context', html:'<div class="panel__context-title">Contexto</div>Hoje a Lumi retorna apenas texto livre (markdown). Para o frontend renderizar componentes ricos (cards, checklists, botoes, dados), o backend precisa enviar dados estruturados (JSON) junto com ou no lugar de texto.' },
+      { type:'problem', html:'Sem structured data, o frontend nao consegue renderizar Action Cards, Checklists interativos, Data Cards com KPIs, nem formularios inline. Todo o Wave 2 de frontend depende disso.' },
+      { type:'impact', cards:[
+        { number:'Wave 2', cls:'red', label:'inteiro bloqueado' },
+        { number:'6', cls:'orange', label:'componentes FE bloqueados' },
+        { number:'3-5d', cls:'accent', label:'esforco estimado' },
+        { number:'P0', cls:'red', label:'habilitador critico' }
+      ]},
+      { type:'solutions', items:[
+        { icon:'BE', cls:'be', text:'<strong>Definir schema JSON:</strong> { type: "action_card"|"checklist"|"data_card"|"form", data: {...} }. Frontend parseia e renderiza componente correspondente.' },
+        { icon:'BE', cls:'be', text:'<strong>Migrar progressivamente:</strong> Comecar com action_card (mais simples), depois checklist, depois data_card. Form e o mais complexo — fazer por ultimo.' }
+      ]},
+      { type:'meta', items:[
+        { label:'Responsavel', value:'Backend (Orquestrador)' },
+        { label:'Esforco', value:'3-5 dias' },
+        { label:'Desbloqueia', value:'FE Action, Checklist, Data, Form, Confirmacao' },
+        { label:'Status', value:'A fazer (nao na sprint)' }
+      ]},
+      { type:'deps', tags:[
+        { text:'BE Intent Classification (entrada)', cls:'blocked' },
+        { text:'FE Action Cards (consumidor)', cls:'blocked' },
+        { text:'FE Checklist (consumidor)', cls:'blocked' },
+        { text:'FE Data Cards (consumidor)', cls:'blocked' }
+      ]}
+    ]
+  },
+  'be-promocoes': {
+    wave: 'Wave 3 · Backend',
+    title: 'SubAgent Promocoes — CRUD via Lumi',
+    sections: [
+      { type:'context', html:'<div class="panel__context-title">Contexto</div>Lojistas pedem frequentemente para criar, editar ou consultar promocoes diretamente no chat. Hoje a Lumi so explica como fazer manualmente no admin.' },
+      { type:'problem', html:'<strong>63 threads</strong> (1.6%) pedem acoes de promocao que a Lumi nao consegue executar. Ja existe na sprint como AIL-60.' },
+      { type:'impact', cards:[
+        { number:'63', cls:'red', label:'threads afetadas' },
+        { number:'1.6%', cls:'orange', label:'do total' },
+        { number:'AIL-60', cls:'green', label:'ja na sprint' },
+        { number:'Wave 3', cls:'accent', label:'timeline' }
+      ]},
+      { type:'solutions', items:[
+        { icon:'BE', cls:'be', text:'<strong>SubAgent CRUD:</strong> Implementar create, read, update, delete de promocoes via API. Lumi recebe intent "criar descuento 20% em camperas" e executa direto.' },
+        { icon:'UX', cls:'ux', text:'<strong>D3.1 Promocoes:</strong> Fluxo visual de confirmacao + preview do desconto antes de criar.' }
+      ]},
+      { type:'meta', items:[
+        { label:'Responsavel', value:'Backend + Design' },
+        { label:'Issue', value:'AIL-60 (na sprint)' },
+        { label:'Esforco', value:'Ja estimado pela sprint' },
+        { label:'Conecta com', value:'D3.1 Promocoes' }
+      ]}
+    ]
+  },
+  'be-storefront': {
+    wave: 'Wave 3 · Backend',
+    title: 'Storefront — Integracao com editor de temas',
+    sections: [
+      { type:'context', html:'<div class="panel__context-title">Contexto</div>Lojistas pedem ajuda com aparencia da loja, mas Lumi nao tem acesso ao editor de temas. Todas as respostas sao "va ao editor de temas e faca manualmente".' },
+      { type:'problem', html:'<strong>61 threads</strong> (1.6%) pedem personalizacao visual que Lumi nao consegue executar nem demonstrar.' },
+      { type:'impact', cards:[
+        { number:'61', cls:'red', label:'threads afetadas' },
+        { number:'1.6%', cls:'orange', label:'do total' },
+        { number:'Wave 3', cls:'accent', label:'timeline' },
+        { number:'Longo', cls:'orange', label:'esforco de integracao' }
+      ]},
+      { type:'solutions', items:[
+        { icon:'BE', cls:'be', text:'<strong>Integracao com API de temas:</strong> Permitir que Lumi leia e sugira mudancas no tema. Preview visual antes de aplicar.' },
+        { icon:'UX', cls:'ux', text:'<strong>D3.2 Preview + editor:</strong> Componente de preview do tema no chat antes de confirmar mudancas.' }
+      ]},
+      { type:'meta', items:[
+        { label:'Responsavel', value:'Backend + Design + Frontend' },
+        { label:'Esforco', value:'Variavel — depende da API de temas' },
+        { label:'Timeline', value:'Jun+ (Wave 3)' },
+        { label:'Conecta com', value:'D3.2 Storefront' }
+      ]}
+    ]
+  },
+  'd01-audit': {
+    wave: 'Wave 0 · Design',
+    title: 'D0.1 Audit — Padroes de falha',
+    sections: [
+      { type:'context', html:'<div class="panel__context-title">Contexto</div>Antes de desenhar solucoes, precisamos mapear todos os padroes de falha da Lumi: quais tipos de erro existem, como eles se manifestam visualmente, e quais componentes o chat precisa ter.' },
+      { type:'problem', html:'Nao existe documentacao dos padroes de falha nem inventario de componentes necessarios. Design precisa dessa base para criar solucoes consistentes.' },
+      { type:'impact', cards:[
+        { number:'Fundacao', cls:'accent', label:'tipo' },
+        { number:'2d', cls:'green', label:'esforco' },
+        { number:'Em andamento', cls:'orange', label:'status' },
+        { number:'Wave 0', cls:'accent', label:'timeline' }
+      ]},
+      { type:'solutions', items:[
+        { icon:'UX', cls:'ux', text:'<strong>Catalogar todos os tipos de falha:</strong> Dead-end, guardrail, desalinhamento, verbosidade, URL errada, feature indisponivel.' },
+        { icon:'UX', cls:'ux', text:'<strong>Mapear para componentes:</strong> Cada tipo de falha → qual componente UI resolve (error state, truncamento, action card, etc.)' }
+      ]},
+      { type:'meta', items:[
+        { label:'Responsavel', value:'Karem (Design)' },
+        { label:'Esforco', value:'2 dias' },
+        { label:'Desbloqueia', value:'D0.2 + todos os componentes Wave 1' },
+        { label:'Status', value:'Em andamento' }
+      ]}
+    ]
+  },
+  'd02-inventario': {
+    wave: 'Wave 0 · Design',
+    title: 'D0.2 Inventario de componentes',
+    sections: [
+      { type:'context', html:'<div class="panel__context-title">Contexto</div>Apos o audit, precisamos de um inventario completo dos componentes que o chat Lumi precisa ter para cobrir todos os cenarios mapeados.' },
+      { type:'impact', cards:[
+        { number:'Fundacao', cls:'accent', label:'tipo' },
+        { number:'1d', cls:'green', label:'esforco' },
+        { number:'A fazer', cls:'orange', label:'status' },
+        { number:'Wave 0', cls:'accent', label:'timeline' }
+      ]},
+      { type:'solutions', items:[
+        { icon:'UX', cls:'ux', text:'<strong>Lista completa de componentes:</strong> Error state card, truncamento "ver mais", action card, checklist interativo, data card, formulario inline, confirmation card, progress indicator.' }
+      ]},
+      { type:'meta', items:[
+        { label:'Responsavel', value:'Karem (Design)' },
+        { label:'Esforco', value:'1 dia' },
+        { label:'Depende de', value:'D0.1 Audit' },
+        { label:'Desbloqueia', value:'Wave 1 completo' }
+      ]}
+    ]
+  },
+  'd11-error': {
+    wave: 'Wave 1 · Design',
+    title: 'D1.1 Error State Card',
+    sections: [
+      { type:'context', html:'<div class="panel__context-title">Contexto</div>Quando Lumi nao consegue responder, o lojista precisa ver opcoes claras do que fazer a seguir. O error state card e o componente visual que transforma dead-ends em caminhos.' },
+      { type:'problem', html:'<strong>~591 threads</strong> terminam sem proximo passo. O error state card e a principal peca visual para resolver dead-ends e habilitar "Human in the Loop" nivel 1.' },
+      { type:'impact', cards:[
+        { number:'591', cls:'red', label:'threads afetadas' },
+        { number:'15.1%', cls:'orange', label:'do total' },
+        { number:'1-2d', cls:'accent', label:'esforco design' },
+        { number:'HITL Nivel 1', cls:'green', label:'conexao' }
+      ]},
+      { type:'scenario', label:'Cenario real', messages:[
+        { who:'Lojista', cls:'merchant', text:'"Como configuro frete internacional?"' },
+        { who:'Lumi', cls:'lumi', text:'"[nao sabe responder — trava]"' },
+        { who:'Ideal', cls:'lumi-ok', text:'"Nao consigo configurar isso diretamente, mas posso ajudar: [Ir para Config de Frete] [Falar com Suporte] [Me explica mais o que precisa]"' }
+      ]},
+      { type:'solutions', items:[
+        { icon:'UX', cls:'ux', text:'<strong>Design do card:</strong> 3 slots — acao primaria (link admin), acao secundaria (suporte), acao terciaria (reformular pergunta). Visual claro de "fallback".' },
+        { icon:'UX', cls:'ux', text:'<strong>Variantes:</strong> Error leve (apenas sugestoes), Error medio (suporte + link), Error critico (escalar imediatamente).' }
+      ]},
+      { type:'meta', items:[
+        { label:'Responsavel', value:'Karem (Design)' },
+        { label:'Esforco', value:'1-2 dias' },
+        { label:'Depende de', value:'BE Fallback Chain (dados)' },
+        { label:'Desbloqueia', value:'FE Error State' }
+      ]}
+    ]
+  },
+  'd12-truncamento': {
+    wave: 'Wave 1 · Design',
+    title: 'D1.2 Truncamento — "Ver mais"',
+    sections: [
+      { type:'context', html:'<div class="panel__context-title">Contexto</div>Respostas longas da Lumi sobrecarregam o chat, especialmente no celular. Truncar apos 3 linhas com botao "Ver mais" melhora drasticamente a experiencia.' },
+      { type:'impact', cards:[
+        { number:'506', cls:'red', label:'threads afetadas' },
+        { number:'13.0%', cls:'orange', label:'do total' },
+        { number:'1d', cls:'green', label:'esforco design' },
+        { number:'Front puro', cls:'green', label:'sem dep backend' }
+      ]},
+      { type:'solutions', items:[
+        { icon:'UX', cls:'ux', text:'<strong>Spec do componente:</strong> Truncar apos ~3 linhas (ou 120 chars). Botao "Ver mais" expande inline. Animacao suave. Sem perder contexto.' }
+      ]},
+      { type:'meta', items:[
+        { label:'Responsavel', value:'Karem (Design)' },
+        { label:'Esforco', value:'1 dia' },
+        { label:'Depende de', value:'Nenhuma dependencia backend' },
+        { label:'Desbloqueia', value:'FE Truncamento (front puro)' }
+      ]}
+    ]
+  },
+  'd13-confirmacao': {
+    wave: 'Wave 1 · Design',
+    title: 'D1.3 Confirmation Card',
+    sections: [
+      { type:'context', html:'<div class="panel__context-title">Contexto</div>Antes de executar uma acao, Lumi deve confirmar com o lojista. "Voce quer que eu crie isso?" com botoes [Sim] [Nao]. Este e o "Human in the Loop" nivel 2.' },
+      { type:'impact', cards:[
+        { number:'Transversal', cls:'accent', label:'escopo' },
+        { number:'HITL Nivel 2', cls:'green', label:'estrategia' },
+        { number:'1d', cls:'green', label:'esforco design' },
+        { number:'Wave 1', cls:'accent', label:'timeline' }
+      ]},
+      { type:'solutions', items:[
+        { icon:'UX', cls:'ux', text:'<strong>Card de confirmacao:</strong> Resumo da acao + [Confirmar] [Cancelar] [Editar]. Preview do que sera criado/alterado quando possivel.' }
+      ]},
+      { type:'meta', items:[
+        { label:'Responsavel', value:'Karem (Design)' },
+        { label:'Esforco', value:'1 dia' },
+        { label:'Depende de', value:'BE Structured Data' },
+        { label:'Desbloqueia', value:'FE Confirmacao' }
+      ]}
+    ]
+  },
+  'd21-action': {
+    wave: 'Wave 2 · Design',
+    title: 'D2.1 Action Cards — Botoes contextuais',
+    sections: [
+      { type:'context', html:'<div class="panel__context-title">Contexto</div>Quando o lojista pede uma acao, Lumi deve apresentar botoes clicaveis ao inves de instrucoes textuais. E a peca central do "Human in the Loop" nivel 3.' },
+      { type:'problem', html:'<strong>736 threads</strong> (18.9%) com respostas desalinhadas. Action cards resolvem isso ao dar opcoes claras: "Criar cupom" vs "Me ensina como".' },
+      { type:'impact', cards:[
+        { number:'736', cls:'red', label:'threads afetadas' },
+        { number:'18.9%', cls:'orange', label:'do total' },
+        { number:'3-5d', cls:'accent', label:'esforco design' },
+        { number:'HITL Nivel 3', cls:'green', label:'estrategia' }
+      ]},
+      { type:'solutions', items:[
+        { icon:'UX', cls:'ux', text:'<strong>Tipos de action card:</strong> Acao direta (executar), Navegacao (ir para admin), Informacao (ver dados), Suporte (escalar).' },
+        { icon:'UX', cls:'ux', text:'<strong>Layout:</strong> Cards com icone, titulo, descricao curta. Maximo 3-4 opcoes por mensagem para nao sobrecarregar.' }
+      ]},
+      { type:'meta', items:[
+        { label:'Responsavel', value:'Karem (Design)' },
+        { label:'Esforco', value:'3-5 dias' },
+        { label:'Depende de', value:'BE Intent Classification + BE Structured Data' },
+        { label:'Desbloqueia', value:'FE Action Cards' }
+      ]}
+    ]
+  },
+  'd22-checklist': {
+    wave: 'Wave 2 · Design',
+    title: 'D2.2 Checklist Interativo',
+    sections: [
+      { type:'context', html:'<div class="panel__context-title">Contexto</div>Quando Lumi explica um processo multi-step, o lojista precisa de uma checklist interativa que acompanha o progresso, nao um bloco de texto.' },
+      { type:'impact', cards:[
+        { number:'500+', cls:'red', label:'threads beneficiadas' },
+        { number:'2-3d', cls:'accent', label:'esforco design' },
+        { number:'Wave 2', cls:'accent', label:'timeline' },
+        { number:'Qualidade', cls:'green', label:'tipo de melhoria' }
+      ]},
+      { type:'solutions', items:[
+        { icon:'UX', cls:'ux', text:'<strong>Checklist inline:</strong> Steps numerados, checkboxes, progresso visual. Clicar em step pode expandir detalhes.' }
+      ]},
+      { type:'meta', items:[
+        { label:'Responsavel', value:'Karem (Design)' },
+        { label:'Esforco', value:'2-3 dias' },
+        { label:'Depende de', value:'BE Structured Data (steps como JSON)' },
+        { label:'Desbloqueia', value:'FE Checklist' }
+      ]}
+    ]
+  },
+  'd23-datacards': {
+    wave: 'Wave 2 · Design',
+    title: 'D2.3 Data Cards — Stats inline',
+    sections: [
+      { type:'context', html:'<div class="panel__context-title">Contexto</div>Quando lojista pede dados ("quantas vendas tive hoje?"), a resposta deve ser visual: KPIs, mini-tabelas, graficos simples — nao texto corrido.' },
+      { type:'impact', cards:[
+        { number:'Qualidade', cls:'accent', label:'tipo de melhoria' },
+        { number:'2-3d', cls:'accent', label:'esforco design' },
+        { number:'Wave 2', cls:'accent', label:'timeline' },
+        { number:'Confianca', cls:'green', label:'impacto' }
+      ]},
+      { type:'solutions', items:[
+        { icon:'UX', cls:'ux', text:'<strong>KPI cards:</strong> Numero grande + label + variacao. Mini-tabelas com max 5 linhas. Graficos sparkline opcionais.' }
+      ]},
+      { type:'meta', items:[
+        { label:'Responsavel', value:'Karem (Design)' },
+        { label:'Esforco', value:'2-3 dias' },
+        { label:'Depende de', value:'BE Structured Data (stats como JSON)' },
+        { label:'Desbloqueia', value:'FE Data Cards' }
+      ]}
+    ]
+  },
+  'd24-formulario': {
+    wave: 'Wave 2 · Design',
+    title: 'D2.4 Formulario Inline — Criar produto no chat',
+    sections: [
+      { type:'context', html:'<div class="panel__context-title">Contexto</div>Lojistas pedem para criar/editar produtos diretamente no chat. Precisamos de um formulario inline que permita preencher campos sem sair da conversa.' },
+      { type:'problem', html:'<strong>~140 threads</strong> pedem criacao de produto via chat. Hoje Lumi so pode explicar como fazer no admin.' },
+      { type:'impact', cards:[
+        { number:'140', cls:'red', label:'threads afetadas' },
+        { number:'3.6%', cls:'orange', label:'do total' },
+        { number:'3-5d', cls:'accent', label:'esforco design' },
+        { number:'Bloqueado', cls:'red', label:'dep: AIL-155' }
+      ]},
+      { type:'solutions', items:[
+        { icon:'UX', cls:'ux', text:'<strong>Form inline:</strong> Campos essenciais (nome, preco, imagem, descricao). Preview em tempo real. Validacao inline. Botao confirmar/cancelar.' }
+      ]},
+      { type:'meta', items:[
+        { label:'Responsavel', value:'Karem (Design)' },
+        { label:'Esforco', value:'3-5 dias' },
+        { label:'Depende de', value:'AIL-155 (catalogo) + BE Structured Data' },
+        { label:'Desbloqueia', value:'FE Formulario Inline' }
+      ]}
+    ]
+  },
+  'd31-promocoes': {
+    wave: 'Wave 3 · Design',
+    title: 'D3.1 Promocoes — Fluxo completo',
+    sections: [
+      { type:'impact', cards:[
+        { number:'63', cls:'red', label:'threads afetadas' },
+        { number:'1.6%', cls:'orange', label:'do total' },
+        { number:'Wave 3', cls:'accent', label:'timeline' },
+        { number:'AIL-60', cls:'green', label:'na sprint' }
+      ]},
+      { type:'solutions', items:[
+        { icon:'UX', cls:'ux', text:'<strong>Fluxo de criacao:</strong> Tipo de promocao → configuracao → preview → confirmar. Tudo dentro do chat.' }
+      ]},
+      { type:'meta', items:[
+        { label:'Responsavel', value:'Karem (Design)' },
+        { label:'Depende de', value:'BE SubAgent Promocoes (AIL-60)' },
+        { label:'Timeline', value:'Jun+ (Wave 3)' },
+        { label:'Conecta com', value:'Human in the Loop' }
+      ]}
+    ]
+  },
+  'd32-storefront': {
+    wave: 'Wave 3 · Design',
+    title: 'D3.2 Storefront — Preview + editor',
+    sections: [
+      { type:'impact', cards:[
+        { number:'61', cls:'red', label:'threads afetadas' },
+        { number:'1.6%', cls:'orange', label:'do total' },
+        { number:'Wave 3', cls:'accent', label:'timeline' },
+        { number:'Longo', cls:'orange', label:'dep: API temas' }
+      ]},
+      { type:'solutions', items:[
+        { icon:'UX', cls:'ux', text:'<strong>Preview de tema:</strong> Thumbnail da loja + opcoes de personalizacao inline. Antes/depois visual.' }
+      ]},
+      { type:'meta', items:[
+        { label:'Responsavel', value:'Karem (Design)' },
+        { label:'Depende de', value:'BE Storefront (API de temas)' },
+        { label:'Timeline', value:'Jul+ (Wave 3)' },
+        { label:'Esforco', value:'Variavel' }
+      ]}
+    ]
+  },
+  'fe-truncamento': {
+    wave: 'Wave 1 · Frontend',
+    title: 'FE Truncamento — "Ver mais" expandivel',
+    sections: [
+      { type:'context', html:'<div class="panel__context-title">Contexto</div>Componente frontend puro que trunca respostas longas da Lumi apos ~3 linhas, com botao "Ver mais" que expande inline. Nao depende de backend.' },
+      { type:'impact', cards:[
+        { number:'506', cls:'red', label:'threads beneficiadas' },
+        { number:'1d', cls:'green', label:'esforco' },
+        { number:'Front puro', cls:'green', label:'sem dep BE' },
+        { number:'Quick win', cls:'accent', label:'tipo' }
+      ]},
+      { type:'solutions', items:[
+        { icon:'FE', cls:'fe', text:'<strong>Componente React:</strong> Wrapper que mede altura do conteudo. Se > threshold, trunca com gradient + "Ver mais". Expand com animacao. Collapse com "Ver menos".' }
+      ]},
+      { type:'meta', items:[
+        { label:'Responsavel', value:'Frontend (Stratus)' },
+        { label:'Esforco', value:'1 dia' },
+        { label:'Depende de', value:'D1.2 spec de design' },
+        { label:'Sem dep backend', value:'Pode comecar imediatamente' }
+      ]}
+    ]
+  },
+  'fe-error': {
+    wave: 'Wave 1 · Frontend',
+    title: 'FE Error State — Componente com slots',
+    sections: [
+      { type:'impact', cards:[
+        { number:'591', cls:'red', label:'threads afetadas' },
+        { number:'1-2d', cls:'accent', label:'esforco' },
+        { number:'Bloqueado', cls:'red', label:'dep: BE fallback' },
+        { number:'HITL', cls:'green', label:'nivel 1' }
+      ]},
+      { type:'solutions', items:[
+        { icon:'FE', cls:'fe', text:'<strong>Componente React:</strong> Recebe JSON do backend com tipo de erro e opcoes. Renderiza card com slots para: acao primaria, secundaria, terciaria. Props: errorType, actions[], message.' }
+      ]},
+      { type:'meta', items:[
+        { label:'Responsavel', value:'Frontend (Stratus)' },
+        { label:'Esforco', value:'1-2 dias' },
+        { label:'Depende de', value:'BE Fallback Chain + D1.1 spec' },
+        { label:'Conecta com', value:'Human in the Loop nivel 1' }
+      ]}
+    ]
+  },
+  'fe-confirmacao': {
+    wave: 'Wave 1 · Frontend',
+    title: 'FE Confirmacao — Card de acao',
+    sections: [
+      { type:'impact', cards:[
+        { number:'Transversal', cls:'accent', label:'escopo' },
+        { number:'HITL Nivel 2', cls:'green', label:'estrategia' },
+        { number:'Bloqueado', cls:'red', label:'dep: BE structured' },
+        { number:'1-2d', cls:'accent', label:'esforco' }
+      ]},
+      { type:'solutions', items:[
+        { icon:'FE', cls:'fe', text:'<strong>Componente React:</strong> Recebe JSON com resumo da acao + botoes confirmar/cancelar/editar. Envia resposta para backend. Animacao de loading durante execucao.' }
+      ]},
+      { type:'meta', items:[
+        { label:'Responsavel', value:'Frontend (Stratus)' },
+        { label:'Depende de', value:'BE Structured Data + D1.3 spec' },
+        { label:'Esforco', value:'1-2 dias' },
+        { label:'Conecta com', value:'Human in the Loop nivel 2' }
+      ]}
+    ]
+  },
+  'fe-action': {
+    wave: 'Wave 2 · Frontend',
+    title: 'FE Action Cards — Botoes/links contextuais',
+    sections: [
+      { type:'impact', cards:[
+        { number:'736', cls:'red', label:'threads afetadas' },
+        { number:'3-5d', cls:'accent', label:'esforco' },
+        { number:'Bloqueado', cls:'red', label:'dep: BE intent + D2.1' },
+        { number:'HITL Nivel 3', cls:'green', label:'estrategia' }
+      ]},
+      { type:'solutions', items:[
+        { icon:'FE', cls:'fe', text:'<strong>Componente React:</strong> Recebe array de actions do backend. Renderiza como cards horizontais ou verticais dependendo da quantidade. Tipos: execute, navigate, info, support.' }
+      ]},
+      { type:'meta', items:[
+        { label:'Responsavel', value:'Frontend (Stratus)' },
+        { label:'Depende de', value:'BE Intent + BE Structured Data + D2.1' },
+        { label:'Esforco', value:'3-5 dias' },
+        { label:'Conecta com', value:'Human in the Loop nivel 3' }
+      ]}
+    ]
+  },
+  'fe-checklist': {
+    wave: 'Wave 2 · Frontend',
+    title: 'FE Checklist — Steps interativos',
+    sections: [
+      { type:'impact', cards:[
+        { number:'500+', cls:'red', label:'threads beneficiadas' },
+        { number:'2-3d', cls:'accent', label:'esforco' },
+        { number:'Bloqueado', cls:'red', label:'dep: BE steps' },
+        { number:'Qualidade', cls:'green', label:'tipo' }
+      ]},
+      { type:'solutions', items:[
+        { icon:'FE', cls:'fe', text:'<strong>Componente React:</strong> Lista de steps com checkbox, progresso visual, expand/collapse por step. Persiste estado local.' }
+      ]},
+      { type:'meta', items:[
+        { label:'Responsavel', value:'Frontend (Stratus)' },
+        { label:'Depende de', value:'BE Structured Data + D2.2 spec' },
+        { label:'Esforco', value:'2-3 dias' },
+        { label:'Timeline', value:'Wave 2 (Abr-Jun)' }
+      ]}
+    ]
+  },
+  'fe-datacards': {
+    wave: 'Wave 2 · Frontend',
+    title: 'FE Data Cards — KPIs + mini-tabelas',
+    sections: [
+      { type:'impact', cards:[
+        { number:'Qualidade', cls:'accent', label:'tipo' },
+        { number:'2-3d', cls:'accent', label:'esforco' },
+        { number:'Bloqueado', cls:'red', label:'dep: BE stats' },
+        { number:'Wave 2', cls:'accent', label:'timeline' }
+      ]},
+      { type:'solutions', items:[
+        { icon:'FE', cls:'fe', text:'<strong>Componente React:</strong> Renderiza KPI cards (numero grande + label + variacao), mini-tabelas (max 5 linhas), sparklines opcionais. Recebe JSON do backend.' }
+      ]},
+      { type:'meta', items:[
+        { label:'Responsavel', value:'Frontend (Stratus)' },
+        { label:'Depende de', value:'BE Structured Data + D2.3 spec' },
+        { label:'Esforco', value:'2-3 dias' },
+        { label:'Timeline', value:'Wave 2 (Abr-Jun)' }
+      ]}
+    ]
+  },
+  'fe-formulario': {
+    wave: 'Wave 2 · Frontend',
+    title: 'FE Formulario Inline — Campos no chat',
+    sections: [
+      { type:'impact', cards:[
+        { number:'140', cls:'red', label:'threads afetadas' },
+        { number:'5-8d', cls:'accent', label:'esforco' },
+        { number:'Bloqueado', cls:'red', label:'dep: AIL-155 + D2.4' },
+        { number:'Mais complexo', cls:'orange', label:'componente FE' }
+      ]},
+      { type:'solutions', items:[
+        { icon:'FE', cls:'fe', text:'<strong>Componente React:</strong> Form inline com campos dinamicos (baseado em JSON do backend). Preview em tempo real. Validacao. Submit via API. O componente mais complexo do sistema.' }
+      ]},
+      { type:'meta', items:[
+        { label:'Responsavel', value:'Frontend (Stratus)' },
+        { label:'Depende de', value:'AIL-155 + BE Structured Data + D2.4' },
+        { label:'Esforco', value:'5-8 dias (mais complexo)' },
+        { label:'Timeline', value:'Wave 2 final (Mai-Jun)' }
+      ]}
+    ]
+  },
+  'fe-progress': {
+    wave: 'Wave 2 · Frontend',
+    title: 'FE Progress — Indicador de bulk operations',
+    sections: [
+      { type:'impact', cards:[
+        { number:'22', cls:'red', label:'threads afetadas' },
+        { number:'2-3d', cls:'accent', label:'esforco' },
+        { number:'A fazer', cls:'orange', label:'status' },
+        { number:'Wave 2', cls:'accent', label:'timeline' }
+      ]},
+      { type:'solutions', items:[
+        { icon:'FE', cls:'fe', text:'<strong>Progress bar:</strong> Quando Lumi executa operacoes em lote (atualizar precos, editar varios produtos), mostrar progresso visual com porcentagem, items processados, e tempo estimado.' }
+      ]},
+      { type:'meta', items:[
+        { label:'Responsavel', value:'Frontend (Stratus)' },
+        { label:'Esforco', value:'2-3 dias' },
+        { label:'Timeline', value:'Wave 2 (Abr-Jun)' },
+        { label:'Depende de', value:'BE Structured Data (progress events)' }
+      ]}
+    ]
+  },
+  'sprint-catalogo': {
+    wave: 'Na Sprint · Cycle 2',
+    title: 'Catalogo sem navegar — AIL-91 + AIL-155',
+    sections: [
+      { type:'context', html:'<div class="panel__context-title">Contexto</div>Maior iniciativa da sprint atual. Permite que o lojista gerencie catalogo de produtos diretamente pelo chat da Lumi, sem precisar navegar pelo admin.' },
+      { type:'impact', cards:[
+        { number:'~77', cls:'red', label:'threads afetadas' },
+        { number:'2.0%', cls:'orange', label:'do total' },
+        { number:'~20', cls:'accent', label:'issues na sprint' },
+        { number:'Em progresso', cls:'green', label:'status' }
+      ]},
+      { type:'solutions', items:[
+        { icon:'BE', cls:'be', text:'AIL-91 + sub-issues: SubAgent de catalogo com CRUD de produtos.' },
+        { icon:'BE', cls:'be', text:'AIL-155: Integracao com API de catalogo. Desbloqueia D2.4 Formulario Inline futuramente.' }
+      ]},
+      { type:'meta', items:[
+        { label:'Issues', value:'AIL-91, AIL-155, + sub-issues' },
+        { label:'Status', value:'Em progresso' },
+        { label:'Impacto medido', value:'77 threads (2.0%)' },
+        { label:'Desbloqueia', value:'FE Formulario Inline (Wave 2)' }
+      ]}
+    ]
+  },
+  'sprint-workbook': {
+    wave: 'Na Sprint · Cycle 2',
+    title: 'Workbook / Export — 10 issues',
+    sections: [
+      { type:'impact', cards:[
+        { number:'~8', cls:'red', label:'threads afetadas' },
+        { number:'0.2%', cls:'orange', label:'do total' },
+        { number:'10', cls:'accent', label:'issues na sprint' },
+        { number:'Em progresso', cls:'green', label:'status' }
+      ]},
+      { type:'solutions', items:[
+        { icon:'BE', cls:'be', text:'AIL-1, AIL-7, AIL-100, etc. Funcionalidades de export e workbook para dados da loja.' }
+      ]},
+      { type:'meta', items:[
+        { label:'Issues', value:'AIL-1, AIL-7, AIL-100, etc.' },
+        { label:'Status', value:'Em progresso' },
+        { label:'Impacto medido', value:'8 threads (0.2%)' },
+        { label:'Observacao', value:'Baixo impacto nos dados de conversas' }
+      ]}
+    ]
+  },
+  'sprint-streaming': {
+    wave: 'Na Sprint · Cycle 2',
+    title: 'Fake Streaming — AIL-49',
+    sections: [
+      { type:'context', html:'<div class="panel__context-title">Contexto</div>Melhoria de UX que simula streaming de texto (typing effect) para que o lojista nao espere uma resposta completa aparecer de uma vez. Percepao de velocidade.' },
+      { type:'impact', cards:[
+        { number:'UX', cls:'accent', label:'tipo' },
+        { number:'Percepcao', cls:'green', label:'velocidade' },
+        { number:'Em progresso', cls:'green', label:'status' },
+        { number:'AIL-49', cls:'accent', label:'issue' }
+      ]},
+      { type:'meta', items:[
+        { label:'Issue', value:'AIL-49' },
+        { label:'Status', value:'Em progresso' },
+        { label:'Tipo', value:'Melhoria de UX (percepcao de velocidade)' },
+        { label:'Impacto', value:'Qualitativo — melhora experiencia de espera' }
+      ]}
+    ]
+  },
+  'sprint-coach': {
+    wave: 'Na Sprint · Cycle 2',
+    title: 'Coach Agent — AIL-23, AIL-24',
+    sections: [
+      { type:'context', html:'<div class="panel__context-title">Contexto</div>Agente especializado em coaching/educacao para lojistas. Ajuda a entender melhores praticas de e-commerce, marketing, etc.' },
+      { type:'impact', cards:[
+        { number:'Educativo', cls:'accent', label:'tipo' },
+        { number:'Em progresso', cls:'green', label:'status' },
+        { number:'AIL-23/24', cls:'accent', label:'issues' },
+        { number:'Novo agente', cls:'orange', label:'escopo' }
+      ]},
+      { type:'meta', items:[
+        { label:'Issues', value:'AIL-23, AIL-24' },
+        { label:'Status', value:'Em progresso' },
+        { label:'Tipo', value:'Nova funcionalidade (agente educativo)' },
+        { label:'Observacao', value:'Feature nova — sem dados de impacto previos' }
+      ]}
+    ]
+  },
+  'sprint-promocoes': {
+    wave: 'Na Sprint · Cycle 2',
+    title: 'Promocoes — AIL-60',
+    sections: [
+      { type:'impact', cards:[
+        { number:'63', cls:'red', label:'threads afetadas' },
+        { number:'1.6%', cls:'orange', label:'do total' },
+        { number:'A fazer', cls:'orange', label:'status' },
+        { number:'AIL-60', cls:'accent', label:'issue' }
+      ]},
+      { type:'meta', items:[
+        { label:'Issue', value:'AIL-60' },
+        { label:'Status', value:'Todo (na sprint mas nao iniciado)' },
+        { label:'Impacto medido', value:'63 threads (1.6%)' },
+        { label:'Conecta com', value:'BE SubAgent Promocoes · D3.1' }
+      ]}
+    ]
+  },
+  'sprint-handoff': {
+    wave: 'Na Sprint · Cycle 2',
+    title: 'Handoff — AIL-129',
+    sections: [
+      { type:'context', html:'<div class="panel__context-title">Contexto</div>Handoff para suporte humano quando Lumi nao consegue resolver. Conecta com Human in the Loop nivel 1.' },
+      { type:'impact', cards:[
+        { number:'~16', cls:'red', label:'threads afetadas' },
+        { number:'A fazer', cls:'orange', label:'status' },
+        { number:'AIL-129', cls:'accent', label:'issue' },
+        { number:'HITL', cls:'green', label:'conexao' }
+      ]},
+      { type:'meta', items:[
+        { label:'Issue', value:'AIL-129' },
+        { label:'Status', value:'Todo (na sprint)' },
+        { label:'Impacto medido', value:'16 threads' },
+        { label:'Conecta com', value:'Human in the Loop nivel 1' }
+      ]}
+    ]
+  },
+  'sprint-thinking': {
+    wave: 'Na Sprint · Cycle 2',
+    title: 'Thinking — AIL-80/81',
+    sections: [
+      { type:'context', html:'<div class="panel__context-title">Contexto</div>Indicador visual de "pensando" enquanto Lumi processa. Melhoria de UX interna.' },
+      { type:'impact', cards:[
+        { number:'UX interna', cls:'accent', label:'tipo' },
+        { number:'A fazer', cls:'orange', label:'status' },
+        { number:'AIL-80/81', cls:'accent', label:'issues' },
+        { number:'Percepcao', cls:'green', label:'impacto' }
+      ]},
+      { type:'meta', items:[
+        { label:'Issues', value:'AIL-80, AIL-81' },
+        { label:'Status', value:'Todo (na sprint)' },
+        { label:'Tipo', value:'Melhoria de UX (feedback de processamento)' },
+        { label:'Impacto', value:'Qualitativo — transparencia no processamento' }
+      ]}
+    ]
+  }
+};
+
+let activeEl = null;
+
+function openPanel(id) {
+  const task = TASKS[id];
+  if (!task) return;
+
+  if (activeEl) activeEl.classList.remove('task--active');
+  activeEl = event.currentTarget;
+  activeEl.classList.add('task--active');
+
+  document.getElementById('panelWave').textContent = task.wave;
+  document.getElementById('panelWave').style.color = task.wave.includes('Backend') ? 'var(--accent-light)' : task.wave.includes('Design') ? 'var(--orange)' : task.wave.includes('Frontend') ? 'var(--green)' : task.wave.includes('Sprint') ? 'var(--blue)' : 'var(--red)';
+  document.getElementById('panelTitle').textContent = task.title;
+
+  let html = '';
+  for (const s of task.sections) {
+    html += '<div class="panel__section">';
+    if (s.type === 'context') {
+      html += '<div class="panel__context">' + s.html + '</div>';
+    } else if (s.type === 'problem') {
+      html += '<div class="panel__section-title">Problema</div>';
+      html += '<div class="panel__problem">' + s.html + '</div>';
+    } else if (s.type === 'impact') {
+      html += '<div class="panel__section-title">Impacto</div>';
+      html += '<div class="panel__impact-grid">';
+      for (const c of s.cards) {
+        html += '<div class="panel__impact-card"><div class="panel__impact-number panel__impact-number--' + c.cls + '">' + c.number + '</div><div class="panel__impact-label">' + c.label + '</div></div>';
+      }
+      html += '</div>';
+    } else if (s.type === 'quote') {
+      html += '<div class="panel__section-title">Evidencia</div>';
+      html += '<div class="panel__quote">' + s.text + '<span class="panel__quote-author">' + s.author + '</span></div>';
+    } else if (s.type === 'scenario') {
+      html += '<div class="panel__section-title">Cenario Real</div>';
+      html += '<div class="panel__scenario"><div class="panel__scenario-label">' + s.label + '</div>';
+      for (const m of s.messages) {
+        const isIdeal = m.who === 'Ideal';
+        html += '<div class="panel__msg' + (isIdeal ? ' panel__msg--ideal' : '') + '"><div class="panel__msg-who panel__msg-who--' + m.cls + '">' + m.who + '</div><div class="panel__msg-text">' + m.text + '</div></div>';
+      }
+      html += '</div>';
+    } else if (s.type === 'solutions') {
+      html += '<div class="panel__section-title">Solucao proposta</div>';
+      html += '<ul class="panel__solution-list">';
+      for (const item of s.items) {
+        html += '<li class="panel__solution-item"><div class="panel__solution-icon panel__solution-icon--' + item.cls + '">' + item.icon + '</div><div class="panel__solution-text">' + item.text + '</div></li>';
+      }
+      html += '</ul>';
+    } else if (s.type === 'meta') {
+      html += '<div class="panel__section-title">Detalhes</div>';
+      html += '<div class="panel__meta-grid">';
+      for (const m of s.items) {
+        html += '<div class="panel__meta-item"><div class="panel__meta-label">' + m.label + '</div><div class="panel__meta-value">' + m.value + '</div></div>';
+      }
+      html += '</div>';
+    } else if (s.type === 'deps') {
+      html += '<div class="panel__section-title">Dependencias</div>';
+      html += '<div class="panel__deps">';
+      for (const t of s.tags) {
+        html += '<span class="panel__dep-tag panel__dep-tag--' + t.cls + '">' + t.text + '</span>';
+      }
+      html += '</div>';
+    }
+    html += '</div>';
+  }
+
+  document.getElementById('panelBody').innerHTML = html;
+  document.getElementById('overlay').classList.add('overlay--open');
+  document.getElementById('panel').classList.add('panel--open');
+  document.getElementById('panelBody').scrollTop = 0;
+}
+
+function closePanel() {
+  document.getElementById('overlay').classList.remove('overlay--open');
+  document.getElementById('panel').classList.remove('panel--open');
+  if (activeEl) { activeEl.classList.remove('task--active'); activeEl = null; }
+}
+
+document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closePanel(); });
+</script>
+
+</body>
+</html>

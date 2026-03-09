@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lumi -- Analise Qualitativa & Priorizacao de Problemas</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --surface: #161b22;
+    --border: #30363d;
+    --text: #e6edf3;
+    --text-dim: #8b949e;
+    --text-muted: #6e7681;
+    --accent: #6c5ce7;
+    --accent-light: #a29bfe;
+    --green: #00cec9;
+    --red: #ff6b6b;
+    --orange: #fdcb6e;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    padding: 40px 20px;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+  h1 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin: 40px 0 16px 0;
+    color: var(--text);
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 10px;
+  }
+  h2 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin: 36px 0 12px 0;
+    color: var(--accent-light);
+  }
+  h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 28px 0 10px 0;
+    color: var(--text);
+  }
+  p {
+    margin: 10px 0;
+    color: var(--text-dim);
+  }
+  strong { color: var(--text); }
+  a { color: var(--accent-light); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 32px 0;
+  }
+  code {
+    background: var(--surface);
+    color: var(--accent-light);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.88em;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+  }
+  pre {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 20px;
+    overflow-x: auto;
+    margin: 16px 0;
+    font-size: 0.88em;
+    line-height: 1.5;
+  }
+  pre code {
+    background: none;
+    padding: 0;
+    color: var(--text-dim);
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 0.9rem;
+  }
+  th {
+    background: var(--surface);
+    color: var(--accent-light);
+    font-weight: 600;
+    text-align: left;
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+  td {
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    vertical-align: top;
+  }
+  tr:nth-child(even) { background: rgba(22,27,34,.5); }
+  tr:hover { background: rgba(108,92,231,.08); }
+  ul, ol {
+    margin: 10px 0 10px 24px;
+    color: var(--text-dim);
+  }
+  li { margin: 6px 0; }
+  li strong { color: var(--text); }
+  blockquote {
+    border-left: 3px solid var(--accent);
+    padding: 12px 20px;
+    margin: 16px 0;
+    background: rgba(108,92,231,.05);
+    border-radius: 0 8px 8px 0;
+    color: var(--text-dim);
+    font-style: italic;
+  }
+  blockquote p { color: var(--text-dim); margin: 4px 0; }
+  .back-link {
+    position: fixed;
+    top: 16px;
+    right: 20px;
+    background: var(--accent);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-decoration: none;
+    z-index: 100;
+    cursor: pointer;
+  }
+  .back-link:hover { background: var(--accent-light); color: var(--bg); text-decoration: none; }
+  @media print {
+    body { background: white; color: #222; padding: 20px; }
+    h1 { border-color: #6c5ce7; }
+    h2 { color: #6c5ce7; }
+    th { background: #f0f0f0; color: #333; }
+    td { color: #444; }
+    code { background: #f5f5f5; color: #6c5ce7; }
+    pre { background: #f5f5f5; border-color: #ddd; }
+    pre code { color: #444; }
+    blockquote { background: #f8f8fc; }
+    .back-link { display: none; }
+  }
+</style>
+</head>
+<body>
+<a class="back-link" onclick="window.scrollTo(0,0)" title="Voltar ao topo">↑ Topo</a>
+<h1 id="lumi-analise-qualitativa-priorizacao-de-problemas">Lumi -- Analise Qualitativa &amp; Priorizacao de Problemas</h1>
+<p><strong>Data:</strong> 06/03/2026
+<strong>Periodo analisado:</strong> Nov/2025 -- Mar/2026
+<strong>Validacao de vies:</strong> 97.7% de concordancia entre avaliadores humanos e LLM nos 134 threads sobrepostos. Vies do LLM e leve (suaviza "bad" para "mixed" em ~24% dos casos), portanto os numeros reais sao ligeiramente piores que os reportados.</p>
+<hr />
+<h2 id="fontes-de-dados">Fontes de Dados</h2>
+<p>Toda descoberta neste documento tem fonte verificavel. Os 3 arquivos de referencia:</p>
+<table>
+<thead>
+<tr>
+<th>Fonte</th>
+<th>Arquivo</th>
+<th>Registros</th>
+<th>O que contem</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Anotacoes LLM</strong></td>
+<td><code>lumi-annotations-2026-03-06 (1).json</code></td>
+<td>3.902 anotacoes, 3.765 threads, 1.546 lojas</td>
+<td>Avaliacao automatica (gpt-4o-mini): verdict, observations, feature-signals, topics, intent</td>
+</tr>
+<tr>
+<td><strong>Anotacoes Humanas</strong></td>
+<td><code>lumi-annotations-2026-03-06.json</code></td>
+<td>138 anotacoes, 134 threads, 110 lojas</td>
+<td>Revisao manual por karem.carvalho, luis.martin, agustin.parraquini, rocio.martin</td>
+</tr>
+<tr>
+<td><strong>Sprint (Linear)</strong></td>
+<td><code>Lumi Assistant (Core) - Issues.csv</code></td>
+<td>40 issues</td>
+<td>Cycle 2 (02/03 -- 14/03) exportado do Linear</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Como verificar qualquer numero:</strong> Filtrar os JSONs por <code>verdict</code>, <code>observations[].type</code>, ou <code>observations[].title</code> para reproduzir as contagens. Cada citacao humana inclui <code>threadId</code> e reviewer. Cada issue do Linear inclui o ID (ex: AIL-155).</p>
+<p><strong>Nota sobre amostragem:</strong> Os 3.765 threads sao uma amostra das conversas do Lumi, nao o universo total. A media e de 38.4 threads/dia em 98 dias. O volume real de conversas no periodo e provavelmente muito maior.</p>
+<hr />
+<h2 id="resumo-executivo">Resumo Executivo</h2>
+<table>
+<thead>
+<tr>
+<th>Metrica</th>
+<th>Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Total de threads</td>
+<td>3.902</td>
+</tr>
+<tr>
+<td>Experiencia boa (good)</td>
+<td>1.411 (36.2%)</td>
+</tr>
+<tr>
+<td>Experiencia parcial (mixed)</td>
+<td>1.188 (30.5%)</td>
+</tr>
+<tr>
+<td>Experiencia ruim (bad)</td>
+<td>1.301 (33.4%)</td>
+</tr>
+<tr>
+<td><strong>Taxa de falha (bad + mixed)</strong></td>
+<td><strong>63.8%</strong></td>
+</tr>
+</tbody>
+</table>
+<p><code>Fonte: lumi-annotations-2026-03-06 (1).json -- filtrar por campo "verdict"</code></p>
+<p><strong>Quase 2 em cada 3 interacoes terminam com experiencia ruim ou parcial.</strong> Os 3 problemas que juntos explicam ~60% das falhas sao: dead-ends sem resolucao, respostas desalinhadas com a intencao real, e guardrails excessivos que bloqueiam acoes validas.</p>
+<hr />
+<h2 id="parte-1-problemas-que-exigem-mudancas-no-backend-cirrus-orquestrador-lumi">Parte 1: Problemas que Exigem Mudancas no Backend (Cirrus / Orquestrador Lumi)</h2>
+<h3 id="b1-dead-ends-massivos-conversas-morrem-sem-proximo-passo">B1. Dead-Ends Massivos -- Conversas morrem sem proximo passo</h3>
+<p><strong>Impacto:</strong> 591 ocorrencias (23.7% dos bad/mixed)
+<strong>Prioridade:</strong> P0</p>
+<p><code>Fonte: lumi-annotations LLM -- filtrar observations[].type == "dead-end"</code></p>
+<p><strong>O que acontece:</strong>
+- 409 conversas terminam sem resolucao e sem oferecer proximo passo
+- 92 casos Lumi nao consegue executar a tarefa e nao redireciona
+- 16 casos Lumi diz que vai derivar a soporte mas nao envia o link</p>
+<p><strong>Causa raiz:</strong> O orquestrador nao tem fallback robusto. Quando nenhum subAgent consegue resolver, Lumi congela ou da resposta generica.</p>
+<p><strong>O que fazer no backend:</strong>
+1. Implementar fallback chain no orquestrador: se nenhum subAgent resolve -&gt; buscar no helpjuice -&gt; oferecer link de suporte -&gt; nunca terminar sem proximo passo
+2. Garantir que a derivacao a soporte sempre inclua o link funcional (endpoint de handoff precisa ser validado)
+3. Adicionar mecanismo de deteccao de "conversa presa" (ex: 2+ turnos sem acao util = escalar automaticamente)</p>
+<p><strong>Evidencia humana:</strong></p>
+<blockquote>
+<p><em>"Dijo que derivaba la conversacion a support pero no paso el link"</em>
+-- luis.martin, threads <code>a7c91828</code> e <code>1f5a6743</code> (<code>lumi-annotations-2026-03-06.json</code>)</p>
+</blockquote>
+<hr />
+<h3 id="b2-guardrails-excessivos-lumi-recusa-quando-deveria-agir">B2. Guardrails Excessivos -- Lumi recusa quando deveria agir</h3>
+<p><strong>Impacto:</strong> 260 ocorrencias (10.4% dos bad/mixed)
+<strong>Prioridade:</strong> P1</p>
+<p><code>Fonte: lumi-annotations LLM -- filtrar observations[].type == "unnecessary-guardrail"</code></p>
+<p><strong>O que acontece:</strong>
+- 149 casos: Lumi deveria <strong>perguntar mais info</strong> em vez de recusar
+- 13 casos: diz "nao tenho capacidade" mas de fato tem o subAgent disponivel
+- 9 casos: recusa acoes de catalogo que sao validas
+- 8 casos: recusa configuracoes que poderia explicar via helpjuice</p>
+<p><strong>Causa raiz:</strong> Prompt do orquestrador e conservador demais. Prefere rejeitar a pedir clarificacao.</p>
+<p><strong>O que fazer no backend:</strong>
+1. Revisar o system prompt do orquestrador: trocar comportamento default de "rejeitar" para "pedir clarificacao"
+2. Antes de dizer "nao posso", verificar se existe artigo no helpjuice sobre o tema
+3. Implementar logica de "tool availability check" -- nao dizer "nao tenho capacidade" quando o subAgent esta disponivel para a loja</p>
+<hr />
+<h3 id="b3-routing-errado-entre-subagents">B3. Routing Errado entre SubAgents</h3>
+<p><strong>Impacto:</strong> 107 ocorrencias (4.3% dos bad/mixed)
+<strong>Prioridade:</strong> P2</p>
+<p><code>Fonte: lumi-annotations LLM -- filtrar observations[].type == "wrong-routing"; cruzar campo "subAgents" com "verdict" para calcular bad rate</code></p>
+<p><strong>Taxa de falha por SubAgent:</strong></p>
+<table>
+<thead>
+<tr>
+<th>SubAgent</th>
+<th>Bad Rate</th>
+<th>Observacao</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>navigator</td>
+<td>61.8%</td>
+<td>Pior performance. URLs desatualizadas</td>
+</tr>
+<tr>
+<td>support</td>
+<td>61.4%</td>
+<td>Escalacoes desnecessarias</td>
+</tr>
+<tr>
+<td>catalog_search</td>
+<td>52.3%</td>
+<td>Confunde intents</td>
+</tr>
+<tr>
+<td>helpjuice</td>
+<td>52.3%</td>
+<td>Aciona junto com catalog_search sem necessidade</td>
+</tr>
+<tr>
+<td>orders</td>
+<td>46.2%</td>
+<td>--</td>
+</tr>
+<tr>
+<td>stats</td>
+<td>37.6%</td>
+<td>--</td>
+</tr>
+<tr>
+<td>catalog</td>
+<td>24.0%</td>
+<td>Melhor entre os agents com volume</td>
+</tr>
+<tr>
+<td>category_suggestions</td>
+<td>7.1%</td>
+<td>Excelente</td>
+</tr>
+</tbody>
+</table>
+<p><strong>O que fazer no backend:</strong>
+1. <strong>Navigator:</strong> Auditar e atualizar o mapeamento de URLs. Hoje redireciona para links incorretos ou inexistentes
+2. <strong>Support:</strong> Adicionar regra: antes de escalar, verificar se helpjuice tem resposta. So escalar se: (a) helpjuice nao tem info, E (b) Lumi nao consegue resolver sozinho
+3. <strong>Catalog_search + Helpjuice:</strong> Corrigir trigger que dispara catalog_search quando helpjuice ja respondeu (a palavra "shopping" na resposta do helpjuice dispara catalog_search indevidamente)
+4. Implementar awareness de features da loja: Lumi deve saber ANTES de acionar um agent se a loja tem aquela feature habilitada (ex: stats)</p>
+<p><strong>Evidencia humana:</strong></p>
+<blockquote>
+<p><em>"Podria haber buscado información en helpjuice antes de derivar a support"</em>
+-- luis.martin, thread <code>39e4b27a</code> (<code>lumi-annotations-2026-03-06.json</code>)</p>
+<p><em>"El mcp de helpjuice si obtuvo la info correcta, pero la respuesta incluía la palabra 'shopping' y eso disparo catalog search"</em>
+-- luis.martin, thread <code>edaf8231</code> (<code>lumi-annotations-2026-03-06.json</code>)</p>
+</blockquote>
+<hr />
+<h3 id="b4-falta-de-awareness-do-contexto-da-loja">B4. Falta de Awareness do Contexto da Loja</h3>
+<p><strong>Impacto:</strong> 108 ocorrencias de missing-context + impacto indireto em stats e features
+<strong>Prioridade:</strong> P2</p>
+<p><code>Fonte: lumi-annotations LLM -- filtrar observations[].type == "missing-context"</code></p>
+<p><strong>O que acontece:</strong>
+- Lumi tenta usar Stats Agent em lojas que nao tem stats habilitado
+- Nao sabe quais features/planos a loja tem ativo
+- Nao tem contexto do storefront, promocoes ativas, meios de pagamento e envio da loja</p>
+<p><strong>O que fazer no backend:</strong>
+1. Injetar no contexto do orquestrador: plano da loja, features habilitadas, meios de pagamento/envio configurados
+2. Antes de acionar stats/orders agent, validar se a loja tem acesso
+3. Considerar endpoint que retorna "capabilities" da loja para enriquecer o prompt</p>
+<p><strong>Evidencia humana:</strong></p>
+<blockquote>
+<p><em>"El merchant no tiene disponible stats"</em>
+-- luis.martin, threads <code>0a3e681a</code>, <code>8f50ad68</code>, <code>e487ed65</code> (<code>lumi-annotations-2026-03-06.json</code>)</p>
+<p><em>"No tiene el contexto completo de la tienda para poder responder"</em>
+-- luis.martin, thread <code>cfe7af8c</code> (<code>lumi-annotations-2026-03-06.json</code>)</p>
+</blockquote>
+<hr />
+<h3 id="b5-hallucinations-em-geracao-de-conteudo">B5. Hallucinations em Geracao de Conteudo</h3>
+<p><strong>Impacto:</strong> 20 ocorrencias (0.5% -- baixo mas grave)
+<strong>Prioridade:</strong> P3</p>
+<p><code>Fonte: lumi-annotations LLM -- filtrar observations[].type == "hallucination"</code></p>
+<p><strong>Onde ocorre:</strong>
+- Geracao de SEO (titulo/descricao)
+- Descricoes de produto
+- Consultas de preco/dados de catalogo</p>
+<p><strong>O que fazer no backend:</strong>
+1. Na geracao de SEO/descricoes: validar que os dados do produto existem antes de gerar
+2. Em consultas de preco: nunca inventar valores -- retornar apenas dados confirmados pelo catalogo
+3. Adicionar disclaimer automatico quando geracao e baseada em dados parciais</p>
+<hr />
+<h2 id="parte-2-problemas-que-exigem-mudancas-no-frontend-ux-stratus">Parte 2: Problemas que Exigem Mudancas no Frontend / UX (Stratus)</h2>
+<h3 id="f1-respostas-desalinhadas-lumi-explica-quando-deveria-executar">F1. Respostas Desalinhadas -- Lumi explica quando deveria executar</h3>
+<p><strong>Impacto:</strong> 736 ocorrencias (29.6% dos bad/mixed) -- <strong>maior problema isolado</strong>
+<strong>Prioridade:</strong> P0</p>
+<p><code>Fonte: lumi-annotations LLM -- filtrar observations[].type == "misaligned-response"; cruzar com campo "featureSignals[].title" para a tabela abaixo</code></p>
+<p><strong>O que acontece:</strong>
+O merchant pede "crie uma promocao" e Lumi responde com um passo-a-passo de como criar. O merchant quer <strong>acao</strong>, nao <strong>explicacao</strong>.</p>
+<p><strong>Cruzamento com feature signals:</strong></p>
+<table>
+<thead>
+<tr>
+<th>O que merchant pede</th>
+<th>Ocorrencias</th>
+<th>Como Lumi falha</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Criar promocoes</td>
+<td>58</td>
+<td>Explica como fazer em vez de criar</td>
+</tr>
+<tr>
+<td>Editar storefront</td>
+<td>38</td>
+<td>Responde com instrucoes genericas</td>
+</tr>
+<tr>
+<td>Editar design da loja</td>
+<td>23</td>
+<td>Misaligned-response (19), wrong-routing (4)</td>
+</tr>
+<tr>
+<td>Configurar la tienda</td>
+<td>21</td>
+<td>Da passo-a-passo que o merchant nao consegue seguir</td>
+</tr>
+<tr>
+<td>Stats/metricas</td>
+<td>24</td>
+<td>Manda navegar em vez de mostrar dados</td>
+</tr>
+</tbody>
+</table>
+<p><strong>O que fazer (Backend + UX juntos):</strong></p>
+<p><strong>Backend:</strong>
+1. Refinar prompt para distinguir intents: "quero que FACA" vs "quero ENTENDER como fazer"
+2. Quando Lumi nao pode executar mas pode explicar, ser explicito: <em>"Aun no puedo crear promociones directamente, pero te explico como hacerlo en 3 pasos:"</em>
+3. Implementar confirmacao antes de agir: <em>"Queres que cree la promocion con estos datos? [Si/No]"</em></p>
+<p><strong>Frontend/UX:</strong>
+1. Quando Lumi envia instrucoes passo-a-passo, renderizar como <strong>checklist interativo</strong> (nao wall of text)
+2. Adicionar botoes de acao contextual nas respostas (ex: "Ir a Promociones", "Crear producto")
+3. Considerar <strong>action cards</strong> embarcados na resposta que linkem direto a tela relevante no admin</p>
+<hr />
+<h3 id="f2-verbosidade-respostas-longas-demais">F2. Verbosidade -- Respostas longas demais</h3>
+<p><strong>Impacto:</strong> 506 ocorrencias (20.2% dos bad/mixed)
+<strong>Prioridade:</strong> P1</p>
+<p><code>Fonte: lumi-annotations LLM -- filtrar observations[].type == "verbose-response"; cruzar com campo "subAgents" para o breakdown abaixo</code></p>
+<p><strong>Contexto onde e pior:</strong>
+- SubAgent support: 192 ocorrencias
+- SubAgent catalog: 134 ocorrencias
+- Sem agent (resposta generica): 119 ocorrencias</p>
+<p><strong>O que fazer:</strong></p>
+<p><strong>Backend (prompt):</strong>
+1. Instrucao explicita no prompt: respostas de no maximo 3 paragrafos
+2. Se precisar de mais detalhe, oferecer: <em>"Queres que te explique mas sobre alguno de estos puntos?"</em>
+3. Proibir padding linguistico (ex: <em>"Entendo tu consulta, voy a ayudarte con eso, permiteme explicarte..."</em>)</p>
+<p><strong>Frontend/UX:</strong>
+1. Se resposta excede X caracteres, truncar com "Ver mas" expandivel
+2. Para instrucoes longas, usar formato de <strong>accordion/stepper</strong> em vez de texto corrido
+3. Considerar indicador visual de extensao da resposta</p>
+<hr />
+<h3 id="f3-gaps-de-feature-o-que-os-merchants-mais-pedem-e-lumi-nao-faz">F3. Gaps de Feature -- O que os merchants mais pedem e Lumi nao faz</h3>
+<p><code>Fonte: lumi-annotations LLM -- campo "featureSignals[].title", contagem de threads onde aparece cada signal. Notas humanas de lumi-annotations-2026-03-06.json</code></p>
+<p><strong>Prioridade e impacto relativo:</strong></p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Feature Gap</th>
+<th>Demanda</th>
+<th>Prioridade</th>
+<th>Tipo de Trabalho</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><strong>Criar produto sem navegar</strong></td>
+<td>77 threads</td>
+<td>P0</td>
+<td>Backend: novo endpoint de criacao via chat. Front: formulario inline ou confirmacao</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>Criar/gerenciar promocoes</strong></td>
+<td>63 threads</td>
+<td>P1</td>
+<td>Backend: subAgent de promocoes (CRUD). Front: action cards de promocao</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Gestao avancada de catalogo</strong></td>
+<td>50 threads</td>
+<td>P1</td>
+<td>Backend: estender catalog agent (campos customizados, stock). Front: feedback de acao executada</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>Editar storefront/design</strong></td>
+<td>61 threads</td>
+<td>P2</td>
+<td>Backend: integracao com editor de temas. Front: preview/link direto</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>Bulk operations</strong></td>
+<td>22 threads + notas humanas</td>
+<td>P1</td>
+<td>Backend: endpoint batch. Front: progresso de operacao em massa</td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>Stats/Insights sem navegar</strong></td>
+<td>24 threads</td>
+<td>P2</td>
+<td>Backend: stats agent responde em qualquer tela. Front: data cards inline no chat</td>
+</tr>
+<tr>
+<td>7</td>
+<td><strong>Export de dados (CSV/PDF)</strong></td>
+<td>8 threads</td>
+<td>P3</td>
+<td>Backend: geracao de arquivo. Front: botao de download no chat</td>
+</tr>
+<tr>
+<td>8</td>
+<td><strong>Geracao de imagens</strong></td>
+<td>7 threads</td>
+<td>P3</td>
+<td>Backend: integracao com geracao de imagem. Front: preview inline</td>
+</tr>
+<tr>
+<td>9</td>
+<td><strong>Instalar apps</strong></td>
+<td>5 threads</td>
+<td>P3</td>
+<td>Backend: integracao com app store. Front: card de instalacao</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Evidencia humana:</strong></p>
+<blockquote>
+<p><em>"El merchant literalmente utiliza el chat para crear productos de forma masiva, uno a uno, replicando el proceso anterior. Necesitaria poder hacerlo sin necesidad de entrar a los productos y de forma masiva."</em>
+-- karem.carvalho (<code>lumi-annotations-2026-03-06.json</code>)</p>
+<p><em>"Deberiamos poder crear y editar todos los campos del formulario de producto sin ni siquiera estar dentro del formulario de producto."</em>
+-- luis.martin (<code>lumi-annotations-2026-03-06.json</code>)</p>
+<p><em>"No deberia hacer falta navegar para crear un producto nuevo."</em>
+-- luis.martin (<code>lumi-annotations-2026-03-06.json</code>)</p>
+<p><em>"Es un buen caso de uso para exports de CSVs. Exportar productos."</em>
+-- luis.martin (<code>lumi-annotations-2026-03-06.json</code>)</p>
+<p><em>"Para casos como este, donde el objetivo es dar un analisis de negocio profundo, veo mucho mas util un export de un CSV o incluso de un PDF explicando el Summary del negocio."</em>
+-- luis.martin (<code>lumi-annotations-2026-03-06.json</code>)</p>
+</blockquote>
+<hr />
+<h3 id="f4-ux-do-chat-melhorias-de-interacao">F4. UX do Chat -- Melhorias de Interacao</h3>
+<p><strong>Prioridade:</strong> P2</p>
+<p><code>Fonte: derivado dos padroes de falha em lumi-annotations LLM (observations, feature-signals) combinado com notas humanas</code></p>
+<p>Com base nos padroes de falha, a UX do chat precisa evoluir para suportar interacoes mais ricas:</p>
+<table>
+<thead>
+<tr>
+<th>Melhoria UX</th>
+<th>Problema que resolve</th>
+<th>Esforco</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Action cards</strong> na resposta (botoes contextuais)</td>
+<td>Respostas desalinhadas -- merchant quer acao</td>
+<td>Medio</td>
+</tr>
+<tr>
+<td><strong>Checklist interativo</strong> para instrucoes</td>
+<td>Verbosidade + merchant perde o fio</td>
+<td>Medio</td>
+</tr>
+<tr>
+<td><strong>Confirmacao de acao</strong> antes de executar</td>
+<td>Misaligned-response -- Lumi age sem confirmar</td>
+<td>Baixo</td>
+</tr>
+<tr>
+<td><strong>Progress indicator</strong> para bulk ops</td>
+<td>Bulk operations sem feedback</td>
+<td>Baixo</td>
+</tr>
+<tr>
+<td><strong>Data cards</strong> inline (tabelas, metricas)</td>
+<td>Stats agent mostra dados no chat</td>
+<td>Medio</td>
+</tr>
+<tr>
+<td><strong>Download button</strong> para exports</td>
+<td>Export de CSV/PDF</td>
+<td>Baixo</td>
+</tr>
+<tr>
+<td><strong>Truncamento inteligente</strong> com "Ver mas"</td>
+<td>Verbosidade -- respostas de 10 paragrafos</td>
+<td>Baixo</td>
+</tr>
+<tr>
+<td><strong>Error state claro</strong> quando Lumi nao pode</td>
+<td>Dead-ends -- merchant nao sabe o que aconteceu</td>
+<td>Baixo</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="parte-3-priorizacao-consolidada">Parte 3: Priorizacao Consolidada</h2>
+<h3 id="wave-1-quick-wins-1-2-sprints-alto-impacto">Wave 1 -- Quick Wins (1-2 sprints, alto impacto)</h3>
+<p><code>Fonte: priorizacao derivada do cruzamento de todas as analises acima</code></p>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Tipo</th>
+<th>O que fazer</th>
+<th>Threads impactados</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fallback robusto no orquestrador</td>
+<td>Backend</td>
+<td>Nunca terminar sem proximo passo</td>
+<td>~591</td>
+</tr>
+<tr>
+<td>Prompt: reduzir verbosidade</td>
+<td>Backend</td>
+<td>Max 3 paragrafos, sem padding</td>
+<td>~506</td>
+</tr>
+<tr>
+<td>Prompt: perguntar antes de recusar</td>
+<td>Backend</td>
+<td>Trocar "nao posso" por "me conta mais"</td>
+<td>~260</td>
+</tr>
+<tr>
+<td>Derivacao a support: validar link</td>
+<td>Backend</td>
+<td>Garantir que link de suporte sempre funcione</td>
+<td>~16</td>
+</tr>
+<tr>
+<td>Truncamento de respostas longas</td>
+<td>Frontend</td>
+<td>"Ver mas" para respostas grandes</td>
+<td>~506</td>
+</tr>
+<tr>
+<td>Error state claro</td>
+<td>Frontend</td>
+<td>Quando Lumi nao pode, mostrar fallback visual</td>
+<td>~591</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Impacto estimado:</strong> Melhora ~1.300 threads (33% do total)</p>
+<h3 id="wave-2-feature-gaps-criticos-2-4-sprints">Wave 2 -- Feature Gaps Criticos (2-4 sprints)</h3>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Tipo</th>
+<th>O que fazer</th>
+<th>Threads impactados</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Criar produto via chat</td>
+<td>Backend + Front</td>
+<td>Endpoint + formulario inline/confirmacao</td>
+<td>~77</td>
+</tr>
+<tr>
+<td>Distinguir "faz pra mim" vs "me explica"</td>
+<td>Backend</td>
+<td>Refinar classificacao de intent no prompt</td>
+<td>~736</td>
+</tr>
+<tr>
+<td>Action cards no chat</td>
+<td>Frontend</td>
+<td>Botoes contextuais (Ir a Promociones, etc.)</td>
+<td>~736</td>
+</tr>
+<tr>
+<td>Auditar Navigator URLs</td>
+<td>Backend</td>
+<td>Atualizar mapeamento de URLs</td>
+<td>~107</td>
+</tr>
+<tr>
+<td>Awareness de features da loja</td>
+<td>Backend</td>
+<td>Injetar plano/features no contexto</td>
+<td>~108</td>
+</tr>
+<tr>
+<td>Bulk operations</td>
+<td>Backend + Front</td>
+<td>Endpoint batch + progress indicator</td>
+<td>~22</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Impacto estimado:</strong> Melhora ~800+ threads adicionais</p>
+<h3 id="wave-3-capacidades-novas-4-8-sprints">Wave 3 -- Capacidades Novas (4-8 sprints)</h3>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Tipo</th>
+<th>O que fazer</th>
+<th>Threads impactados</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SubAgent de promocoes</td>
+<td>Backend</td>
+<td>CRUD completo de promocoes via Lumi</td>
+<td>~63</td>
+</tr>
+<tr>
+<td>Gestao avancada de catalogo</td>
+<td>Backend</td>
+<td>Campos customizados, stock em lote</td>
+<td>~50</td>
+</tr>
+<tr>
+<td>Stats em qualquer tela</td>
+<td>Backend + Front</td>
+<td>Stats agent desacoplado de navegacao + data cards</td>
+<td>~24</td>
+</tr>
+<tr>
+<td>Export CSV/PDF</td>
+<td>Backend + Front</td>
+<td>Geracao + download inline</td>
+<td>~8</td>
+</tr>
+<tr>
+<td>Editar storefront via chat</td>
+<td>Backend</td>
+<td>Integracao com editor de temas</td>
+<td>~61</td>
+</tr>
+<tr>
+<td>Geracao de imagens</td>
+<td>Backend</td>
+<td>Integracao com modelo de imagem</td>
+<td>~7</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="parte-4-o-que-funciona-bem-preservar-e-ampliar">Parte 4: O que Funciona Bem (Preservar e Ampliar)</h2>
+<p><code>Fonte: lumi-annotations LLM -- filtrar verdict == "good", agrupar por subAgents e intent</code></p>
+<table>
+<thead>
+<tr>
+<th>Capacidade</th>
+<th>Performance</th>
+<th>Nota</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Catalog agent (criar/editar produto simples)</td>
+<td>76% good</td>
+<td>Base solida para expandir</td>
+</tr>
+<tr>
+<td>Category suggestions</td>
+<td>93% good</td>
+<td>Excelente -- replicar padrao</td>
+</tr>
+<tr>
+<td>Geracao de SEO</td>
+<td>99+ threads good (top intent)</td>
+<td>Caso de uso mais bem sucedido</td>
+</tr>
+<tr>
+<td>Helpjuice (quando acionado corretamente)</td>
+<td>Bom</td>
+<td>Problema e no trigger, nao no agent</td>
+</tr>
+<tr>
+<td>Escalacao correta a soporte</td>
+<td>Positiva quando funciona</td>
+<td>Garantir que sempre funcione</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="parte-5-sprint-atual-vs-dados-onde-estamos-investindo-e-onde-deveriamos">Parte 5: Sprint Atual vs Dados -- Onde Estamos Investindo e Onde Deveríamos</h2>
+<h3 id="o-que-a-sprint-cobre-hoje-cycle-2-0203-1403">O que a sprint cobre hoje (Cycle 2: 02/03 -- 14/03)</h3>
+<p><code>Fonte: Lumi Assistant (Core) - Issues.csv exportado do Linear</code></p>
+<p>A sprint atual tem <strong>40 issues</strong> distribuidas em dois grandes blocos:</p>
+<p><strong>Bloco 1 -- Workbook (tabelas e export de ordenes): 10 issues</strong>
+AIL-1, AIL-4, AIL-7, AIL-17, AIL-85, AIL-86, AIL-87, AIL-88, AIL-100, AIL-101, AIL-102.
+Maioria In Progress ou In Review. E o bloco com mais issues ativas.</p>
+<p><strong>Bloco 2 -- Catalogo sem navegar: ~20 issues</strong>
+AIL-91 (parent) + sub-issues para cada campo (descricao, SEO, preco, imagens, inventario, variantes, categorias, etc.). Criar produto (AIL-155) marcado como Urgent. Maioria ainda em Todo.</p>
+<p><strong>Bloco 3 -- Outros</strong>
+- Fake Streaming (AIL-49) -- In Progress
+- Coach Agent (AIL-23, AIL-24) -- In Progress
+- Handoff a Support mas agresivo (AIL-129) -- Todo
+- Thinking improvements (AIL-80, AIL-81) -- Todo
+- Promociones (AIL-60), Ordenes (AIL-92), Clientes (AIL-93), Config (AIL-94) -- Todo</p>
+<h3 id="o-que-esta-alinhado-com-os-dados">O que esta alinhado com os dados</h3>
+<table>
+<thead>
+<tr>
+<th>Problema identificado</th>
+<th>Issue no Linear</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Criar produto sem navegar (77 threads, P0)</td>
+<td>AIL-155 [Urgent]</td>
+<td>Todo</td>
+</tr>
+<tr>
+<td>Gestao de catalogo (50 threads, P1)</td>
+<td>AIL-91 + sub-issues</td>
+<td>In Progress</td>
+</tr>
+<tr>
+<td>Criar promocoes (63 threads, P1)</td>
+<td>AIL-60</td>
+<td>Todo</td>
+</tr>
+<tr>
+<td>Export/Workbook (8 threads, P3)</td>
+<td>10 issues</td>
+<td>In Progress/Review</td>
+</tr>
+<tr>
+<td>Coach Agent (routing educativo)</td>
+<td>AIL-23, AIL-24</td>
+<td>In Progress</td>
+</tr>
+<tr>
+<td>Handoff a Support</td>
+<td>AIL-129</td>
+<td>Todo</td>
+</tr>
+</tbody>
+</table>
+<h3 id="o-que-nao-esta-na-sprint-e-deveria">O que NÃO esta na sprint -- e deveria</h3>
+<p><code>Fonte: cruzamento entre Linear CSV (40 issues) e contagens de lumi-annotations LLM (3.902 threads). Nenhum dos problemas abaixo aparece como issue no CSV exportado</code></p>
+<p>Estes sao os problemas de maior impacto real nos merchants, baseados em dados de 3.902 conversas. Nenhum tem issue no Linear hoje:</p>
+<table>
+<thead>
+<tr>
+<th>Problema</th>
+<th>Threads afetados</th>
+<th>Tipo de trabalho</th>
+<th>Esforco estimado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Dead-ends: conversa morre sem proximo passo</strong></td>
+<td>~591 (23.7%)</td>
+<td>Backend: prompt + fallback chain</td>
+<td>Baixo (2-3 dias)</td>
+</tr>
+<tr>
+<td><strong>Respostas desalinhadas: explica em vez de agir</strong></td>
+<td>~736 (29.6%)</td>
+<td>Backend: prompt tuning</td>
+<td>Baixo (2-3 dias)</td>
+</tr>
+<tr>
+<td><strong>Guardrails excessivos: recusa em vez de perguntar</strong></td>
+<td>~260 (10.4%)</td>
+<td>Backend: prompt tuning</td>
+<td>Baixo (1-2 dias)</td>
+</tr>
+<tr>
+<td><strong>Verbosidade: respostas longas demais</strong></td>
+<td>~506 (20.2%)</td>
+<td>Backend: prompt + Front: truncamento</td>
+<td>Baixo (2-3 dias)</td>
+</tr>
+<tr>
+<td><strong>Awareness de features da loja</strong></td>
+<td>~108 (4.3%)</td>
+<td>Backend: contexto do orquestrador</td>
+<td>Medio (3-5 dias)</td>
+</tr>
+<tr>
+<td><strong>Navigator com URLs erradas</strong></td>
+<td>~107 (4.3%)</td>
+<td>Backend: auditoria de mapeamento</td>
+<td>Baixo (1-2 dias)</td>
+</tr>
+<tr>
+<td><strong>UX: error states, action cards</strong></td>
+<td>Transversal</td>
+<td>Frontend</td>
+<td>Medio</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Somados, esses gaps invisíveis afetam ~1.800 threads</strong> -- quase metade de todas as conversas avaliadas. Sao problemas de qualidade base, nao de features novas.</p>
+<h3 id="o-desbalanceamento">O desbalanceamento</h3>
+<p>O Workbook (tabelas/export) tem <strong>10 issues</strong> na sprint e e o bloco com mais trabalho ativo. Na analise de conversas, export aparece em <strong>8 threads</strong> como feature-signal. Isso nao significa que Workbook nao seja importante -- pode ter valor estrategico alem da demanda direta. Mas em termos de impacto imediato nos merchants:</p>
+<table>
+<thead>
+<tr>
+<th>Investimento atual</th>
+<th>Issues na sprint</th>
+<th>Threads com dor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Workbook (tabelas, export, filtros)</td>
+<td>10 issues</td>
+<td>~8 threads</td>
+</tr>
+<tr>
+<td>Catalogo sem navegar</td>
+<td>~20 issues</td>
+<td>~77 threads</td>
+</tr>
+<tr>
+<td><strong>Qualidade base (prompt, fallback, UX)</strong></td>
+<td><strong>0 issues</strong></td>
+<td><strong>~1.800 threads</strong></td>
+</tr>
+</tbody>
+</table>
+<p>O investimento esta concentrado em features novas grandes, enquanto os problemas que mais impactam a experiencia diaria (e que exigem menos esforco para resolver) nao tem representacao.</p>
+<h3 id="recomendacao-para-o-time">Recomendacao para o time</h3>
+<p><strong>1. Adicionar ao ciclo atual (quick wins de 1-3 dias):</strong></p>
+<p>Estas acoes sao de esforco baixo e impacto altissimo. Nao competem com as features em andamento -- sao ajustes no orquestrador/prompt:</p>
+<ul>
+<li><strong>Fallback robusto:</strong> Lumi nunca termina uma conversa sem oferecer proximo passo (link de suporte, busca no helpjuice, ou pergunta de clarificacao). Impacta ~591 threads.</li>
+<li><strong>Prompt anti-verbosidade:</strong> Limitar respostas a 3 paragrafos max. Eliminar padding linguistico. Se precisar mais, perguntar. Impacta ~506 threads.</li>
+<li><strong>Prompt anti-guardrail:</strong> Trocar o default de "nao posso" por "me conta mais sobre o que precisa". Impacta ~260 threads.</li>
+<li><strong>Auditar Navigator:</strong> Revisar o mapeamento de URLs -- 61.8% das navegacoes falham. Impacta ~107 threads.</li>
+</ul>
+<p><strong>2. Encaixar no proximo ciclo (complementam as features em andamento):</strong></p>
+<p>Estas acoes melhoram a experiencia das features novas que estao sendo construidas:</p>
+<ul>
+<li><strong>Distinguir "faz pra mim" vs "me explica"</strong> no prompt do orquestrador. Sem isso, as features novas de catalogo vao sofrer do mesmo problema: merchant pede, Lumi explica. Impacta ~736 threads.</li>
+<li><strong>Awareness de features:</strong> Antes de acionar stats/catalog, validar que a loja tem acesso. Evita frustracoes desnecessarias. Impacta ~108 threads.</li>
+<li><strong>Truncamento de respostas longas</strong> no front ("Ver mas"). Impacta ~506 threads.</li>
+<li><strong>Error state claro</strong> quando Lumi nao pode resolver. Impacta ~591 threads.</li>
+</ul>
+<p><strong>3. Reavaliar priorizacao do Workbook:</strong></p>
+<p>Manter o que ja esta In Progress/Review (AIL-7, AIL-1, AIL-100, AIL-101, AIL-102). Considerar nao iniciar as issues ainda em Todo (AIL-17 filtros, AIL-88 highlights) ate que os problemas P0/P1 de qualidade base estejam encaminhados.</p>
+<h3 id="por-que-isso-importa">Por que isso importa</h3>
+<p>Sem resolver os problemas de qualidade base, as features novas vao herdar os mesmos padroes de falha. Um Lumi que sabe criar produtos mas continua dando respostas verbose, morrendo em dead-ends e recusando com guardrails excessivos nao vai ter a adocao esperada.</p>
+<p>A ordem importa: <strong>primeiro garantir que o que ja existe funciona bem, depois expandir capacidades.</strong></p>
+<hr />
+<h2 id="apendice-metodologia">Apendice: Metodologia</h2>
+<ul>
+<li><strong>Dataset LLM:</strong> 3.902 threads avaliados por gpt-4o-mini com schema estruturado (verdict, observations, feature-signals, topics). Arquivo: <code>lumi-annotations-2026-03-06 (1).json</code></li>
+<li><strong>Dataset Humano:</strong> 138 threads avaliados por 4 revisores (karem.carvalho, luis.martin, agustin.parraquini, rocio.martin). Arquivo: <code>lumi-annotations-2026-03-06.json</code></li>
+<li><strong>Validacao cruzada:</strong> 134 threads presentes em ambos datasets. Concordancia de 97.7% em verdicts. Vies detectado: LLM classifica como "mixed" ~24% dos threads que humanos classificam como "bad" (leniencia leve)</li>
+<li><strong>Sprint Linear:</strong> 40 issues do Cycle 2 (02/03 -- 14/03/2026). Arquivo: <code>Lumi Assistant (Core) - Issues.csv</code></li>
+<li><strong>Amostragem:</strong> Os 3.765 threads unicos cobrem 98 dias (~38.4 threads/dia) de 1.546 lojas distintas. E uma amostra revisada, nao o universo total de conversas do Lumi</li>
+<li><strong>Reproducao:</strong> Todos os numeros podem ser reproduzidos filtrando os JSONs pelos campos indicados em cada secao (verdict, observations[].type, featureSignals[].title, subAgents, intent)</li>
+<li><strong>Vies identificado:</strong> LLM e ~24% mais leniente em threads "bad" (reclassifica como "mixed"). Os numeros reais de falha sao provavelmente ligeiramente piores</li>
+<li><strong>Feature signals:</strong> Extraidos de ambos datasets. Ranking combina volume (LLM) com calibracao qualitativa (notas humanas)</li>
+</ul>
+</body>
+</html>
