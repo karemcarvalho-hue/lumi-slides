@@ -46,6 +46,15 @@
   .summary-card--w1 .summary-card__threads { background:var(--green-dim); color:var(--green); }
   .summary-card--w2 .summary-card__threads { background:var(--orange-dim); color:var(--orange); }
   .summary-card--w3 .summary-card__threads { background:var(--blue-dim); color:var(--blue); }
+  .insights { padding:0 48px 28px; }
+  .insights__title { font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.1em; color:var(--text-muted); margin-bottom:14px; }
+  .insights__grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+  .insight-card { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:18px 20px; cursor:pointer; transition:transform .15s ease; position:relative; overflow:hidden; }
+  .insight-card:hover { transform:translateY(-2px); }
+  .insight-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:var(--accent); }
+  .insight-card__number { font-size:.65rem; font-weight:700; text-transform:uppercase; letter-spacing:.1em; color:var(--accent-light); margin-bottom:4px; }
+  .insight-card__title { font-size:.95rem; font-weight:700; margin-bottom:8px; }
+  .insight-card__meta { font-size:.78rem; color:var(--text-dim); line-height:1.45; }
 
   .timeline-wrapper { padding:10px 48px 60px; overflow-x:auto; -webkit-overflow-scrolling:touch; }
   .timeline { min-width:1100px; position:relative; }
@@ -96,7 +105,7 @@
   .footer__stat-number { font-size:1.3rem; font-weight:800; }
   .footer__stat-label { font-size:.65rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:.06em; margin-top:2px; }
 
-  @media (max-width:900px) { .header,.summary,.timeline-wrapper,.footer { padding-left:20px; padding-right:20px; } .summary { grid-template-columns:1fr; } .footer { margin:0 20px; } }
+  @media (max-width:900px) { .header,.summary,.insights,.timeline-wrapper,.footer { padding-left:20px; padding-right:20px; } .summary { grid-template-columns:1fr; } .insights__grid { grid-template-columns:1fr; } .footer { margin:0 20px; } }
   .overlay { position:fixed; inset:0; background:rgba(0,0,0,.5); z-index:900; opacity:0; visibility:hidden; transition:opacity .3s ease,visibility .3s ease; backdrop-filter:blur(4px); }
   .overlay--open { opacity:1; visibility:visible; }
   .panel { position:fixed; top:0; right:0; bottom:0; width:520px; max-width:92vw; background:var(--surface); border-left:1px solid var(--border); z-index:1000; transform:translateX(100%); transition:transform .35s cubic-bezier(.4,0,.2,1); display:flex; flex-direction:column; overflow:hidden; }
@@ -185,7 +194,7 @@
 <div class="header">
   <div class="header__left">
     <h1>Lumi <span>Team Roadmap</span></h1>
-    <p class="header__sub"><span class="pt">Q1–Q2 2026 &nbsp;·&nbsp; Backend + Design + Frontend &nbsp;·&nbsp; Baseado em 2.080 conversas recentes (Fev–Mar/2026) &nbsp;·&nbsp; Ordenado por impacto</span><span class="es">Q1–Q2 2026 &nbsp;·&nbsp; Backend + Design + Frontend &nbsp;·&nbsp; Basado en 2.080 conversaciones recientes (Feb–Mar/2026) &nbsp;·&nbsp; Ordenado por impacto</span></p>
+    <p class="header__sub"><span class="pt">Q1–Q2 2026 &nbsp;·&nbsp; Backend + Design + Frontend &nbsp;·&nbsp; Baseado em 2.080 conversas (Fev–Mar/2026) &nbsp;·&nbsp; +3 insights: Deep linking (57,6%), Bulk (109), Analytics (206 lojas)</span><span class="es">Q1–Q2 2026 &nbsp;·&nbsp; Backend + Design + Frontend &nbsp;·&nbsp; Basado en 2.080 conversaciones (Feb–Mar/2026) &nbsp;·&nbsp; +3 insights: Deep linking (57,6%), Bulk (109), Analytics (206 tiendas)</span></p>
   </div>
   <div class="legend">
     <div class="legend-item"><div class="legend-dot" style="background:var(--accent)"></div> Backend</div>
@@ -215,6 +224,28 @@
     <div class="summary-card__wave">Wave 3 · Experiencias</div>
     <div class="summary-card__title"><span class="pt">Promocoes · Storefront · Stats · Export</span><span class="es">Promociones · Storefront · Stats · Export</span></div>
     <div class="summary-card__meta"><span><span class="pt">Jun+ · variavel</span><span class="es">Jun+ · variable</span></span><span class="summary-card__threads">~160+ threads</span></div>
+  </div>
+</div>
+
+<!-- INSIGHTS (Novos da analise de dados) -->
+<div class="insights">
+  <div class="insights__title"><span class="pt">Insights da analise · Fev–Mar 2026</span><span class="es">Insights del análisis · Feb–Mar 2026</span></div>
+  <div class="insights__grid">
+    <div class="insight-card" onclick="openPanel('insight-1')">
+      <div class="insight-card__number">Insight 1</div>
+      <div class="insight-card__title"><span class="pt">57,6% dos pedidos ja existem no painel</span><span class="es">57,6% de los pedidos ya existen en el panel</span></div>
+      <div class="insight-card__meta">1.198 threads · <span class="pt">55,1% falham</span><span class="es">55,1% fallan</span> · <span class="pt">Precos (82%), Editar produto (80%)</span><span class="es">Precios (82%), Editar producto (80%)</span> · Deep linking</div>
+    </div>
+    <div class="insight-card" onclick="openPanel('insight-2')">
+      <div class="insight-card__number">Insight 2</div>
+      <div class="insight-card__title"><span class="pt">Acoes massivas — o gap invisivel</span><span class="es">Acciones masivas — la brecha invisible</span></div>
+      <div class="insight-card__meta">109 threads · <span class="pt">69,7% pedem bulk que nao existe</span><span class="es">69,7% piden bulk que no existe</span> · <span class="pt">74% falham</span><span class="es">74% fallan</span> · bulk preco, SEO, tags</div>
+    </div>
+    <div class="insight-card" onclick="openPanel('insight-3')">
+      <div class="insight-card__number">Insight 3</div>
+      <div class="insight-card__title"><span class="pt">Dados do negocio — promessa nao cumprida</span><span class="es">Datos del negocio — promesa no cumplida</span></div>
+      <div class="insight-card__meta">206 <span class="pt">lojas</span><span class="es">tiendas</span> · 65,5% <span class="pt">ma experiencia</span><span class="es">mala experiencia</span> · <span class="pt">50% nunca usam Lumi de novo</span><span class="es">50% nunca usan Lumi de nuevo</span> · A/B</div>
+    </div>
   </div>
 </div>
 
@@ -271,6 +302,9 @@
           <div class="task task--be" onclick="openPanel('be-navigator')" style="width:calc(1.5/20*100%)">
             <span class="task__id">BE · Navigator audit</span><span class="pt">Corrigir URLs desatualizadas</span><span class="es">Corregir URLs desactualizadas</span><span class="task__threads">~70 threads · 1-2d · P1</span><div class="task__status task__status--blocked"></div>
           </div>
+          <div class="task task--be" onclick="openPanel('be-deeplink')" style="width:calc(2.5/20*100%)">
+            <span class="task__id">BE · Deep Linking</span><span class="pt">Navegar lojista para tela certa</span><span class="es">Navegar comerciante a pantalla correcta</span><span class="task__threads">~1.198 threads (57,6%) · P0</span><div class="task__status task__status--blocked"></div>
+          </div>
         </div>
         <div class="task-row">
           <div class="task task--be" onclick="openPanel('be-intent')" style="width:calc(2.5/20*100%);margin-left:calc(4.5/20*100%)">
@@ -281,6 +315,14 @@
           </div>
           <div class="task task--be" onclick="openPanel('be-structured')" style="width:calc(3/20*100%);margin-left:calc(1/20*100%)">
             <span class="task__id">BE · Structured data</span>Enviar steps, actions, stats como JSON<span class="task__threads"><span class="pt">desbloqueia Wave 2 front</span><span class="es">desbloquea Wave 2 front</span></span><div class="task__status task__status--todo"></div>
+          </div>
+        </div>
+        <div class="task-row">
+          <div class="task task--be" onclick="openPanel('be-bulk')" style="width:calc(2.5/20*100%);margin-left:calc(5/20*100%)">
+            <span class="task__id">BE · Bulk Operations API</span><span class="pt">Endpoints batch: preco, SEO, tags</span><span class="es">Endpoints batch: precio, SEO, tags</span><span class="task__threads">~109 threads · 74% falham</span><div class="task__status task__status--blocked"></div>
+          </div>
+          <div class="task task--be" onclick="openPanel('be-analytics')" style="width:calc(2.5/20*100%)">
+            <span class="task__id">BE · Analytics Access</span><span class="pt">Acesso a metricas reais da loja</span><span class="es">Acceso a métricas reales de la tienda</span><span class="task__threads">~206 lojas · 65,5% falham · A/B</span><div class="task__status task__status--blocked"></div>
           </div>
         </div>
         <div class="task-row">
@@ -317,6 +359,9 @@
           <div class="task task--ux" onclick="openPanel('d13-confirmacao')" style="width:calc(1/20*100%)">
             <span class="task__id">D1.3</span><span class="pt">Confirmacao</span><span class="es">Confirmación</span><span class="task__threads">transversal</span><div class="task__status task__status--todo"></div>
           </div>
+          <div class="task task--ux" onclick="openPanel('d-deeplink')" style="width:calc(2/20*100%)">
+            <span class="task__id">D · Deep Link Cards</span><span class="pt">Cards que navegam para telas do admin</span><span class="es">Cards que navegan a pantallas del admin</span><span class="task__threads">~1.198 threads</span><div class="task__status task__status--blocked"></div>
+          </div>
         </div>
         <div class="task-row">
           <div class="task task--ux" onclick="openPanel('d21-action')" style="width:calc(3/20*100%);margin-left:calc(5.5/20*100%)">
@@ -327,6 +372,12 @@
           </div>
           <div class="task task--ux" onclick="openPanel('d23-datacards')" style="width:calc(2/20*100%)">
             <span class="task__id">D2.3 Data Cards</span>Stats inline<span class="task__threads"><span class="pt">qualidade</span><span class="es">calidad</span> · 2-3d</span><div class="task__status task__status--todo"></div>
+          </div>
+          <div class="task task--ux" onclick="openPanel('d-bulk-progress')" style="width:calc(2/20*100%)">
+            <span class="task__id">D · Bulk Progress UI</span><span class="pt">Indicador + UI de acao em lote</span><span class="es">Indicador + UI de acción masiva</span><span class="task__threads">~109 threads</span><div class="task__status task__status--blocked"></div>
+          </div>
+          <div class="task task--ux" onclick="openPanel('d-analytics-cards')" style="width:calc(2/20*100%)">
+            <span class="task__id">D · Analytics Dashboard</span><span class="pt">Cards de metricas no chat</span><span class="es">Cards de métricas en el chat</span><span class="task__threads">~206 lojas</span><div class="task__status task__status--blocked"></div>
           </div>
         </div>
         <div class="task-row">
@@ -360,6 +411,9 @@
           <div class="task task--fe" onclick="openPanel('fe-confirmacao')" style="width:calc(1.5/20*100%)">
             <span class="task__id">FE · Confirmacao</span><span class="pt">Card de acao</span><span class="es">Card de acción</span><span class="task__threads">dep: BE structured data</span><div class="task__status task__status--blocked"></div>
           </div>
+          <div class="task task--fe" onclick="openPanel('fe-deeplink')" style="width:calc(2/20*100%)">
+            <span class="task__id">FE · Deep Link Cards</span><span class="pt">Cards que navegam ao admin</span><span class="es">Cards que navegan al admin</span><span class="task__threads">~1.198 · dep: BE deeplink</span><div class="task__status task__status--blocked"></div>
+          </div>
         </div>
         <div class="task-row">
           <div class="task task--fe" onclick="openPanel('fe-action')" style="width:calc(3/20*100%);margin-left:calc(8/20*100%)">
@@ -371,13 +425,16 @@
           <div class="task task--fe" onclick="openPanel('fe-datacards')" style="width:calc(2/20*100%)">
             <span class="task__id">FE · Data Cards</span><span class="pt">KPIs + mini-tabelas</span><span class="es">KPIs + mini-tablas</span><span class="task__threads">dep: BE stats</span><div class="task__status task__status--blocked"></div>
           </div>
+          <div class="task task--fe" onclick="openPanel('fe-analytics')" style="width:calc(2/20*100%)">
+            <span class="task__id">FE · Analytics Cards</span><span class="pt">Metricas de negocio no chat</span><span class="es">Métricas de negocio en el chat</span><span class="task__threads">~206 lojas · dep: BE analytics</span><div class="task__status task__status--blocked"></div>
+          </div>
         </div>
         <div class="task-row">
           <div class="task task--fe" onclick="openPanel('fe-formulario')" style="width:calc(3.5/20*100%);margin-left:calc(10/20*100%)">
             <span class="task__id">FE · Formulario Inline</span><span class="pt">Campos + preview no chat</span><span class="es">Campos + preview en el chat</span><span class="task__threads">~80 · 5-8d · dep: AIL-155 + D2.4</span><div class="task__status task__status--blocked"></div>
           </div>
           <div class="task task--fe" onclick="openPanel('fe-progress')" style="width:calc(2/20*100%);margin-left:calc(1/20*100%)">
-            <span class="task__id">FE · Progress</span>Bulk ops<span class="task__threads">~22 · 2-3d</span><div class="task__status task__status--todo"></div>
+            <span class="task__id">FE · Progress</span>Bulk ops<span class="task__threads">~109 threads · 2-3d · dep: BE bulk</span><div class="task__status task__status--blocked"></div>
           </div>
         </div>
       </div>
@@ -431,8 +488,8 @@
 <div class="footer">
   <div class="footer__left">
     Lumi Team Roadmap &nbsp;·&nbsp; Q1–Q2 2026 &nbsp;·&nbsp; Karem Carvalho + time AI Lumi<br>
-    <span class="pt">Baseado em analise de 2.080 threads recentes</span><span class="es">Basado en análisis de 2.080 threads recientes</span> &nbsp;·&nbsp; <span class="pt">1.546 lojas</span><span class="es">1.546 tiendas</span> &nbsp;·&nbsp; Fev–Mar/2026 (dados recentes)<br>
-    <strong style="color:var(--red)"><span class="pt">~49% do impacto (threads com dor) nao tem nenhuma issue na sprint</span><span class="es">~49% del impacto (threads con dolor) no tiene ningún issue en la sprint</span></strong>
+    <span class="pt">Baseado em analise de 2.080 threads</span><span class="es">Basado en análisis de 2.080 threads</span> &nbsp;·&nbsp; <span class="pt">1.546 lojas</span><span class="es">1.546 tiendas</span> &nbsp;·&nbsp; Fev–Mar/2026<br>
+    <strong style="color:var(--red)"><span class="pt">~49% do impacto nao tem issue na sprint</span><span class="es">~49% del impacto no tiene issue en la sprint</span></strong> &nbsp;·&nbsp; <strong style="color:var(--accent-light)"><span class="pt">+3 insights: Deep link (1.198) · Bulk (109) · Analytics (206)</span><span class="es">+3 insights: Deep link (1.198) · Bulk (109) · Analytics (206)</span></strong>
   </div>
   <div class="footer__right">
     <div class="footer__stat"><div class="footer__stat-number" style="color:var(--red)">~49%</div><div class="footer__stat-label"><span class="pt">sem issue</span><span class="es">sin issue</span></div></div>
@@ -1279,6 +1336,267 @@ const TASKS = {
         { label:'Status', value:'Todo (na sprint)' },
         { label:'Tipo', value:'Melhoria de UX (feedback de processamento)' },
         { label:'Impacto', value:'Qualitativo — transparencia no processamento' }
+      ]}
+    ]
+  },
+  'insight-1': {
+    wave: 'Insight · Analise de dados',
+    title: '57,6% dos pedidos ja existem no painel',
+    sections: [
+      { type:'context', html:'<div class="panel__context-title">Contexto</div><strong>1.198 de 2.080</strong> threads recentes pedem a Lumi coisas que <strong>ja existem no painel admin</strong>. Em vez de tentar fazer tudo sozinha, a Lumi deve navegar o lojista ate a tela certa (deep linking).' },
+      { type:'problem', html:'<strong>55,1%</strong> dessas conversas falham. Piores areas: <strong>Precos (82% falham)</strong>, Editar produto (80%), Pedidos (68%), Configuracoes (64%). Lumi tenta executar ou explicar, mas o lojista precisava so de um link direto.' },
+      { type:'impact', cards:[
+        { number:'1.198', cls:'red', label:'threads afetadas' },
+        { number:'57,6%', cls:'orange', label:'do total' },
+        { number:'55,1%', cls:'red', label:'taxa de falha' },
+        { number:'P0', cls:'accent', label:'prioridade' }
+      ]},
+      { type:'solutions', items:[
+        { icon:'BE', cls:'be', text:'<strong>BE Deep Linking:</strong> Navigator subagent deve identificar quando o pedido ja existe no admin e retornar cards com links diretos para a tela correta.' },
+        { icon:'UX', cls:'ux', text:'<strong>D Deep Link Cards:</strong> Design de cards que navegam para telas especificas (Precos, Produtos, Pedidos, Config).' },
+        { icon:'FE', cls:'fe', text:'<strong>FE Deep Link Cards:</strong> Componente que renderiza links/botoes que abrem o admin na tela certa.' }
+      ]},
+      { type:'meta', items:[
+        { label:'Conecta com', value:'BE Navigator audit' },
+        { label:'Impacto', value:'~1.198 threads (57,6%)' },
+        { label:'Implicacao', value:'Lumi como guia, nao como executor para tudo' }
+      ]},
+      { type:'deps', tags:[
+        { text:'BE Deep Linking', cls:'blocked' },
+        { text:'D Deep Link Cards', cls:'blocked' },
+        { text:'FE Deep Link Cards', cls:'blocked' }
+      ]}
+    ]
+  },
+  'insight-2': {
+    wave: 'Insight · Analise de dados',
+    title: 'Acoes massivas — o gap invisivel',
+    sections: [
+      { type:'context', html:'<div class="panel__context-title">Contexto</div><strong>109 threads</strong> pedem explicitamente acoes em lote. O problema: <strong>69,7%</strong> pedem bulk actions que <strong>nao existem</strong> como bulk no admin.' },
+      { type:'problem', html:'<strong>74%</strong> dessas conversas falham. Top pedidos: mudanca de preco em massa, bulk SEO, bulk tags, bulk categorias, bulk descricoes. O admin tem bulk para algumas coisas, mas nao para as mais pedidas.' },
+      { type:'impact', cards:[
+        { number:'109', cls:'red', label:'threads afetadas' },
+        { number:'69,7%', cls:'orange', label:'pedem bulk inexistente' },
+        { number:'74%', cls:'red', label:'taxa de falha' },
+        { number:'5+', cls:'accent', label:'tipos de bulk pedidos' }
+      ]},
+      { type:'solutions', items:[
+        { icon:'BE', cls:'be', text:'<strong>BE Bulk Operations API:</strong> Criar endpoints batch para preco, SEO, tags, categorias, descricoes. Permitir que Lumi execute em lote via chat.' },
+        { icon:'UX', cls:'ux', text:'<strong>D Bulk Progress UI:</strong> Design do indicador de progresso e UI de acao em lote (progress bar, items processados).' },
+        { icon:'FE', cls:'fe', text:'<strong>FE Progress:</strong> Componente de progresso para operacoes em lote (ja existe parcialmente, integrar com BE bulk).' }
+      ]},
+      { type:'meta', items:[
+        { label:'Impacto', value:'~109 threads' },
+        { label:'Top requests', value:'preco, SEO, tags, categorias, descricoes' },
+        { label:'Gap', value:'Bulk existe para poucos casos; maioria nao tem' }
+      ]},
+      { type:'deps', tags:[
+        { text:'BE Bulk Operations API', cls:'blocked' },
+        { text:'D Bulk Progress UI', cls:'blocked' },
+        { text:'FE Progress', cls:'blocked' }
+      ]}
+    ]
+  },
+  'insight-3': {
+    wave: 'Insight · Analise de dados',
+    title: 'Dados do negocio — promessa nao cumprida',
+    sections: [
+      { type:'context', html:'<div class="panel__context-title">Contexto</div><strong>206 lojas</strong> perguntaram sobre dados do negocio (vendas, metricas, conversao). <strong>65,5%</strong> tiveram experiencia ruim ou mista.' },
+      { type:'problem', html:'<strong>50%</strong> das lojas com ma experiencia de dados <strong>nunca usaram Lumi de novo</strong>. A promessa de "assistente com dados" nao esta sendo cumprida. Lumi nao tem acesso a metricas reais da loja.' },
+      { type:'impact', cards:[
+        { number:'206', cls:'red', label:'lojas afetadas' },
+        { number:'65,5%', cls:'orange', label:'ma/mista experiencia' },
+        { number:'50%', cls:'red', label:'churn (nunca mais usam)' },
+        { number:'A/B', cls:'accent', label:'teste proposto' }
+      ]},
+      { type:'solutions', items:[
+        { icon:'BE', cls:'be', text:'<strong>BE Analytics Access:</strong> Dar a Lumi acesso a metricas reais da loja (vendas, conversao, etc.).' },
+        { icon:'UX', cls:'ux', text:'<strong>D Analytics Dashboard Cards:</strong> Design de cards de visualizacao de metricas no chat.' },
+        { icon:'FE', cls:'fe', text:'<strong>FE Analytics Cards:</strong> Componente que exibe KPIs e metricas de negocio no chat.' }
+      ]},
+      { type:'quote', text:'A/B teste proposto: Lumi com acesso real a analytics vs Lumi atual. Medir retencao + GMV.', author:'Proposta de validacao' },
+      { type:'meta', items:[
+        { label:'Impacto', value:'~206 lojas' },
+        { label:'Risco', value:'50% churn em lojas com ma experiencia' },
+        { label:'Validacao', value:'A/B test retention + GMV' }
+      ]},
+      { type:'deps', tags:[
+        { text:'BE Analytics Access', cls:'blocked' },
+        { text:'D Analytics Dashboard', cls:'blocked' },
+        { text:'FE Analytics Cards', cls:'blocked' }
+      ]}
+    ]
+  },
+  'be-deeplink': {
+    wave: 'Insight 1 · Backend',
+    title: 'BE Deep Linking — Navegar ao admin',
+    sections: [
+      { type:'context', html:'<div class="panel__context-title">Contexto</div>1.198 threads (57,6%) pedem coisas que ja existem no painel. Em vez de tentar fazer tudo, Lumi deve navegar o lojista para a tela certa.' },
+      { type:'problem', html:'55,1% falham. Piores areas: Precos (82%), Editar produto (80%), Pedidos (68%), Configuracoes (64%). O Navigator subagent precisa retornar deep links em vez de instrucoes textuais.' },
+      { type:'impact', cards:[
+        { number:'1.198', cls:'red', label:'threads' },
+        { number:'57,6%', cls:'orange', label:'do total' },
+        { number:'P0', cls:'accent', label:'prioridade' },
+        { number:'Navigator', cls:'green', label:'subagent' }
+      ]},
+      { type:'solutions', items:[
+        { icon:'BE', cls:'be', text:'<strong>Integrar ao Navigator:</strong> Quando intent = "ja existe no admin", retornar action_card com tipo "navigate" e URL do admin.' },
+        { icon:'BE', cls:'be', text:'<strong>Mapear intents:</strong> Precos, Editar produto, Pedidos, Config → URLs corretas do admin. Manter audit de URLs (BE Navigator audit).' }
+      ]},
+      { type:'meta', items:[
+        { label:'Conecta com', value:'BE Navigator audit' },
+        { label:'Desbloqueia', value:'D Deep Link Cards · FE Deep Link Cards' },
+        { label:'Implicacao', value:'Lumi como guia, nao executor' }
+      ]}
+    ]
+  },
+  'be-bulk': {
+    wave: 'Insight 2 · Backend',
+    title: 'BE Bulk Operations API',
+    sections: [
+      { type:'context', html:'<div class="panel__context-title">Contexto</div>109 threads pedem acoes em lote. 69,7% pedem bulk que nao existe no admin. 74% falham.' },
+      { type:'problem', html:'Top requests: bulk preco, bulk SEO, bulk tags, bulk categorias, bulk descricoes. O admin nao oferece bulk para a maioria dessas acoes.' },
+      { type:'impact', cards:[
+        { number:'109', cls:'red', label:'threads' },
+        { number:'69,7%', cls:'orange', label:'bulk inexistente' },
+        { number:'74%', cls:'red', label:'falha' },
+        { number:'5+', cls:'accent', label:'tipos de bulk' }
+      ]},
+      { type:'solutions', items:[
+        { icon:'BE', cls:'be', text:'<strong>Endpoints batch:</strong> Criar APIs para atualizar preco, SEO, tags, categorias, descricoes em lote. Receber array de IDs + valores.' },
+        { icon:'BE', cls:'be', text:'<strong>Progress events:</strong> Enviar progresso em tempo real (X de Y processados) para o frontend exibir.' }
+      ]},
+      { type:'meta', items:[
+        { label:'Desbloqueia', value:'D Bulk Progress UI · FE Progress' },
+        { label:'Esforco', value:'Variavel por tipo de bulk' },
+        { label:'Prioridade', value:'P1 — alto impacto' }
+      ]}
+    ]
+  },
+  'be-analytics': {
+    wave: 'Insight 3 · Backend',
+    title: 'BE Analytics Access',
+    sections: [
+      { type:'context', html:'<div class="panel__context-title">Contexto</div>206 lojas perguntaram sobre dados do negocio. 65,5% tiveram ma/mista experiencia. 50% nunca usaram Lumi de novo.' },
+      { type:'problem', html:'Lumi nao tem acesso a metricas reais. A promessa de "assistente com dados" nao esta sendo cumprida.' },
+      { type:'impact', cards:[
+        { number:'206', cls:'red', label:'lojas' },
+        { number:'65,5%', cls:'orange', label:'ma experiencia' },
+        { number:'50%', cls:'red', label:'churn' },
+        { number:'A/B', cls:'accent', label:'teste proposto' }
+      ]},
+      { type:'solutions', items:[
+        { icon:'BE', cls:'be', text:'<strong>Integrar fontes de analytics:</strong> Dar a Lumi acesso a vendas, conversao, metricas da loja via API existente.' },
+        { icon:'BE', cls:'be', text:'<strong>A/B test:</strong> Lumi com dados reais vs Lumi atual. Medir retencao e GMV.' }
+      ]},
+      { type:'meta', items:[
+        { label:'Desbloqueia', value:'D Analytics Dashboard · FE Analytics Cards' },
+        { label:'Validacao', value:'A/B retention + GMV' },
+        { label:'Risco', value:'50% churn em lojas afetadas' }
+      ]}
+    ]
+  },
+  'd-deeplink': {
+    wave: 'Insight 1 · Design',
+    title: 'D Deep Link Cards',
+    sections: [
+      { type:'context', html:'<div class="panel__context-title">Contexto</div>Cards que navegam o lojista para telas especificas do admin. Impacto: ~1.198 threads (57,6%).' },
+      { type:'impact', cards:[
+        { number:'1.198', cls:'red', label:'threads' },
+        { number:'4', cls:'orange', label:'areas (Precos, Prod, Pedidos, Config)' },
+        { number:'2-3d', cls:'accent', label:'esforco' },
+        { number:'BE deeplink', cls:'green', label:'dep' }
+      ]},
+      { type:'solutions', items:[
+        { icon:'UX', cls:'ux', text:'<strong>Card de navegacao:</strong> Icone + titulo + "Ir para [tela]". Click abre admin na rota certa.' },
+        { icon:'UX', cls:'ux', text:'<strong>Variantes por area:</strong> Precos, Editar produto, Pedidos, Configuracoes.' }
+      ]},
+      { type:'meta', items:[
+        { label:'Dep', value:'BE Deep Linking' },
+        { label:'Desbloqueia', value:'FE Deep Link Cards' }
+      ]}
+    ]
+  },
+  'd-bulk-progress': {
+    wave: 'Insight 2 · Design',
+    title: 'D Bulk Progress UI',
+    sections: [
+      { type:'context', html:'<div class="panel__context-title">Contexto</div>Design do indicador de progresso e UI de acao em lote. Impacto: ~109 threads.' },
+      { type:'impact', cards:[
+        { number:'109', cls:'red', label:'threads' },
+        { number:'2-3d', cls:'accent', label:'esforco' },
+        { number:'BE bulk', cls:'green', label:'dep' },
+        { number:'FE Progress', cls:'green', label:'conecta' }
+      ]},
+      { type:'solutions', items:[
+        { icon:'UX', cls:'ux', text:'<strong>Progress bar:</strong> Porcentagem, items processados (X de Y), tempo estimado. Estados: em andamento, sucesso, erro parcial.' },
+        { icon:'UX', cls:'ux', text:'<strong>Batch action UI:</strong> Preview do que sera alterado antes de confirmar.' }
+      ]},
+      { type:'meta', items:[
+        { label:'Dep', value:'BE Bulk Operations API' },
+        { label:'Desbloqueia', value:'FE Progress (atualizar)' }
+      ]}
+    ]
+  },
+  'd-analytics-cards': {
+    wave: 'Insight 3 · Design',
+    title: 'D Analytics Dashboard Cards',
+    sections: [
+      { type:'context', html:'<div class="panel__context-title">Contexto</div>Design de cards de visualizacao de metricas de negocio no chat. Impacto: ~206 lojas.' },
+      { type:'impact', cards:[
+        { number:'206', cls:'red', label:'lojas' },
+        { number:'65,5%', cls:'orange', label:'ma experiencia hoje' },
+        { number:'2-3d', cls:'accent', label:'esforco' },
+        { number:'BE analytics', cls:'green', label:'dep' }
+      ]},
+      { type:'solutions', items:[
+        { icon:'UX', cls:'ux', text:'<strong>KPI cards:</strong> Vendas, conversao, pedidos. Numero grande + variacao + periodo.' },
+        { icon:'UX', cls:'ux', text:'<strong>Data viz inline:</strong> Mini-graficos ou tabelas para metricas no chat.' }
+      ]},
+      { type:'meta', items:[
+        { label:'Dep', value:'BE Analytics Access' },
+        { label:'Desbloqueia', value:'FE Analytics Cards' },
+        { label:'A/B', value:'Validar retention + GMV' }
+      ]}
+    ]
+  },
+  'fe-deeplink': {
+    wave: 'Insight 1 · Frontend',
+    title: 'FE Deep Link Cards',
+    sections: [
+      { type:'context', html:'<div class="panel__context-title">Contexto</div>Componente que renderiza cards com links para telas do admin. Impacto: ~1.198 threads.' },
+      { type:'impact', cards:[
+        { number:'1.198', cls:'red', label:'threads' },
+        { number:'1-2d', cls:'accent', label:'esforco' },
+        { number:'BE deeplink', cls:'green', label:'dep' },
+        { number:'D Deep Link', cls:'green', label:'spec' }
+      ]},
+      { type:'solutions', items:[
+        { icon:'FE', cls:'fe', text:'<strong>Componente:</strong> Recebe JSON com tipo navigate + URL. Renderiza card clicavel que abre admin na rota.' }
+      ]},
+      { type:'meta', items:[
+        { label:'Dep', value:'BE Deep Linking · D Deep Link Cards' },
+        { label:'Conecta', value:'Action cards (tipo navigate)' }
+      ]}
+    ]
+  },
+  'fe-analytics': {
+    wave: 'Insight 3 · Frontend',
+    title: 'FE Analytics Cards',
+    sections: [
+      { type:'context', html:'<div class="panel__context-title">Contexto</div>Componente que exibe metricas de negocio no chat. Impacto: ~206 lojas. 50% churn em lojas com ma experiencia.' },
+      { type:'impact', cards:[
+        { number:'206', cls:'red', label:'lojas' },
+        { number:'2-3d', cls:'accent', label:'esforco' },
+        { number:'BE analytics', cls:'green', label:'dep' },
+        { number:'D Analytics', cls:'green', label:'spec' }
+      ]},
+      { type:'solutions', items:[
+        { icon:'FE', cls:'fe', text:'<strong>Componente:</strong> Recebe JSON com KPIs (vendas, conversao, etc.). Renderiza cards visuais. Similar a Data Cards mas para metricas de negocio.' }
+      ]},
+      { type:'meta', items:[
+        { label:'Dep', value:'BE Analytics Access · D Analytics Dashboard' },
+        { label:'Conecta', value:'D2.3 Data Cards (extensao)' }
       ]}
     ]
   }
