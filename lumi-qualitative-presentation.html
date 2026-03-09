@@ -166,7 +166,7 @@
     <h2><span class="pt">5 problemas que ainda persistem</span><span class="es">5 problemas que aún persisten</span></h2>
     <div class="bar-chart" style="margin-top:18px">
 
-      <div class="bar-row bar-row--link" onclick="goTo(3)" title="Ver detalhes">
+      <div class="bar-row bar-row--link" onclick="goTo(4)" title="Ver detalhes">
         <div class="bar-label" style="min-width:260px">
           <div style="display:flex;align-items:center;gap:6px"><span style="font-weight:700"><span class="pt">Resposta desalinhada</span><span class="es">Respuesta desalineada</span></span> <span style="font-size:.7rem;color:var(--accent-light);cursor:pointer">&#x2197;</span></div>
           <div style="font-size:.72rem;color:var(--text-dim);margin-top:2px;line-height:1.3"><span class="pt">Merchant pede uma acao ("cria promocao") e Lumi responde com tutorial em vez de executar.</span><span class="es">Merchant pide una accion ("crea promocion") y Lumi responde con tutorial en vez de ejecutar.</span></div>
@@ -174,7 +174,7 @@
         <div class="bar-track"><div class="bar-fill bar-fill--red" style="width:100%">365 threads</div></div><div class="bar-value">17.5%</div>
       </div>
 
-      <div class="bar-row bar-row--link" onclick="goTo(4)" title="Ver detalhes">
+      <div class="bar-row bar-row--link" onclick="goTo(5)" title="Ver detalhes">
         <div class="bar-label" style="min-width:260px">
           <div style="display:flex;align-items:center;gap:6px"><span style="font-weight:700">Dead-ends</span> <span style="font-size:.7rem;color:var(--accent-light);cursor:pointer">&#x2197;</span></div>
           <div style="font-size:.72rem;color:var(--text-dim);margin-top:2px;line-height:1.3"><span class="pt">Conversa morre sem resolucao. Lumi nao sabe responder e nao oferece alternativa ou escalacao.</span><span class="es">Conversacion muere sin resolucion. Lumi no sabe responder y no ofrece alternativa o escalacion.</span></div>
@@ -182,7 +182,7 @@
         <div class="bar-track"><div class="bar-fill bar-fill--red" style="width:70%">254 threads</div></div><div class="bar-value">12.2%</div>
       </div>
 
-      <div class="bar-row bar-row--link" onclick="goTo(5)" title="Ver detalhes">
+      <div class="bar-row bar-row--link" onclick="goTo(6)" title="Ver detalhes">
         <div class="bar-label" style="min-width:260px">
           <div style="display:flex;align-items:center;gap:6px"><span style="font-weight:700"><span class="pt">Verbosidade</span><span class="es">Verbosidad</span></span> <span style="font-size:.7rem;color:var(--accent-light);cursor:pointer">&#x2197;</span></div>
           <div style="font-size:.72rem;color:var(--text-dim);margin-top:2px;line-height:1.3"><span class="pt">Respostas longas demais com passos repetidos. Merchant precisa de resposta direta e recebe um manual.</span><span class="es">Respuestas demasiado largas con pasos repetidos. Merchant necesita respuesta directa y recibe un manual.</span></div>
@@ -190,7 +190,7 @@
         <div class="bar-track"><div class="bar-fill bar-fill--orange" style="width:62%">225 threads</div></div><div class="bar-value">10.8%</div>
       </div>
 
-      <div class="bar-row bar-row--link" onclick="goTo(5)" title="Ver detalhes">
+      <div class="bar-row bar-row--link" onclick="goTo(6)" title="Ver detalhes">
         <div class="bar-label" style="min-width:260px">
           <div style="display:flex;align-items:center;gap:6px"><span style="font-weight:700"><span class="pt">Guardrails excessivos</span><span class="es">Guardrails excesivos</span></span> <span style="font-size:.7rem;color:var(--accent-light);cursor:pointer">&#x2197;</span></div>
           <div style="font-size:.72rem;color:var(--text-dim);margin-top:2px;line-height:1.3"><span class="pt">Lumi recusa pedidos validos ("nao posso fazer isso") quando deveria tentar ou perguntar mais.</span><span class="es">Lumi rechaza pedidos validos ("no puedo hacer eso") cuando deberia intentar o preguntar mas.</span></div>
@@ -198,7 +198,7 @@
         <div class="bar-track"><div class="bar-fill bar-fill--orange" style="width:28%">101 threads</div></div><div class="bar-value">4.9%</div>
       </div>
 
-      <div class="bar-row bar-row--link" onclick="goTo(6)" title="Ver detalhes">
+      <div class="bar-row bar-row--link" onclick="goTo(7)" title="Ver detalhes">
         <div class="bar-label" style="min-width:260px">
           <div style="display:flex;align-items:center;gap:6px"><span style="font-weight:700"><span class="pt">Routing errado</span><span class="es">Routing incorrecto</span></span> <span style="font-size:.7rem;color:var(--accent-light);cursor:pointer">&#x2197;</span></div>
           <div style="font-size:.72rem;color:var(--text-dim);margin-top:2px;line-height:1.3"><span class="pt">Pergunta vai para o SubAgent errado (ex: pedido de marketing cai no Catalog Agent) e a resposta nao faz sentido.</span><span class="es">Pregunta va al SubAgent equivocado (ej: pedido de marketing cae en Catalog Agent) y la respuesta no tiene sentido.</span></div>
@@ -235,6 +235,18 @@
         <div class="action-item"><div class="action-icon action-icon--front">FE</div><div><div class="action-text"><span class="pt"><strong>Action cards:</strong> botoes contextuais ("Ir a Promociones", "Crear producto") que linkem direto a tela do admin</span><span class="es"><strong>Action cards:</strong> botones contextuales ("Ir a Promociones", "Crear producto") que linqueen directo a la pantalla del admin</span></div></div></div>
       </div>
     </div>
+    <div style="margin-top:14px;padding:12px 16px;background:var(--surface);border:1px solid var(--border);border-radius:10px">
+      <div style="font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--accent-light);font-weight:700;margin-bottom:8px"><span class="pt">Conversas recentes com esse problema</span><span class="es">Conversaciones recientes con este problema</span></div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:6px;font-size:.78rem">
+        <div style="display:flex;gap:8px;align-items:baseline;color:var(--text-dim)"><span style="color:var(--text-muted);font-family:monospace;font-size:.7rem;flex-shrink:0">05/mar</span><span class="pill pill--red" style="font-size:.6rem;padding:2px 6px">bad</span><span>"saber cómo acceder al layout de su tienda"</span></div>
+        <div style="display:flex;gap:8px;align-items:baseline;color:var(--text-dim)"><span style="color:var(--text-muted);font-family:monospace;font-size:.7rem;flex-shrink:0">05/mar</span><span class="pill pill--red" style="font-size:.6rem;padding:2px 6px">bad</span><span>"activar la recuperación automática de carritos"</span></div>
+        <div style="display:flex;gap:8px;align-items:baseline;color:var(--text-dim)"><span style="color:var(--text-muted);font-family:monospace;font-size:.7rem;flex-shrink:0">05/mar</span><span class="pill pill--red" style="font-size:.6rem;padding:2px 6px">bad</span><span>"editar o código HTML, CSS e Javascript da loja"</span></div>
+        <div style="display:flex;gap:8px;align-items:baseline;color:var(--text-dim)"><span style="color:var(--text-muted);font-family:monospace;font-size:.7rem;flex-shrink:0">05/mar</span><span class="pill pill--red" style="font-size:.6rem;padding:2px 6px">bad</span><span>"saber el costo por financiación en 3 y 6 cuotas"</span></div>
+        <div style="display:flex;gap:8px;align-items:baseline;color:var(--text-dim)"><span style="color:var(--text-muted);font-family:monospace;font-size:.7rem;flex-shrink:0">04/mar</span><span class="pill pill--red" style="font-size:.6rem;padding:2px 6px">bad</span><span>"configurar Mercado Pago como medio de pago"</span></div>
+        <div style="display:flex;gap:8px;align-items:baseline;color:var(--text-dim)"><span style="color:var(--text-muted);font-family:monospace;font-size:.7rem;flex-shrink:0">04/mar</span><span class="pill pill--red" style="font-size:.6rem;padding:2px 6px">bad</span><span>"crear campañas para Instagram o Facebook"</span></div>
+      </div>
+      <div style="margin-top:6px;font-size:.7rem;color:var(--text-muted)"><span class="pt">Mostrando 6 de 365 conversas recentes (Fev-Mar 2026). Fonte: lumi-annotations LLM.</span><span class="es">Mostrando 6 de 365 conversaciones recientes (Feb-Mar 2026). Fuente: lumi-annotations LLM.</span></div>
+    </div>
   </div>
 
   <!-- 4: Problema #2 -->
@@ -261,6 +273,18 @@
         <div class="action-item"><div class="action-icon action-icon--front">6</div><div><div class="action-text"><span class="pt"><strong>Error state claro:</strong> card visual com opcoes em vez de silencio</span><span class="es"><strong>Error state claro:</strong> card visual con opciones en vez de silencio</span></div></div></div>
         <p class="small"><span class="pt">Esforco: 2-3 dias backend + 1 dia front</span><span class="es">Esfuerzo: 2-3 dias backend + 1 dia front</span></p>
       </div>
+    </div>
+    <div style="margin-top:14px;padding:12px 16px;background:var(--surface);border:1px solid var(--border);border-radius:10px">
+      <div style="font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--accent-light);font-weight:700;margin-bottom:8px"><span class="pt">Conversas recentes com esse problema</span><span class="es">Conversaciones recientes con este problema</span></div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:6px;font-size:.78rem">
+        <div style="display:flex;gap:8px;align-items:baseline;color:var(--text-dim)"><span style="color:var(--text-muted);font-family:monospace;font-size:.7rem;flex-shrink:0">06/mar</span><span class="pill pill--red" style="font-size:.6rem;padding:2px 6px">bad</span><span>"poner modo claro la pantalla"</span></div>
+        <div style="display:flex;gap:8px;align-items:baseline;color:var(--text-dim)"><span style="color:var(--text-muted);font-family:monospace;font-size:.7rem;flex-shrink:0">06/mar</span><span class="pill pill--red" style="font-size:.6rem;padding:2px 6px">bad</span><span>"buscar productos que mencionen 'Shipnow'"</span></div>
+        <div style="display:flex;gap:8px;align-items:baseline;color:var(--text-dim)"><span style="color:var(--text-muted);font-family:monospace;font-size:.7rem;flex-shrink:0">05/mar</span><span class="pill pill--orange" style="font-size:.6rem;padding:2px 6px">mixed</span><span>"descargar un Excel con el inventario"</span></div>
+        <div style="display:flex;gap:8px;align-items:baseline;color:var(--text-dim)"><span style="color:var(--text-muted);font-family:monospace;font-size:.7rem;flex-shrink:0">05/mar</span><span class="pill pill--red" style="font-size:.6rem;padding:2px 6px">bad</span><span>"consultar detalles sobre el plan de Tiendanube"</span></div>
+        <div style="display:flex;gap:8px;align-items:baseline;color:var(--text-dim)"><span style="color:var(--text-muted);font-family:monospace;font-size:.7rem;flex-shrink:0">04/mar</span><span class="pill pill--red" style="font-size:.6rem;padding:2px 6px">bad</span><span>"obtener el ID de su tienda"</span></div>
+        <div style="display:flex;gap:8px;align-items:baseline;color:var(--text-dim)"><span style="color:var(--text-muted);font-family:monospace;font-size:.7rem;flex-shrink:0">03/mar</span><span class="pill pill--red" style="font-size:.6rem;padding:2px 6px">bad</span><span>"ver estadísticas de productos"</span></div>
+      </div>
+      <div style="margin-top:6px;font-size:.7rem;color:var(--text-muted)"><span class="pt">Mostrando 6 de 254 conversas recentes (Fev-Mar 2026). Fonte: lumi-annotations LLM.</span><span class="es">Mostrando 6 de 254 conversaciones recientes (Feb-Mar 2026). Fuente: lumi-annotations LLM.</span></div>
     </div>
   </div>
 
@@ -295,6 +319,18 @@
         <div class="action-item"><div class="action-icon action-icon--back">BE</div><div><div class="action-text"><span class="pt"><strong>Tool availability check:</strong> verificar quais subAgents estao disponiveis</span><span class="es"><strong>Tool availability check:</strong> verificar que subAgents estan disponibles</span></div></div></div>
       </div>
     </div>
+    <div style="margin-top:10px;padding:10px 14px;background:var(--surface);border:1px solid var(--border);border-radius:10px">
+      <div style="font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;color:var(--accent-light);font-weight:700;margin-bottom:6px"><span class="pt">Conversas recentes</span><span class="es">Conversaciones recientes</span></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;font-size:.72rem">
+        <div style="display:flex;gap:6px;align-items:baseline;color:var(--text-dim)"><span style="color:var(--text-muted);font-family:monospace;font-size:.65rem">05/mar</span><span class="pill pill--orange" style="font-size:.55rem;padding:1px 5px">P3</span><span>"instalar, configurar y activar Marketing Nube"</span></div>
+        <div style="display:flex;gap:6px;align-items:baseline;color:var(--text-dim)"><span style="color:var(--text-muted);font-family:monospace;font-size:.65rem">06/mar</span><span class="pill pill--red" style="font-size:.55rem;padding:1px 5px">P4</span><span>"poner modo claro la pantalla"</span></div>
+        <div style="display:flex;gap:6px;align-items:baseline;color:var(--text-dim)"><span style="color:var(--text-muted);font-family:monospace;font-size:.65rem">05/mar</span><span class="pill pill--orange" style="font-size:.55rem;padding:1px 5px">P3</span><span>"cuántas órdenes tiene para empaquetar"</span></div>
+        <div style="display:flex;gap:6px;align-items:baseline;color:var(--text-dim)"><span style="color:var(--text-muted);font-family:monospace;font-size:.65rem">05/mar</span><span class="pill pill--red" style="font-size:.55rem;padding:1px 5px">P4</span><span>"agregar variantes para filtrar por talle"</span></div>
+        <div style="display:flex;gap:6px;align-items:baseline;color:var(--text-dim)"><span style="color:var(--text-muted);font-family:monospace;font-size:.65rem">04/mar</span><span class="pill pill--orange" style="font-size:.55rem;padding:1px 5px">P3</span><span>"compras vinieron por fuente de paid"</span></div>
+        <div style="display:flex;gap:6px;align-items:baseline;color:var(--text-dim)"><span style="color:var(--text-muted);font-family:monospace;font-size:.65rem">04/mar</span><span class="pill pill--red" style="font-size:.55rem;padding:1px 5px">P4</span><span>"crear campañas para Instagram o Facebook"</span></div>
+      </div>
+      <div style="margin-top:4px;font-size:.65rem;color:var(--text-muted)"><span class="pt">P3: 225 threads | P4: 101 threads. Fev-Mar 2026.</span><span class="es">P3: 225 threads | P4: 101 threads. Feb-Mar 2026.</span></div>
+    </div>
   </div>
 
   <!-- 6: SubAgents -->
@@ -321,6 +357,18 @@
         <div class="action-item"><div class="action-icon action-icon--back">BE</div><div><div class="action-text"><span class="pt"><strong>Catalog_search + Helpjuice:</strong> corrigir trigger ("shopping" na resposta dispara indevidamente)</span><span class="es"><strong>Catalog_search + Helpjuice:</strong> corregir trigger ("shopping" en la respuesta dispara indebidamente)</span></div></div></div>
         <div class="action-item"><div class="action-icon action-icon--back">BE</div><div><div class="action-text"><span class="pt"><strong>Awareness de features:</strong> injetar plano da loja, features habilitadas no contexto. Validar ANTES de acionar stats/orders</span><span class="es"><strong>Awareness de features:</strong> inyectar plan de la tienda, features habilitadas en el contexto. Validar ANTES de accionar stats/orders</span></div><div class="action-impact">~108 threads | 3-5 dias</div></div></div>
       </div>
+    </div>
+    <div style="margin-top:12px;padding:10px 14px;background:var(--surface);border:1px solid var(--border);border-radius:10px">
+      <div style="font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;color:var(--accent-light);font-weight:700;margin-bottom:6px"><span class="pt">Conversas recentes — Routing errado <span style="color:var(--red)">(subiu de 2.0% para 3.4%)</span></span><span class="es">Conversaciones recientes — Routing incorrecto <span style="color:var(--red)">(subio de 2.0% a 3.4%)</span></span></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;font-size:.72rem">
+        <div style="display:flex;gap:6px;align-items:baseline;color:var(--text-dim)"><span style="color:var(--text-muted);font-family:monospace;font-size:.65rem">03/mar</span><span class="pill pill--red" style="font-size:.55rem;padding:1px 5px">bad</span><span>"Marcar como embalado en pedidos"</span></div>
+        <div style="display:flex;gap:6px;align-items:baseline;color:var(--text-dim)"><span style="color:var(--text-muted);font-family:monospace;font-size:.65rem">03/mar</span><span class="pill pill--red" style="font-size:.55rem;padding:1px 5px">bad</span><span>"acceder al listado de facturas emitidas"</span></div>
+        <div style="display:flex;gap:6px;align-items:baseline;color:var(--text-dim)"><span style="color:var(--text-muted);font-family:monospace;font-size:.65rem">03/mar</span><span class="pill pill--red" style="font-size:.55rem;padding:1px 5px">bad</span><span>"acceder a estadísticas de productos"</span></div>
+        <div style="display:flex;gap:6px;align-items:baseline;color:var(--text-dim)"><span style="color:var(--text-muted);font-family:monospace;font-size:.65rem">03/mar</span><span class="pill pill--red" style="font-size:.55rem;padding:1px 5px">bad</span><span>"soporte para problema con transferencias"</span></div>
+        <div style="display:flex;gap:6px;align-items:baseline;color:var(--text-dim)"><span style="color:var(--text-muted);font-family:monospace;font-size:.65rem">02/mar</span><span class="pill pill--red" style="font-size:.55rem;padding:1px 5px">bad</span><span>"crear fotos de calzado usando IA"</span></div>
+        <div style="display:flex;gap:6px;align-items:baseline;color:var(--text-dim)"><span style="color:var(--text-muted);font-family:monospace;font-size:.65rem">01/mar</span><span class="pill pill--red" style="font-size:.55rem;padding:1px 5px">bad</span><span>"agregar productos a una categoría"</span></div>
+      </div>
+      <div style="margin-top:4px;font-size:.65rem;color:var(--text-muted)"><span class="pt">70 threads recentes. Unico problema que proporcionalmente PIOROU vs Nov-Jan.</span><span class="es">70 threads recientes. Unico problema que proporcionalmente EMPEORÓ vs Nov-Ene.</span></div>
     </div>
   </div>
 
