@@ -529,7 +529,7 @@ var TASKS = {
       { label: 'Nivel 3 — Confirmar antes de agir (Desalinhamento)', msgs: [
         { who: 'Lojista', type: 'merchant', text: '"Crea una promocion de 20% para zapatos"' },
         { who: 'Lumi', type: 'lumi', text: 'Responde com tutorial de 8 passos em vez de criar a promocao.' },
-        { who: '', type: 'ideal', text: '<em>Com HITL:</em> Classifica intent → "Queres que eu crie a promocao ou que te explique como criar?" → lojista escolhe.' }
+        { who: '', type: 'ideal', text: '<em>Com HITL:</em> Cerebro do Lumi entende o que quer → "Queres que eu crie a promocao ou que te explique como criar?" → lojista escolhe.' }
       ]}
     ],
     evidence: [
@@ -541,12 +541,12 @@ var TASKS = {
       { icon: 'UX', type: 'ux', text: '<strong>D1.1 Error State Card</strong> implementa Nivel 1: card com opcoes de proximo passo incluindo suporte humano' },
       { icon: 'UX', type: 'ux', text: '<strong>D1.3 Confirmacao de Acao</strong> implementa Nivel 2: em vez de recusar, mostrar opcoes para o lojista decidir' },
       { icon: 'UX', type: 'ux', text: '<strong>D2.1 Action Cards</strong> implementa Nivel 3: botoes contextuais que perguntam "quer que eu faca ou explico?"' },
-      { icon: 'BE', type: 'be', text: '<strong>Backend: fallback chain</strong> no orquestrador (Nivel 1)' },
-      { icon: 'BE', type: 'be', text: '<strong>Backend: classificacao de intent</strong> "faz pra mim" vs "me explica" (Nivel 3)' },
-      { icon: 'BE', type: 'be', text: '<strong>Backend: trocar guardrail</strong> de "rejeitar" para "pedir clarificacao" (Nivel 2)' }
+      { icon: 'BE', type: 'be', text: '<strong>Plano B quando Lumi nao sabe:</strong> depende do time de engenharia (Nivel 1)' },
+      { icon: 'BE', type: 'be', text: '<strong>Entender o que o lojista quer:</strong> "faz pra mim" vs "me explica" — depende do backend (Nivel 3)' },
+      { icon: 'BE', type: 'be', text: '<strong>Trocar comportamento:</strong> em vez de recusar direto, pedir esclarecimento ao lojista — depende do backend (Nivel 2)' }
     ],
     effort: 'Distribuido entre D1.1, D1.3 e D2.1', status: 'A fazer (0 issues)', timeline: 'Wave 1 a Wave 2',
-    deps: [{ label: 'D1.1 Error State', type: 'ready' }, { label: 'D1.3 Confirmacao', type: 'ready' }, { label: 'D2.1 Action Cards', type: 'ready' }, { label: 'Backend: fallback + intent', type: 'blocked' }]
+    deps: [{ label: 'D1.1 Error State', type: 'ready' }, { label: 'D1.3 Confirmacao', type: 'ready' }, { label: 'D2.1 Action Cards', type: 'ready' }, { label: 'Backend: plano B + entendimento de intent', type: 'blocked' }]
   },
 
   d01: {
@@ -564,7 +564,9 @@ var TASKS = {
     ],
     evidence: [
       { text: 'Necesito que cambies el color del banner, no que me expliques como hacerlo yo', author: 'lojista, loja de moda AR — conversa sobre storefront' },
-      { text: 'Me dijiste que ibas a derivarme a soporte pero no me pasaste ningun link. Estoy esperando.', author: 'lojista, loja de acessorios BR — dead-end com handoff falho' }
+      { text: 'Me dijiste que ibas a derivarme a soporte pero no me pasaste ningun link. Estoy esperando.', author: 'lojista, loja de acessorios BR — dead-end com handoff falho' },
+      { text: 'No me sirve para nada. Ya le pregunte 3 veces y siempre me da lo mismo.', author: 'lojista, loja de eletronicos AR — apos 3 tentativas frustradas' },
+      { text: 'Le pregunto algo concreto y me responde con un manual. Desisti.', author: 'lojista, loja de cosmeticos MX — resposta desalinhada' }
     ],
     solution: [
       { icon: 'UX', type: 'ux', text: '<strong>Capturar screenshots reais</strong> de cada padrao: a mensagem do lojista, a resposta do Lumi, e o momento de abandono' },
@@ -577,7 +579,7 @@ var TASKS = {
   d02: {
     wave: 'Wave 0 · Fundacao', waveColor: '#a29bfe', title: 'Inventario de Componentes do Chat',
     context: '<div class="panel__context-title">O chat hoje</div>O chat do Lumi so renderiza 3 tipos de conteudo: <strong>texto, links e loading</strong>. Tudo que o Lumi responde vira texto corrido — mesmo quando o lojista precisa de uma acao, uma tabela, um checklist ou uma confirmacao. Isso limita tudo que a gente pode oferecer como experiencia.',
-    problem: 'Os dados mostram que lojistas precisam de <strong>pelo menos 8 tipos de componente que nao existem</strong>: error states, action cards, checklists, confirmacao, data cards, formularios, progress bars, downloads. Sem inventariar esse gap, nao da pra planejar nenhuma das waves.',
+    problem: 'Os dados mostram que lojistas precisam de <strong>pelo menos 8 tipos de componente que nao existem</strong>. Cada um serve a um proposito: quando Lumi nao sabe responder (erro), quando quer que o lojista clique para ir a algum lugar (acao), quando explica passos (checklist), quando vai executar algo (confirmacao), quando mostra numeros (dados), quando coleta informacao (formulario), quando demora (progresso), e quando entrega arquivo (download). Sem inventariar esse gap visualmente, nao da pra planejar nenhuma das waves.',
     impact: [{ number: '3', label: 'componentes que existem hoje', color: 'red' },{ number: '11', label: 'componentes que os dados pedem', color: 'green' }],
     scenarios: [
       { label: 'O que o lojista recebe hoje vs o que precisaria', msgs: [
@@ -588,8 +590,8 @@ var TASKS = {
     ],
     evidence: [],
     solution: [
-      { icon: 'UX', type: 'ux', text: '<strong>Listar o que existe:</strong> mensagem texto, link, loading state' },
-      { icon: 'UX', type: 'ux', text: '<strong>Listar o que falta:</strong> error state, truncamento, action cards, checklist, confirmacao, data cards, formulario inline, progress indicator, download' },
+      { icon: 'UX', type: 'ux', text: '<strong>Listar o que existe:</strong> mensagem de texto (aparenta balao de chat), link (texto azul clicavel), loading (animacao enquanto Lumi pensa)' },
+      { icon: 'UX', type: 'ux', text: '<strong>Listar o que falta — com descricao visual:</strong> (1) Card de erro: fundo amarelo/vermelho, icone de alerta, quando Lumi nao sabe; (2) Truncamento: texto cortado com "Ver mais"; (3) Action cards: botoes ou cards clicaveis para acao; (4) Checklist: lista com checkboxes que marcam ao completar; (5) Confirmacao: card com resumo antes de executar; (6) Data cards: numeros grandes, tabelas, graficos; (7) Formulario: campos pre-preenchidos no chat; (8) Progress: barra + contagem; (9) Download: botao para baixar arquivo' },
       { icon: 'UX', type: 'ux', text: '<strong>Mapear prioridade de cada componente</strong> pelo numero de threads que impacta' }
     ],
     effort: '1 dia', status: 'A fazer', timeline: 'Mar S2', deps: [{ label: 'D0.1 Audit', type: 'ready' }]
@@ -633,7 +635,7 @@ var TASKS = {
   d11: {
     wave: 'Wave 1 · Quick Wins', waveColor: '#00cec9', title: 'Error State Card',
     context: '<div class="panel__context-title">A jornada do lojista</div>O lojista abre o chat, faz uma pergunta, e <strong>nao recebe nenhum proximo passo</strong>. Lumi trava. As vezes diz "vou te transferir para suporte" mas nao envia o link. O lojista fica esperando, sem saber se algo vai acontecer. Em 175 das 254 conversas com dead-end, <strong>nao existe nenhuma resolucao nem sugestao do que fazer</strong>.',
-    problem: 'Quando Lumi nao consegue resolver, a conversa <strong>morre em silencio</strong>. Nao existe nenhum componente visual que diga "nao consegui, mas voce pode tentar isso". O lojista simplesmente nao recebe mais nada.',
+    problem: 'Quando Lumi nao consegue resolver, a conversa <strong>morre em silencio</strong>. Nao existe nenhum componente visual que diga "nao consegui, mas voce pode tentar isso". O lojista simplesmente nao recebe mais nada. Ha um caso extra: o lojista pede algo que <strong>existe no painel</strong> mas Lumi nao sabe responder — ai o card deve ter um deep link direto para a tela certa.',
     impact: [{ number: '~254', label: 'conversas que morrem sem saida', color: 'red' },{ number: '12.2%', label: 'de todas as falhas', color: 'red' },{ number: '175', label: 'sem resolucao e sem proximo passo', color: 'orange' },{ number: '7', label: 'prometeu link de suporte e nao enviou', color: 'orange' }],
     scenarios: [
       { label: 'Cenario 1 — Lojista fica sem resposta', msgs: [
@@ -648,6 +650,11 @@ var TASKS = {
         { who: 'Lojista', type: 'merchant', text: '"Ok, pero donde esta el link? Estoy esperando..."' },
         { who: 'Lumi', type: 'lumi', text: '... (nunca envia o link)' }
       ]},
+      { label: 'Cenario 3 — Lojista pede algo que existe no painel, Lumi nao sabe', msgs: [
+        { who: 'Lojista', type: 'merchant', text: '"Donde veo mis pedidos recientes?"' },
+        { who: 'Lumi', type: 'lumi', text: '"No tengo acceso a esa informacion." (mas a tela de pedidos existe no admin)' },
+        { who: '', type: 'ideal', text: '<em>Com Error Card + deep link:</em> card com "Ir a Pedidos" que leva direto — o lojista nao precisa de instrucao, so do link' }
+      ]},
       { label: 'Como deveria funcionar', msgs: [
         { who: 'Lojista', type: 'merchant', text: '"Como configuro Mercado Pago en mi tienda?"' },
         { who: 'Lumi', type: 'lumi-ok', text: '"No tengo esa informacion exacta, pero encontre esto que puede ayudarte:" <em>[card com link para artigo do helpjuice] [botao "Hablar con soporte"] [botao "Reformular pregunta"]</em>' }
@@ -659,21 +666,21 @@ var TASKS = {
       { text: 'Al menos decime donde buscar la respuesta si vos no la sabes.', author: 'lojista, loja de decoracao — dead-end sem alternativa' }
     ],
     solution: [
-      { icon: 'UX', type: 'ux', text: '<strong>3 variantes de error state:</strong> (1) "Nao sei responder" com link para helpjuice, (2) "Nao posso executar" com link para a tela certa, (3) "Conversa travou" com escalacao automatica a suporte' },
+      { icon: 'UX', type: 'ux', text: '<strong>Wireframe do card:</strong> fundo amarelo ou vermelho (dependendo da gravidade), icone de alerta no topo, texto curto "Nao consegui resolver" ou similar, 2-3 botoes de acao abaixo (ex: Ir a Pedidos, Hablar con soporte, Reformular pregunta)' },
+      { icon: 'UX', type: 'ux', text: '<strong>3 variantes:</strong> (1) "Nao sei responder" com link para helpjuice, (2) "Nao posso executar" com link para a tela certa (deep link), (3) "Conversa travou" com escalacao a suporte' },
       { icon: 'UX', type: 'ux', text: '<strong>Regra: sempre pelo menos 1 acao clicavel.</strong> O lojista nunca deve ficar sem proximo passo' },
-      { icon: 'UX', type: 'ux', text: '<strong>Visualmente diferente</strong> de uma mensagem normal — precisa ser claro que e um estado de erro, nao uma resposta' },
-      { icon: 'FE', type: 'fe', text: '<strong>Componente com slots:</strong> mensagem + lista de acoes (links, botoes)' },
-      { icon: 'BE', type: 'be', text: '<strong>Backend precisa enviar structured data</strong> dizendo "nao resolvi" + opcoes disponiveis (helpjuice, suporte, sugestoes)' }
+      { icon: 'FE', type: 'fe', text: 'Componente com slots: mensagem + lista de acoes. Depende do time de engenharia' },
+      { icon: 'BE', type: 'be', text: 'Backend envia dados organizados dizendo "nao resolvi" + opcoes disponiveis. Depende do time de engenharia' }
     ],
     effort: '1-2 dias design + 1-2 dias front', status: 'A fazer', timeline: 'Mar S3 – Abr S6',
-    deps: [{ label: 'Backend: fallback chain', type: 'blocked' }, { label: 'D0.1 Audit', type: 'ready' }]
+    deps: [{ label: 'Backend: plano B quando nao sabe', type: 'blocked' }, { label: 'D0.1 Audit', type: 'ready' }]
   },
 
   d12: {
     wave: 'Wave 1 · Quick Wins', waveColor: '#00cec9', title: 'Truncamento "Ver mais"',
     context: '<div class="panel__context-title">A jornada do lojista</div>O lojista faz uma pergunta simples — "como adiciono um cupom?" — e recebe uma resposta de <strong>10 paragrafos</strong> com passos repetidos, saudacoes desnecessarias ("Entiendo tu consulta, voy a ayudarte con eso, dejame explicarte...") e detalhes que nao pediu. O lojista faz scroll, se perde, e desiste.',
-    problem: 'Respostas longas demais. O lojista precisa de <strong>resposta direta</strong> e recebe um manual. Pior nos SubAgents de support (83 threads) e catalog (58 threads), onde as explicacoes sao mais tecnicas.',
-    impact: [{ number: '~225', label: 'conversas com resposta verbose', color: 'red' },{ number: '10.8%', label: 'de todas as falhas', color: 'red' },{ number: '83', label: 'no SubAgent de support', color: 'orange' },{ number: '58', label: 'no SubAgent de catalog', color: 'orange' }],
+    problem: 'Respostas longas demais. O lojista precisa de <strong>resposta direta</strong> e recebe um manual. Pior: agora o problema nao e so texto longo — e <strong>multiplos modulos do Lumi respondendo a mesma coisa</strong>. O truncamento precisa detectar repeticao tambem, nao so corte por paragrafos.',
+    impact: [{ number: '~225', label: 'conversas com resposta verbose', color: 'red' },{ number: '10.8%', label: 'de todas as falhas', color: 'red' },{ number: '83', label: 'no modulo de suporte', color: 'orange' },{ number: '58', label: 'no modulo de catalogo', color: 'orange' }],
     scenarios: [
       { label: 'Cenario real — lojista recebe um manual', msgs: [
         { who: 'Lojista', type: 'merchant', text: '"Como agrego un cupon de descuento?"' },
@@ -687,7 +694,8 @@ var TASKS = {
     ],
     evidence: [
       { text: 'Me respondio como 3 paginas de texto y yo solo queria saber donde esta el boton.', author: 'lojista, loja de eletronicos AR — pergunta sobre cupons' },
-      { text: 'No necesito que me expliques todo desde cero, ya se usar la plataforma. Solo quiero el dato puntual.', author: 'lojista, loja de moda BR — pergunta sobre envio' }
+      { text: 'No necesito que me expliques todo desde cero, ya se usar la plataforma. Solo quiero el dato puntual.', author: 'lojista, loja de moda BR — pergunta sobre envio' },
+      { text: 'Le pregunto una cosa y me responde lo mismo dos o tres veces. Parece que varios Lumi hablaron a la vez.', author: 'lojista, loja de decoracao MX — repeticao de modulos' }
     ],
     solution: [
       { icon: 'UX', type: 'ux', text: '<strong>Truncar apos ~3 paragrafos.</strong> Mostrar botao "Ver mais" com indicador de quanto falta ("+ 5 paragrafos")' },
@@ -719,12 +727,12 @@ var TASKS = {
       { text: 'Estaria bueno que me muestre un resumen antes de crear, asi verifico que este todo bien.', author: 'lojista, loja de cosmeticos MX — pediu confirmacao' }
     ],
     solution: [
-      { icon: 'UX', type: 'ux', text: '<strong>Card de confirmacao:</strong> resumo visual dos dados que Lumi vai usar + Confirmar / Editar / Cancelar' },
+      { icon: 'UX', type: 'ux', text: '<strong>Wireframe do card:</strong> borda colorida (ou fundo suave), resumo dos dados em formato chave:valor (Nome: X, Preco: Y...), 3 botoes no rodape: Confirmar (primario), Editar (secundario), Cancelar (ghost)' },
       { icon: 'UX', type: 'ux', text: '<strong>Funciona para:</strong> criar produto, criar promocao, editar campo, bulk action — qualquer acao com consequencia' },
-      { icon: 'BE', type: 'be', text: '<strong>Backend envia "proposta de acao"</strong> com structured data antes de executar' }
+      { icon: 'BE', type: 'be', text: 'Backend envia proposta de acao antes de executar. Depende do time de engenharia' }
     ],
     effort: '1 dia design + 1 dia front', status: 'A fazer', timeline: 'Abr S6',
-    deps: [{ label: 'Backend: structured action proposal', type: 'blocked' }]
+    deps: [{ label: 'Backend: proposta de acao', type: 'blocked' }]
   },
 
   d21: {
@@ -751,16 +759,17 @@ var TASKS = {
     evidence: [
       { text: 'Te pido que hagas algo y me explicas como hacerlo yo. Si quisiera hacerlo yo no te estaria pidiendo.', author: 'lojista, loja de calcados AR — pediu promocao, recebeu tutorial' },
       { text: 'No me sirve que me digas "anda a tal lugar". Poneme un boton y listo.', author: 'lojista, loja de eletronicos AR — pediu editar design, recebeu instrucoes' },
-      { text: 'Si ya sabes que quiero ir a productos, por que no me mandas directo ahi?', author: 'lojista, loja de decoracao BR — navegacao via chat' }
+      { text: 'Si ya sabes que quiero ir a productos, por que no me mandas directo ahi?', author: 'lojista, loja de decoracao BR — navegacao via chat' },
+      { text: 'Para que me das 8 pasos si vos podes darme un link directo? No entiendo.', author: 'lojista, loja de roupas MX — pediu criar cupom' }
     ],
     solution: [
       { icon: 'UX', type: 'ux', text: '<strong>3 tipos de action card:</strong> (1) Navegacao direta ("Ir a Promociones"), (2) Acao no chat ("Crear producto"), (3) Combinado (texto curto + botao)' },
       { icon: 'UX', type: 'ux', text: '<strong>Max 3 cards por resposta.</strong> Sem overload de opcoes' },
       { icon: 'UX', type: 'ux', text: '<strong>Responsivo + acessivel:</strong> funcionar em mobile e desktop, keyboard navigation' },
-      { icon: 'BE', type: 'be', text: '<strong>Backend classifica intent:</strong> "quero que FACA" vs "quero ENTENDER" e envia acoes disponiveis como structured data' }
+      { icon: 'BE', type: 'be', text: 'Backend entende "quero que faca" vs "quero entender" e envia acoes disponiveis. Depende do time de engenharia' }
     ],
     effort: '3-5 dias design + 3-5 dias front', status: 'A fazer', timeline: 'Abr–Mai',
-    deps: [{ label: 'Backend: classificacao de intent', type: 'blocked' }, { label: 'Discovery benchmark', type: 'ready' }]
+    deps: [{ label: 'Backend: entender intent', type: 'blocked' }, { label: 'Discovery benchmark', type: 'ready' }]
   },
 
   d22: {
@@ -783,19 +792,18 @@ var TASKS = {
       { text: 'Estaria bueno que pueda ir tildando lo que ya hice asi no me pierdo.', author: 'lojista, loja de cosmeticos MX — multiplos passos de configuracao' }
     ],
     solution: [
-      { icon: 'UX', type: 'ux', text: '<strong>Cada passo e clicavel:</strong> marca como feito ao completar' },
-      { icon: 'UX', type: 'ux', text: '<strong>Indicador de progresso:</strong> "2/6 completos"' },
-      { icon: 'UX', type: 'ux', text: '<strong>Link direto por passo</strong> para a tela relevante do admin' },
-      { icon: 'UX', type: 'ux', text: '<strong>Estado persistente na sessao:</strong> nao reseta se o lojista navega e volta' },
-      { icon: 'BE', type: 'be', text: '<strong>Backend envia instrucoes como array de steps</strong> (nao texto livre)' }
+      { icon: 'UX', type: 'ux', text: '<strong>Interacao:</strong> ao clicar um item, marca com check verde. Ao completar todos, mostra card de sucesso. Se o lojista sai e volta, mantem o estado (nao reseta)' },
+      { icon: 'UX', type: 'ux', text: '<strong>Indicador de progresso:</strong> "2/6 completos" visivel' },
+      { icon: 'UX', type: 'ux', text: '<strong>Link direto por passo</strong> para a tela relevante do admin — cada passo leva la' },
+      { icon: 'BE', type: 'be', text: 'Backend envia instrucoes como lista de passos (nao texto livre). Depende do time de engenharia' }
     ],
     effort: '2-3 dias design + 2-3 dias front', status: 'A fazer', timeline: 'Mai',
-    deps: [{ label: 'Backend: structured steps', type: 'blocked' }]
+    deps: [{ label: 'Backend: passos em lista', type: 'blocked' }]
   },
 
   d23: {
     wave: 'Wave 2 · Componentes Ricos', waveColor: '#fdcb6e', title: 'Data Cards (Stats Inline)',
-    context: '<div class="panel__context-title">A jornada do lojista</div>O lojista pergunta "cuantas ventas tuve esta semana?" e recebe paragrafos de texto com numeros misturados entre frases. E impossivel bater o olho e entender. Pior: as vezes Lumi manda navegar ate a tela de stats em vez de responder direto.',
+    context: '<div class="panel__context-title">A jornada do lojista</div>O lojista pergunta "cuantas ventas tuve esta semana?", "qual meu produto mais vendido?", "qual a taxa de conversao?", "quanto faterei em fevereiro?", "quais dias da semana vendo mais?" — e recebe paragrafos de texto com numeros misturados entre frases. E impossivel bater o olho e entender. Pior: as vezes Lumi manda navegar ate a tela de stats em vez de responder direto.',
     problem: 'Stats e metricas chegam como <strong>texto corrido</strong>. Numeros importantes se perdem no meio de frases. Nao existe componente visual para apresentar dados de forma legivel.',
     impact: [{ number: '~24', label: 'conversas pedem stats sem navegar', color: 'orange' },{ number: '+', label: 'melhoria geral para respostas com dados', color: 'green' }],
     scenarios: [
@@ -804,22 +812,25 @@ var TASKS = {
         { who: 'Lumi', type: 'lumi', text: '"Esta semana tuviste un total de 47 ventas por un monto total de $235.000. Comparado con la semana anterior, tus ventas subieron un 12%. Los productos mas vendidos fueron Remera Basica con 15 unidades, Pantalon Cargo con 8 unidades..."' },
         { who: 'Lojista', type: 'merchant', text: '(precisa reler 3 vezes para encontrar os numeros)' }
       ]},
+      { label: 'Exemplos de perguntas que precisam de data cards', msgs: [
+        { who: 'Lojista', type: 'merchant', text: '"Qual meu produto mais vendido?" / "Quantas visitas tive hoje?" / "Qual a taxa de conversao?" / "Quanto faterei em fevereiro?" / "Quais dias da semana vendo mais?"' }
+      ]},
       { label: 'Como deveria funcionar (data cards)', msgs: [
-        { who: 'Lumi', type: 'lumi-ok', text: '<em>[Data card]</em>\\nVentas esta semana: <strong>47</strong> (+12% vs anterior)\\nMonto: <strong>$235.000</strong>\\n\\nTop productos:\\n1. Remera Basica — 15 un.\\n2. Pantalon Cargo — 8 un.\\n<em>[Ver detalhes completos]</em>' }
+        { who: 'Lumi', type: 'lumi-ok', text: '<em>[Data card]</em> Numero grande (32px bold), label pequeno embaixo, seta de variacao (verde subiu, vermelho caiu), mini sparkline opcional. Ex: Vendas esta semana: <strong>47</strong> (+12% vs anterior). Top productos: mini tabela.' }
       ]}
     ],
     evidence: [
       { text: 'Me tira un choclazo de numeros y tengo que leerlo 3 veces para entender. Ponelo en una tablita.', author: 'lojista, loja de moda AR — pediu stats de vendas' },
-      { text: 'Todos los dias le pregunto cuantas ventas tuve. Seria mas facil si me lo mostrara como un dashboard rapido.', author: 'lojista, loja de roupas MX — usa Lumi para stats diarios' }
+      { text: 'Todos los dias le pregunto cuantas ventas tuve. Seria mas facil si me lo mostrara como un dashboard rapido.', author: 'lojista, loja de roupas MX — usa Lumi para stats diarios' },
+      { text: 'Queria saber cuantos carritos abandonados tuve y me mando 3 parrafos. Un numero grande y listo.', author: 'lojista, loja de eletronicos AR — carritos abandonados' }
     ],
     solution: [
-      { icon: 'UX', type: 'ux', text: '<strong>Numeros grandes estilo KPI:</strong> visivel de relance' },
-      { icon: 'UX', type: 'ux', text: '<strong>Mini-tabelas</strong> para listagens (top produtos, etc.)' },
-      { icon: 'UX', type: 'ux', text: '<strong>Comparacao visual:</strong> variacao % com cor (verde = subiu, vermelho = caiu)' },
-      { icon: 'BE', type: 'be', text: '<strong>Stats agent retorna structured data</strong> em vez de texto' }
+      { icon: 'UX', type: 'ux', text: '<strong>Visual do card:</strong> numero grande (32px bold), label pequeno embaixo, seta de variacao (verde subiu, vermelho caiu), mini sparkline opcional para tendencia' },
+      { icon: 'UX', type: 'ux', text: '<strong>Tipos:</strong> KPI card (um numero), tabela card (top 5 produtos com vendas), comparacao card (esta semana vs anterior)' },
+      { icon: 'BE', type: 'be', text: 'Backend retorna dados organizados em vez de texto. Depende do time de engenharia' }
     ],
     effort: '2-3 dias design + 3-5 dias front', status: 'A fazer', timeline: 'Mai–Jun',
-    deps: [{ label: 'Backend: stats structured data', type: 'blocked' }]
+    deps: [{ label: 'Backend: stats em dados organizados', type: 'blocked' }]
   },
 
   d24: {
@@ -843,11 +854,11 @@ var TASKS = {
       { text: 'Si pudiera cargar 10 productos de una seria increible. Hoy los hago uno por uno y tardo un monton.', author: 'lojista, loja de acessorios AR — demanda de bulk' }
     ],
     solution: [
-      { icon: 'UX', type: 'ux', text: '<strong>Formulario compacto no chat:</strong> nao replicar o formulario completo do admin. Focar nos campos essenciais' },
+      { icon: 'UX', type: 'ux', text: '<strong>O formulario NAO deve parecer o formulario do admin.</strong> Versao simplificada: so os campos essenciais, pre-preenchidos com o que o lojista ja disse no chat. Visual de card, nao de formulario tradicional.' },
       { icon: 'UX', type: 'ux', text: '<strong>Campos pre-preenchidos</strong> com o que o lojista ja disse na conversa' },
       { icon: 'UX', type: 'ux', text: '<strong>Preview do resultado</strong> antes de confirmar' },
       { icon: 'UX', type: 'ux', text: '<strong>V1: produto</strong> (nome, descricao, preco, categoria) — <strong>V2: promocao</strong>' },
-      { icon: 'BE', type: 'be', text: '<strong>Endpoint de criacao via chat</strong> (AIL-155 — backend)' }
+      { icon: 'BE', type: 'be', text: 'Funcionalidade de criacao via chat. Depende do time de engenharia (AIL-155)' }
     ],
     effort: '3-5 dias design + 5-8 dias front', status: 'Bloqueado', timeline: 'Mai–Jun',
     deps: [{ label: 'AIL-155 (backend endpoint)', type: 'blocked' }, { label: 'D1.3 Confirmacao', type: 'ready' }]
@@ -855,7 +866,7 @@ var TASKS = {
 
   d25: {
     wave: 'Wave 2 · Componentes Ricos', waveColor: '#fdcb6e', title: 'Progress Indicator',
-    context: '<div class="panel__context-title">A jornada do lojista</div>Lojistas que usam o chat para criar ou editar muitos produtos nao tem feedback visual. Pedem "actualiza el precio de todos mis productos de calzado" e ficam sem saber se esta funcionando, quanto falta, ou se podem continuar usando o chat.',
+    context: '<div class="panel__context-title">A jornada do lojista</div>Lojistas que usam o chat para criar ou editar muitos produtos nao tem feedback visual. Pedem "actualiza el precio de todos mis productos de calzado" e ficam sem saber se esta funcionando, quanto falta, ou se podem continuar usando o chat. <strong>109 lojistas pediram acoes em massa recentemente; 74% falharam porque nao tinham feedback visual.</strong>',
     problem: 'Operacoes em massa nao tem <strong>nenhum indicador de progresso</strong>. O lojista nao sabe se esta funcionando, se travou, ou se ja terminou.',
     impact: [{ number: '~22', label: 'conversas pedem bulk operations', color: 'orange' },{ number: '+', label: 'confianca em operacoes longas', color: 'green' }],
     scenarios: [
@@ -878,7 +889,7 @@ var TASKS = {
       { icon: 'UX', type: 'ux', text: '<strong>Nao bloquear o chat:</strong> lojista pode continuar conversando enquanto processa' }
     ],
     effort: '1-2 dias design + 2-3 dias front', status: 'A fazer', timeline: 'Jun',
-    deps: [{ label: 'Backend: endpoint batch com progresso', type: 'blocked' }]
+    deps: [{ label: 'Backend: acoes em massa com progresso', type: 'blocked' }]
   },
 
   d31: {
@@ -895,19 +906,21 @@ var TASKS = {
     ],
     evidence: [
       { text: 'Te doy el descuento, los productos, la fecha... y me decis que la haga yo? Para que te pregunto entonces?', author: 'lojista, loja de calcados AR — pediu promocao com todos os dados' },
-      { text: 'Necesito sacar promos rapido antes del fin de semana y Lumi no me ayuda.', author: 'lojista, loja de roupas MX — urgencia em criar promocao' }
+      { text: 'Necesito sacar promos rapido antes del fin de semana y Lumi no me ayuda.', author: 'lojista, loja de roupas MX — urgencia em criar promocao' },
+      { text: 'Perdi vendas porque demorei 20 minutos en configurar la promo. Lumi podria haberlo hecho en segundos.', author: 'lojista, loja de acessorios AR — frustracao com tempo perdido' },
+      { text: 'Cada vez que quiero una promo tengo que ir al panel y hacer todo manual. Para eso tengo Lumi?', author: 'lojista, loja de cosmeticos MX — expectativa nao atendida' }
     ],
     solution: [
       { icon: 'UX', type: 'ux', text: '<strong>Fluxo completo:</strong> action card -> formulario inline (desconto, produtos, periodo) -> confirmacao -> feedback de sucesso' },
-      { icon: 'BE', type: 'be', text: '<strong>SubAgent de promocoes com CRUD completo</strong> (AIL-60)' }
+      { icon: 'BE', type: 'be', text: 'Modulo do Lumi para promocoes (criar, editar, listar). Depende do time de engenharia (AIL-60)' }
     ],
     effort: 'Alto', status: 'A fazer', timeline: 'Jun–Jul',
-    deps: [{ label: 'AIL-60 (SubAgent)', type: 'blocked' },{ label: 'D2.1 Action Cards', type: 'blocked' },{ label: 'D2.4 Formulario', type: 'blocked' }]
+    deps: [{ label: 'AIL-60 (modulo promocoes)', type: 'blocked' },{ label: 'D2.1 Action Cards', type: 'blocked' },{ label: 'D2.4 Formulario', type: 'blocked' }]
   },
 
   d32: {
     wave: 'Wave 3 · Experiencias Novas', waveColor: '#74b9ff', title: 'Experiencia Storefront',
-    context: '<div class="panel__context-title">A jornada do lojista</div>O lojista quer mudar o banner, trocar cores, ajustar o layout — e pede ajuda ao Lumi. Mas Lumi responde com instrucoes genericas que nao ajudam, ou roteia para o SubAgent errado.',
+    context: '<div class="panel__context-title">A jornada do lojista</div>O lojista quer mudar o banner, trocar cores, ajustar o layout — e pede ajuda ao Lumi. Mas Lumi responde com instrucoes genericas que nao ajudam, ou roteia para o modulo errado do Lumi.',
     problem: 'Lojistas pedem editar storefront/design e <strong>Lumi nao consegue ajudar</strong>. Em 38 casos, responde com instrucoes genericas. Em 4 casos, roteia para o agent errado.',
     impact: [{ number: '~61', label: 'conversas pedem editar storefront', color: 'orange' },{ number: '38', label: 'recebem instrucoes genericas', color: 'red' }],
     scenarios: [
@@ -922,10 +935,10 @@ var TASKS = {
       { text: 'Me manda a "editar tema" pero no me dice donde dentro de editar tema. Es un laberinto.', author: 'lojista, loja de decoracao BR — perdido no editor de temas' }
     ],
     solution: [
-      { icon: 'UX', type: 'ux', text: '<strong>Preview inline</strong> do storefront no chat' },
+      { icon: 'UX', type: 'ux', text: '<strong>Preview inline no chat:</strong> miniatura da loja como esta hoje. Ao lado, opcoes de mudanca (banner, cores). Ao selecionar, mostra preview "antes vs depois" na mesma area. Visual compacto, nao ocupa tela inteira.' },
       { icon: 'UX', type: 'ux', text: '<strong>Lumi sugere mudancas</strong> com preview antes/depois' },
-      { icon: 'UX', type: 'ux', text: '<strong>Link direto profundo</strong> para a secao exata do editor de temas' },
-      { icon: 'BE', type: 'be', text: '<strong>Integracao com editor de temas</strong> (sem issue criada)' }
+      { icon: 'UX', type: 'ux', text: '<strong>Link direto profundo</strong> para a secao exata do editor de temas (ex: ir direto ao bloco de banner)' },
+      { icon: 'BE', type: 'be', text: 'Integracao com editor de temas. Depende do time de engenharia' }
     ],
     effort: 'Alto', status: 'A fazer', timeline: 'Jul+',
     deps: [{ label: 'Backend: integracao editor temas', type: 'blocked' }]
@@ -933,7 +946,7 @@ var TASKS = {
 
   d33: {
     wave: 'Wave 3 · Experiencias Novas', waveColor: '#74b9ff', title: 'Stats em Qualquer Tela',
-    context: '<div class="panel__context-title">A jornada do lojista</div>Lojistas perguntam "cuantas ventas tuve?" <strong>todos os dias</strong>. Hoje, Lumi manda navegar ate a tela de stats em vez de responder. Para lojas sem o plano certo, nem o stats agent funciona.',
+    context: '<div class="panel__context-title">A jornada do lojista</div>Lojistas perguntam "cuantas ventas tuve?" <strong>todos os dias</strong>. Hoje, Lumi manda navegar ate a tela de stats em vez de responder. <strong>206 lojas pediram dados de negocio; 65.5% falharam.</strong> Este insight conecta diretamente ao problema de analytics.',
     problem: 'Lojistas precisam navegar ate stats para ver metricas. Querem perguntar no chat e receber a resposta ali mesmo, <strong>sem sair do que estao fazendo</strong>.',
     impact: [{ number: '~24', label: 'conversas pedem stats no chat', color: 'orange' }],
     scenarios: [
@@ -944,7 +957,9 @@ var TASKS = {
       ]}
     ],
     evidence: [
-      { text: 'Todos los dias le pregunto lo mismo y me manda a la misma pantalla. Si pudiera decirme aca seria mucho mas rapido.', author: 'lojista, loja de roupas MX — stats diarios via chat' }
+      { text: 'Todos los dias le pregunto lo mismo y me manda a la misma pantalla. Si pudiera decirme aca seria mucho mas rapido.', author: 'lojista, loja de roupas MX — stats diarios via chat' },
+      { text: 'Estoy en productos y quiero saber vendas semanales. No quiero cambiar de pantalla.', author: 'lojista, loja de moda AR — contexto de uso' },
+      { text: 'Me responde "anda a Estadisticas" como si no supiera los numeros. Claramente los tiene.', author: 'lojista, loja de eletronicos BR — desconfianca' }
     ],
     solution: [
       { icon: 'UX', type: 'ux', text: '<strong>Data cards inline</strong> (reutiliza D2.3) com KPIs, tabelas, comparacoes' },
@@ -956,7 +971,7 @@ var TASKS = {
 
   d34: {
     wave: 'Wave 3 · Experiencias Novas', waveColor: '#74b9ff', title: 'Download Inline',
-    context: '<div class="panel__context-title">A jornada do lojista</div>Lojistas pedem exports de dados — lista de produtos, relatorio de vendas — e Lumi nao consegue gerar. Precisam sair do chat, navegar, e buscar a opcao de export (que as vezes nem existe).',
+    context: '<div class="panel__context-title">A jornada do lojista</div>Lojistas pedem exports de dados — <strong>lista de produtos com precos (CSV para contador)</strong>, <strong>relatorio de vendas do mes (PDF para socio)</strong>, <strong>inventario em Excel</strong>, <strong>pedidos em planilha</strong> — e Lumi nao consegue gerar. Precisam sair do chat, navegar, e buscar a opcao de export (que as vezes nem existe).',
     problem: 'Lojistas querem exportar dados (CSV, PDF) via chat e <strong>nao existe componente de download no chat</strong>.',
     impact: [{ number: '~8', label: 'conversas pedem export de dados', color: 'orange' }],
     scenarios: [
@@ -968,7 +983,8 @@ var TASKS = {
     ],
     evidence: [
       { text: 'Necesito un CSV con todos los productos para mandarle a mi contador. Lumi no me lo genera.', author: 'lojista, loja de alimentos AR — export para contador' },
-      { text: 'Seria increible un PDF con el resumen del mes para mandarle al socio.', author: 'lojista, loja de roupas AR — relatorio mensal' }
+      { text: 'Seria increible un PDF con el resumen del mes para mandarle al socio.', author: 'lojista, loja de roupas AR — relatorio mensal' },
+      { text: 'Quiero descargar mi inventario en Excel y tengo que buscar en mil lugares. En el chat seria ideal.', author: 'lojista, loja de acessorios MX — demanda de download' }
     ],
     solution: [
       { icon: 'UX', type: 'ux', text: '<strong>Botao de download inline</strong> no chat' },
@@ -1004,27 +1020,34 @@ var TASKS = {
 
   insight_deeplink: {
     wave: 'Wave 1 · Quick Wins · Insight', waveColor: '#00cec9', title: 'Deep Link Cards',
-    context: '<div class="panel__context-title"><span class="pt">Por que isso importa</span><span class="es">Por qué importa</span></div><p><span class="pt"><strong>57.6% dos pedidos já existem no painel.</strong> 1.198 de 2.080 threads recentes pedem ao Lumi coisas que já existem no admin — editar produto, ver pedidos, criar cupom, etc. Em vez de Lumi explicar passo-a-passo, pode mostrar um card com link direto para a tela certa.</span><span class="es"><strong>57.6% de los pedidos ya existen en el panel.</strong> 1.198 de 2.080 threads recientes piden al Lumi cosas que ya existen en el admin — editar producto, ver pedidos, crear cupón, etc. En vez de que Lumi explique paso a paso, puede mostrar un card con enlace directo a la pantalla correcta.</span></p>',
+    context: '<div class="panel__context-title"><span class="pt">Por que isso importa</span><span class="es">Por qué importa</span></div><p><span class="pt"><strong>57.6% dos pedidos já existem no painel.</strong> 1.198 de 2.080 threads recentes pedem ao Lumi coisas que já existem no admin — editar produto, ver pedidos, criar cupom, configurar frete, mudar tema da loja. Em vez de Lumi explicar passo-a-passo, pode mostrar um card com link direto para a tela certa.</span><span class="es"><strong>57.6% de los pedidos ya existen en el panel.</strong> 1.198 de 2.080 threads recientes piden al Lumi cosas que ya existen en el admin — editar producto, ver pedidos, crear cupón, configurar envío, cambiar tema. En vez de explicar paso a paso, puede mostrar un card con enlace directo.</span></p><p><span class="pt"><strong>Onde mais falha:</strong> Preços (82% falha) · Editar produto (80%) · Pedidos (68%) · Configurações (64%)</span><span class="es"><strong>Dónde más falla:</strong> Precios (82%) · Editar producto (80%) · Pedidos (68%) · Configuración (64%)</span></p>',
     problem: '<span class="pt">Lumi responde com instruções longas quando o lojista pede algo que já tem no painel. Exemplo: "como edito um produto?" → 8 passos de texto. O lojista queria um botão "Ir a editar produto" que levasse direto.</span><span class="es">Lumi responde con instrucciones largas cuando el lojista pide algo que ya tiene en el panel. Ejemplo: "¿cómo edito un producto?" → 8 pasos de texto. El lojista quería un botón "Ir a editar producto" que llevara directo.</span>',
     impact: [
       { number: '57.6%', label: '<span class="pt">das conversas pedem o que já existe</span><span class="es">de conversaciones piden lo que ya existe</span>', color: 'red' },
       { number: '1.198', label: '<span class="pt">threads impactados</span><span class="es">threads impactados</span>', color: 'accent' },
-      { number: '2.080', label: '<span class="pt">total analisado</span><span class="es">total analizado</span>', color: 'orange' },
+      { number: '82%', label: '<span class="pt">falha em preços</span><span class="es">falla en precios</span>', color: 'orange' },
       { number: 'HIGH', label: '<span class="pt">prioridade</span><span class="es">prioridad</span>', color: 'green' }
     ],
     scenarios: [
-      { label: '<span class="pt">Antes (texto) vs Depois (Deep Link Card)</span><span class="es">Antes (texto) vs Después (Deep Link Card)</span>', msgs: [
+      { label: '<span class="pt">Exemplos do que lojistas perguntam (e poderiam receber um card)</span><span class="es">Ejemplos de lo que lojistas preguntan</span>', msgs: [
+        { who: 'Lojista', type: 'merchant', text: '<span class="pt">"Como edito o preço de um produto?" · "Onde vejo meus pedidos?" · "Como crio um cupom?" · "Onde configuro o frete?" · "Como mudo o tema da loja?"</span><span class="es">"¿Cómo edito el precio?" · "¿Dónde veo mis pedidos?" · "¿Cómo creo un cupón?" · "¿Dónde configuro el envío?" · "¿Cómo cambio el tema?"</span>' }
+      ]},
+      { label: '<span class="pt">Antes (texto) vs Depois (Deep Link Card)</span><span class="es">Antes (texto) vs Después</span>', msgs: [
         { who: 'Lojista', type: 'merchant', text: '<span class="pt">"Como edito o preço de um produto?"</span><span class="es">"¿Cómo edito el precio de un producto?"</span>' },
-        { who: 'Lumi', type: 'lumi', text: '<span class="pt">"Para editar: 1. Vá a Produtos. 2. Clique no produto. 3. Edite o preço..." (8 passos)</span><span class="es">"Para editar: 1. Ve a Productos. 2. Haz clic en el producto. 3. Edita el precio..." (8 pasos)</span>' },
-        { who: '', type: 'ideal', text: '<span class="pt"><em>Com Deep Link Card:</em> [Card: "Ir a editar produto" → link direto para /products/:id/edit]</span><span class="es"><em>Con Deep Link Card:</em> [Card: "Ir a editar producto" → enlace directo a /products/:id/edit]</span>' }
+        { who: 'Lumi', type: 'lumi', text: '<span class="pt">"Para editar: 1. Vá a Produtos. 2. Clique no produto. 3. Edite o preço..." (8 passos)</span><span class="es">"Para editar: 1. Ve a Productos. 2. Haz clic..." (8 pasos)</span>' },
+        { who: '', type: 'ideal', text: '<span class="pt"><em>Com card:</em> Card compacto: ícone da seção (produto, pedido, config), texto "Ir a [nome da tela]", seta →. Ao clicar, navega direto. Cores por seção.</span><span class="es"><em>Con card:</em> Ícono + "Ir a [pantalla]" + flecha. Al clicar, navega directo.</span>' }
       ]}
     ],
-    evidence: [],
+    evidence: [
+      { text: 'Poneme un boton que me lleve a editar el producto. No necesito el manual.', author: 'lojista, loja de roupas AR' },
+      { text: 'Si ya sabe que quiero ver pedidos, por que no me manda ahi directo?', author: 'lojista, loja de calcados MX' },
+      { text: '8 pasos para cambiar un precio. Deberia ser un click.', author: 'lojista, loja de eletronicos BR' }
+    ],
     solution: [
-      { icon: 'UX', type: 'ux', text: '<span class="pt"><strong>Card clicável</strong> com título de ação + deep link para tela certa do admin</span><span class="es"><strong>Card clicable</strong> con título de acción + deep link a la pantalla correcta del admin</span>' },
-      { icon: 'UX', type: 'ux', text: '<span class="pt"><strong>Wireframe:</strong> Card compacto, ícone + "Ir a [ação]" + link. Máx 2-3 cards por resposta</span><span class="es"><strong>Wireframe:</strong> Card compacto, ícono + "Ir a [acción]" + enlace. Máx 2-3 cards por respuesta</span>' },
-      { icon: 'FE', type: 'fe', text: '<span class="pt">Componente de card com deep link; integração com sistema de rotas do admin</span><span class="es">Componente de card con deep link; integración con sistema de rutas del admin</span>' },
-      { icon: 'BE', type: 'be', text: '<span class="pt">Backend mapeia intent → URL do admin; classificação "já existe no painel" vs "precisa criar"</span><span class="es">Backend mapea intent → URL del admin; clasificación "ya existe en panel" vs "necesita crear"</span>' }
+      { icon: 'UX', type: 'ux', text: '<span class="pt"><strong>Wireframe do card:</strong> Card compacto com: ícone da seção (produto, pedido, config), texto "Ir a [nome da tela]", seta →. Ao clicar, navega direto. Cores por seção (ex: azul produtos, verde pedidos). Máx 2-3 cards por resposta.</span><span class="es"><strong>Wireframe:</strong> Card compacto: ícono + "Ir a [pantalla]" + flecha. Clic navega directo. Colores por sección.</span>' },
+      { icon: 'UX', type: 'ux', text: '<span class="pt">Reutiliza padrão do D2.1 Action Cards. Priorizar: preços (82% falha), editar produto (80%), pedidos (68%)</span><span class="es">Reutiliza D2.1. Priorizar: precios (82%), editar producto (80%), pedidos (68%)</span>' },
+      { icon: 'FE', type: 'fe', text: '<span class="pt">Componente de card; integração com rotas do admin. Depende do time de engenharia.</span><span class="es">Componente card; integración rutas admin.</span>' },
+      { icon: 'BE', type: 'be', text: '<span class="pt">Backend mapeia o que o lojista quer → URL do admin. Depende do time de engenharia.</span><span class="es">Backend mapea intent → URL admin.</span>' }
     ],
     effort: '<span class="pt">Médio (design) + Médio (frontend)</span><span class="es">Medio (diseño) + Medio (frontend)</span>', status: '<span class="pt">A fazer</span><span class="es">Por hacer</span>', timeline: 'Mar–Abr',
     deps: [{ label: 'D2.1 Action Cards (padrão base)', type: 'ready' }, { label: '<span class="pt">Backend: mapeamento intent→URL</span><span class="es">Backend: mapeo intent→URL</span>', type: 'blocked' }]
@@ -1032,7 +1055,7 @@ var TASKS = {
 
   insight_bulk: {
     wave: 'Wave 2 · Componentes Ricos · Insight', waveColor: '#fdcb6e', title: 'Bulk Action UI',
-    context: '<div class="panel__context-title"><span class="pt">Por que isso importa</span><span class="es">Por qué importa</span></div><p><span class="pt"><strong>Ações massivas — o gap invisível.</strong> 109 threads pedem explicitamente ações em massa; 74% falham. O lojista não sabe se a operação está rodando, quanto falta, ou se pode cancelar. Precisa de UI de progresso + confirmação para mudanças em massa.</span><span class="es"><strong>Acciones masivas — la brecha invisible.</strong> 109 threads piden explícitamente acciones masivas; 74% fallan. El lojista no sabe si la operación está corriendo, cuánto falta, o si puede cancelar. Necesita UI de progreso + confirmación para cambios masivos.</span></p>',
+    context: '<div class="panel__context-title"><span class="pt">Por que isso importa</span><span class="es">Por qué importa</span></div><p><span class="pt"><strong>Ações massivas — o gap invisível.</strong> 109 threads pedem explicitamente ações em massa; 74% falham. O lojista não sabe se a operação está rodando, quanto falta, ou se pode cancelar. Exemplos: "Mudar preço de 50 produtos", "Gerar SEO para toda a categoria", "Adicionar tag em 100 produtos".</span><span class="es"><strong>Acciones masivas — la brecha invisible.</strong> 109 threads piden acciones masivas; 74% fallan. Ejemplos: cambiar precio de 50 productos, generar SEO para categoría, agregar tag en 100 productos.</span></p>',
     problem: '<span class="pt">Pedidos de bulk (atualizar preços, mudar categorias, excluir produtos) não têm indicador de progresso nem cartão de confirmação antes de executar. O lojista fica no escuro e 74% das tentativas falham.</span><span class="es">Pedidos de bulk (actualizar precios, cambiar categorías, excluir productos) no tienen indicador de progreso ni tarjeta de confirmación antes de ejecutar. El lojista queda a oscuras y 74% de los intentos fallan.</span>',
     impact: [
       { number: '109', label: '<span class="pt">threads pedem bulk</span><span class="es">threads piden bulk</span>', color: 'red' },
@@ -1041,25 +1064,33 @@ var TASKS = {
       { number: 'Medium', label: '<span class="pt">esforço</span><span class="es">esfuerzo</span>', color: 'accent' }
     ],
     scenarios: [
-      { label: '<span class="pt">Cenário — bulk sem UI</span><span class="es">Escenario — bulk sin UI</span>', msgs: [
-        { who: 'Lojista', type: 'merchant', text: '<span class="pt">"Atualiza o preço de todos os produtos da categoria Calçado em 10%"</span><span class="es">"Actualiza el precio de todos los productos de la categoría Calzado en 10%"</span>' },
-        { who: 'Lumi', type: 'lumi', text: '<span class="pt">"Pronto." (não diz quantos, não mostra progresso)</span><span class="es">"Listo." (no dice cuántos, no muestra progreso)</span>' },
-        { who: '', type: 'ideal', text: '<span class="pt"><em>Com Bulk Action UI:</em> [Card de confirmação] 50 produtos serão alterados. [Confirmar] [Cancelar] → [Barra 32/50] → [Resumo: 48 OK, 2 erro]</span><span class="es"><em>Con Bulk Action UI:</em> [Card de confirmación] 50 productos serán alterados. [Confirmar] [Cancelar] → [Barra 32/50] → [Resumen: 48 OK, 2 error]</span>' }
+      { label: '<span class="pt">Fluxo em 3 etapas (wireframe)</span><span class="es">Flujo en 3 etapas</span>', msgs: [
+        { who: '', type: 'ideal', text: '<span class="pt"><strong>(1) Confirmação pré-ação:</strong> Card "50 produtos serão alterados. Confirma?" [Confirmar] [Cancelar]</span><span class="es">(1) Confirmación: "50 productos serán alterados" [Confirmar] [Cancelar]</span>' },
+        { who: '', type: 'ideal', text: '<span class="pt"><strong>(2) Progresso:</strong> Barra + contagem "32/50 produtos atualizados..." [Cancelar]</span><span class="es">(2) Progreso: barra "32/50" [Cancelar]</span>' },
+        { who: '', type: 'ideal', text: '<span class="pt"><strong>(3) Resumo final:</strong> Card "48 atualizados, 2 com erro" [Ver detalhes dos erros]</span><span class="es">(3) Resumen: "48 OK, 2 error" [Ver detalles]</span>' }
+      ]},
+      { label: '<span class="pt">Cenário — bulk sem UI hoje</span><span class="es">Bulk sin UI hoy</span>', msgs: [
+        { who: 'Lojista', type: 'merchant', text: '<span class="pt">"Atualiza o preço de todos os produtos da categoria Calçado em 10%"</span><span class="es">"Actualiza el precio de todos los productos de Calzado en 10%"</span>' },
+        { who: 'Lumi', type: 'lumi', text: '<span class="pt">"Pronto." (não diz quantos, não mostra progresso)</span><span class="es">"Listo." (no dice cuántos)</span>' }
       ]}
     ],
-    evidence: [],
+    evidence: [
+      { text: 'Me dijo listo pero no se cuantos productos cambio. Tuve que revisar uno por uno.', author: 'lojista, loja de calcados AR' },
+      { text: 'Quiero subir el precio a 50 productos de una. Si tarda, que me diga cuanto falta.', author: 'lojista, loja de roupas MX' },
+      { text: 'Necesito poner etiqueta a 100 productos. Lumi no me deja hacerlo en masa.', author: 'lojista, loja de cosmeticos AR' }
+    ],
     solution: [
-      { icon: 'UX', type: 'ux', text: '<span class="pt"><strong>Card de confirmação pré-bulk:</strong> quantos itens, o que vai mudar, botões Confirmar/Cancelar</span><span class="es"><strong>Card de confirmación pre-bulk:</strong> cuántos ítems, qué va a cambiar, botones Confirmar/Cancelar</span>' },
-      { icon: 'UX', type: 'ux', text: '<span class="pt"><strong>Indicador de progresso:</strong> barra + contagem (ex: 32/50). Conecta a D2.5 Progress Indicator</span><span class="es"><strong>Indicador de progreso:</strong> barra + conteo (ej: 32/50). Conecta a D2.5 Progress Indicator</span>' },
-      { icon: 'UX', type: 'ux', text: '<span class="pt"><strong>Resumo pós-execução:</strong> X atualizados, Y com erro, link para detalhes</span><span class="es"><strong>Resumen post-ejecución:</strong> X actualizados, Y con error, enlace a detalles</span>' }
+      { icon: 'UX', type: 'ux', text: '<span class="pt"><strong>(1) Confirmação pré-ação:</strong> quantos itens, o que vai mudar, botões Confirmar/Cancelar</span><span class="es">(1) Confirmación: cuántos ítems, botones Confirmar/Cancelar</span>' },
+      { icon: 'UX', type: 'ux', text: '<span class="pt"><strong>(2) Progresso:</strong> barra + contagem (ex: 32/50). Conecta a D2.5</span><span class="es">(2) Progreso: barra + conteo. Conecta D2.5</span>' },
+      { icon: 'UX', type: 'ux', text: '<span class="pt"><strong>(3) Resumo final:</strong> X atualizados, Y com erro, link para detalhes. Conecta D2.5.</span><span class="es">(3) Resumen: X OK, Y error. Conecta D2.5.</span>' }
     ],
     effort: 'Medium', status: '<span class="pt">A fazer</span><span class="es">Por hacer</span>', timeline: '<span class="pt">Mai–Jun</span><span class="es">Mayo–Jun</span>',
-    deps: [{ label: 'D2.5 Progress Indicator', type: 'ready' }, { label: '<span class="pt">Backend: endpoint batch com progresso</span><span class="es">Backend: endpoint batch con progreso</span>', type: 'blocked' }]
+    deps: [{ label: 'D2.5 Progress Indicator', type: 'ready' }, { label: '<span class="pt">Backend: acoes em massa com progresso</span><span class="es">Backend: acciones masivas con progreso</span>', type: 'blocked' }]
   },
 
   insight_analytics: {
     wave: 'Wave 3 · Experiencias · Insight', waveColor: '#74b9ff', title: 'Analytics Data Cards',
-    context: '<div class="panel__context-title"><span class="pt">Por que isso importa</span><span class="es">Por qué importa</span></div><p><span class="pt"><strong>Dados do negócio — maior valor percebido.</strong> 206 lojas perguntam sobre dados de negócio (vendas, conversão, desempenho); 65.5% falham. É o use case de maior valor percebido. Precisa de cards ricos de visualização no chat: métricas de vendas, taxas de conversão, performance de produtos.</span><span class="es"><strong>Datos del negocio — mayor valor percibido.</strong> 206 tiendas preguntan sobre datos del negocio (ventas, conversión, desempeño); 65.5% fallan. Es el use case de mayor valor percibido. Necesita cards ricos de visualización en el chat: métricas de ventas, tasas de conversión, performance de productos.</span></p>',
+    context: '<div class="panel__context-title"><span class="pt">Por que isso importa</span><span class="es">Por qué importa</span></div><p><span class="pt"><strong>Dados do negócio — maior valor percebido.</strong> 206 lojas perguntam sobre dados (vendas, conversão, desempenho); 65.5% falham. <strong>50% dos lojistas que tiveram experiência ruim ao pedir dados nunca mais usaram o Lumi.</strong> É o use case de maior valor percebido — e o que mais gera abandono quando falha. Exemplos: "Qual meu produto mais vendido?", "Quantas visitas tive hoje?", "Qual a taxa de conversão?", "Quanto faterei em fevereiro?", "Quais dias da semana vendo mais?"</span><span class="es"><strong>Datos del negocio — mayor valor percibido.</strong> 206 tiendas preguntan; 65.5% fallan. 50% de quienes tuvieron mala experiencia nunca más usaron Lumi. Ejemplos: "¿Cuál producto vendió más?", "¿Cuántas visitas hoy?", "¿Tasa de conversión?"</span></p>',
     problem: '<span class="pt">Lojistas pedem "como foram minhas vendas?", "qual produto vendeu mais?", "qual a taxa de conversão?" e recebem texto ou são mandados para outra tela. Não existe visualização rica de dados no chat.</span><span class="es">Lojistas piden "¿cómo fueron mis ventas?", "¿qué producto vendió más?", "¿cuál la tasa de conversión?" y reciben texto o son enviados a otra pantalla. No existe visualización rica de datos en el chat.</span>',
     impact: [
       { number: '206', label: '<span class="pt">lojas pedem dados</span><span class="es">tiendas piden datos</span>', color: 'red' },
@@ -1068,18 +1099,28 @@ var TASKS = {
       { number: 'A/B', label: '<span class="pt">teste proposto antes de investir</span><span class="es">test propuesto antes de invertir</span>', color: 'accent' }
     ],
     scenarios: [
-      { label: '<span class="pt">Cenário — dados em texto vs Analytics Cards</span><span class="es">Escenario — datos en texto vs Analytics Cards</span>', msgs: [
-        { who: 'Lojista', type: 'merchant', text: '<span class="pt">"Quais foram minhas vendas esta semana?"</span><span class="es">"¿Cuáles fueron mis ventas esta semana?"</span>' },
-        { who: 'Lumi', type: 'lumi', text: '<span class="pt">Parágrafos com números misturados ou "vá em Estatísticas"</span><span class="es">Párrafos con números mezclados o "ve a Estadísticas"</span>' },
-        { who: '', type: 'ideal', text: '<span class="pt"><em>Com Analytics Data Cards:</em> [Card] Vendas: R$ X (↑12%). Conversão: Y%. Top 3 produtos: [mini tabela]. [Ver detalhes]</span><span class="es"><em>Con Analytics Data Cards:</em> [Card] Ventas: $X (↑12%). Conversión: Y%. Top 3 productos: [mini tabla]. [Ver detalles]</span>' }
+      { label: '<span class="pt">Exemplos do que lojistas perguntam</span><span class="es">Ejemplos de preguntas</span>', msgs: [
+        { who: 'Lojista', type: 'merchant', text: '<span class="pt">"Qual meu produto mais vendido?" · "Quantas visitas tive hoje?" · "Qual a taxa de conversão?" · "Quanto faterei em fevereiro?" · "Quais dias da semana vendo mais?"</span><span class="es">"¿Cuál producto vendió más?" · "¿Cuántas visitas hoy?" · "¿Tasa de conversión?" · "¿Cuánto facturé?"</span>' }
+      ]},
+      { label: '<span class="pt">Visual dos cards (wireframe)</span><span class="es">Visual de los cards</span>', msgs: [
+        { who: '', type: 'ideal', text: '<span class="pt"><strong>KPI card:</strong> número grande + variação + período. <strong>Tabela card:</strong> top 5 produtos com vendas. <strong>Comparação card:</strong> esta semana vs anterior. Verde = subiu, vermelho = caiu.</span><span class="es">KPI card: número grande + variación. Tabla: top 5 productos. Comparación: esta semana vs anterior.</span>' }
+      ]},
+      { label: '<span class="pt">Hoje vs ideal</span><span class="es">Hoy vs ideal</span>', msgs: [
+        { who: 'Lojista', type: 'merchant', text: '<span class="pt">"Quais foram minhas vendas esta semana?"</span><span class="es">"¿Cuáles fueron mis ventas?"</span>' },
+        { who: 'Lumi', type: 'lumi', text: '<span class="pt">Parágrafos com números misturados ou "vá em Estatísticas"</span><span class="es">Párrafos mezclados o "ve a Estadísticas"</span>' },
+        { who: '', type: 'ideal', text: '<span class="pt"><em>Com Analytics Cards:</em> Vendas: R$ X (↑12%). Conversão: Y%. Top 3: [mini tabela]. [Ver detalhes]</span><span class="es"><em>Con cards:</em> Ventas: $X (↑12%). Top 3: [tabla]. [Ver detalles]</span>' }
       ]}
     ],
-    evidence: [],
+    evidence: [
+      { text: 'Me tira numeros en parrafos y tengo que leer 3 veces. Un dashboard chiquito seria ideal.', author: 'lojista, loja de moda AR' },
+      { text: 'Le pregunto cuantas ventas tuve y me manda a otra pantalla. Si tiene los datos, que me los muestre aca.', author: 'lojista, loja de roupas MX' },
+      { text: 'Deje de usar Lumi para preguntar ventas porque nunca me daba una respuesta clara. Volvi a ir al panel.', author: 'lojista, loja de eletronicos BR' }
+    ],
     solution: [
-      { icon: 'UX', type: 'ux', text: '<span class="pt"><strong>Cards ricos de dados:</strong> KPIs grandes, mini-gráficos, tabelas de top produtos, comparação período anterior</span><span class="es"><strong>Cards ricos de datos:</strong> KPIs grandes, mini-gráficos, tablas de top productos, comparación período anterior</span>' },
-      { icon: 'UX', type: 'ux', text: '<span class="pt"><strong>Design research:</strong> definir quais métricas priorizar; wireframes de 3-4 variantes de card</span><span class="es"><strong>Design research:</strong> definir qué métricas priorizar; wireframes de 3-4 variantes de card</span>' },
-      { icon: 'UX', type: 'ux', text: '<span class="pt"><strong>A/B test proposto</strong> antes de investimento total</span><span class="es"><strong>A/B test propuesto</strong> antes de inversión total</span>' },
-      { icon: 'BE', type: 'be', text: '<span class="pt">Conecta a D2.3 Data Cards e D3.3 Stats; retorno de dados estruturados</span><span class="es">Conecta a D2.3 Data Cards y D3.3 Stats; retorno de datos estructurados</span>' }
+      { icon: 'UX', type: 'ux', text: '<span class="pt"><strong>Tipos de card:</strong> KPI card (número grande + variação + período), Tabela card (top 5 produtos com vendas), Comparação card (esta semana vs anterior). Verde subiu, vermelho caiu.</span><span class="es">KPI card, Tabla card (top 5), Comparación. Verde subió, rojo bajó.</span>' },
+      { icon: 'UX', type: 'ux', text: '<span class="pt"><strong>Design research:</strong> definir quais métricas priorizar; wireframes de 3-4 variantes de card</span><span class="es"><strong>Design research:</strong> definir métricas; wireframes 3-4 variantes</span>' },
+      { icon: 'UX', type: 'ux', text: '<span class="pt"><strong>A/B test proposto</strong> antes de investimento total — validar impacto antes de build completo</span><span class="es"><strong>A/B test propuesto</strong> antes de inversión total</span>' },
+      { icon: 'BE', type: 'be', text: '<span class="pt">Conecta D2.3 e D3.3. Retorno de dados organizados. Depende do time de engenharia.</span><span class="es">Conecta D2.3 y D3.3. Depende backend.</span>' }
     ],
     effort: '<span class="pt">Alto (design research + data viz)</span><span class="es">Alto (design research + data viz)</span>', status: '<span class="pt">A fazer</span><span class="es">Por hacer</span>', timeline: 'Jun–Jul',
     deps: [{ label: 'D2.3 Data Cards', type: 'ready' }, { label: 'D3.3 Stats', type: 'ready' }, { label: '<span class="pt">A/B test antes de full build</span><span class="es">A/B test antes de full build</span>', type: 'blocked' }]
