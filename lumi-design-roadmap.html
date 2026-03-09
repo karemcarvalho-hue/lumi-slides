@@ -1254,30 +1254,29 @@ function renderConversationsTab(t) {
   if (convos.length === 0) {
     return '<div class="panel__convo-empty">Nenhuma conversa mapeada para esta task.</div>';
   }
-  var html = '<div class="panel__section"><div class="panel__section-title">Conversas reais de lojistas · ' + convos.length + ' exemplos</div>';
-  html += '<div style="font-size:.78rem;color:var(--text-muted);margin-bottom:16px;">Conversas recentes (Fev-Mar 2026) extraidas das anotacoes. Cada card mostra o que o lojista queria, o resultado, e os modulos do Lumi envolvidos.</div>';
+  var html = '<div class="panel__section"><div class="panel__section-title">Conversas reais · ' + convos.length + ' exemplos (Fev-Mar 2026)</div>';
+  html += '<div style="font-size:.78rem;color:var(--text-muted);margin-bottom:16px;">Dialogos reconstruidos a partir das anotacoes reais. Cada conversa mostra o que o lojista pediu, como o Lumi respondeu, e a nota do reviewer.</div>';
   for (var i = 0; i < convos.length; i++) {
     var c = convos[i];
+    var verdictLabel = c.verdict === 'bad' ? 'Falhou' : (c.verdict === 'mixed' ? 'Parcial' : 'Resolveu');
     html += '<div class="panel__convo panel__convo--' + c.verdict + '">';
     html += '<div class="panel__convo-header">';
-    html += '<div class="panel__convo-date">' + c.date + '</div>';
-    var verdictLabel = c.verdict === 'bad' ? 'Falhou' : (c.verdict === 'mixed' ? 'Parcial' : 'Resolveu');
+    html += '<div class="panel__convo-date">' + c.date + (c.agents && c.agents !== 'nenhum' ? ' · Modulos: ' + c.agents : '') + '</div>';
     html += '<div class="panel__convo-verdict panel__convo-verdict--' + c.verdict + '">' + verdictLabel + '</div>';
     html += '</div>';
-    html += '<div class="panel__convo-intent">' + c.intent + '</div>';
-    html += '<div class="panel__convo-meta">';
-    if (c.agents && c.agents !== 'nenhum') {
-      html += '<div class="panel__convo-tag">Modulos: ' + c.agents + '</div>';
-    }
-    if (c.patterns) {
-      var patterns = c.patterns.split(', ');
-      for (var p = 0; p < patterns.length; p++) {
-        if (patterns[p] && patterns[p] !== 'mixed') {
-          html += '<div class="panel__convo-tag panel__convo-tag--pattern">' + patterns[p] + '</div>';
-        }
+    if (c.msgs && c.msgs.length > 0) {
+      html += '<div class="panel__scenario" style="margin-top:8px;margin-bottom:0">';
+      for (var m = 0; m < c.msgs.length; m++) {
+        var msg = c.msgs[m];
+        var whoClass = msg.type === 'merchant' ? 'panel__msg-who--merchant' : (msg.type === 'lumi-ok' ? 'panel__msg-who--lumi-ok' : (msg.type === 'ideal' ? 'panel__msg-who--lumi-ok' : 'panel__msg-who--lumi'));
+        var msgClass = (msg.type === 'lumi-ok' || msg.type === 'ideal') ? 'panel__msg panel__msg--ideal' : 'panel__msg';
+        html += '<div class="' + msgClass + '">';
+        if (msg.who) html += '<div class="panel__msg-who ' + whoClass + '">' + msg.who + '</div>';
+        html += '<div class="panel__msg-text">' + msg.text + '</div></div>';
       }
+      html += '</div>';
     }
-    html += '</div></div>';
+    html += '</div>';
   }
   html += '</div>';
   return html;
