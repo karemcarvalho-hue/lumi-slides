@@ -551,27 +551,56 @@ var TASKS = {
 
   d01: {
     wave: 'Wave 0 · Fundacao', waveColor: '#a29bfe', title: 'Audit de Padroes de Falha',
-    context: '<div class="panel__context-title">Por que isso importa</div>Analisamos 2.080 conversas recentes de lojistas com o Lumi. <strong>~49% terminam com experiencia ruim ou parcial.</strong> Os problemas se repetem em padroes claros, mas o time ainda nao tem documentacao visual desses padroes. Sem esse mapeamento, qualquer solucao que a gente desenhe vai ser no escuro.',
-    problem: 'Existem <strong>5 padroes de falha recorrentes</strong> que juntos explicam quase todas as conversas ruins: dead-ends, respostas desalinhadas, verbosidade, guardrails excessivos e routing errado. Precisamos documentar cada um com exemplos reais antes de comecar a resolver.',
-    impact: [{ number: '5', label: 'padroes de falha identificados', color: 'accent' },{ number: '~49%', label: 'taxa de falha nas conversas', color: 'red' },{ number: '2.080', label: 'conversas analisadas', color: 'orange' },{ number: '1.546', label: 'lojas distintas', color: 'orange' }],
+    context: '<div class="panel__context-title">O que o lojista vive hoje</div>Imagina que voce e um lojista e abre o chat do Lumi para pedir ajuda. Dependendo do que voce pergunta, voce vai cair em 1 de 5 experiencias frustrantes que se repetem. Sao sempre as mesmas. Analisamos <strong>2.080 conversas recentes</strong> e <strong>6 em cada 10</strong> terminam com o lojista insatisfeito ou parcialmente atendido. O problema nao e aleatorio — sao 5 padroes claros que precisamos documentar visualmente para o time inteiro entender antes de resolver.',
+    problem: 'Existem <strong>5 tipos de experiencia ruim</strong> que o lojista vive no chat. Cada um tem uma cara diferente, mas todos levam ao mesmo resultado: o lojista desiste, fica frustrado, ou resolve sozinho. Precisamos mapear cada padrao com conversas reais para que design, produto e engenharia entendam exatamente o que acontece.',
+    impact: [{ number: '5', label: 'padroes de falha identificados', color: 'accent' },{ number: '61.6%', label: 'das conversas terminam mal', color: 'red' },{ number: '1.015', label: 'conversas com problema (recentes)', color: 'orange' },{ number: '2.080', label: 'conversas analisadas (Fev-Mar)', color: 'orange' }],
     scenarios: [
-      { label: 'Exemplos dos 5 padroes que vamos documentar', msgs: [
-        { who: 'Lojista', type: 'merchant', text: '"Quiero crear una promocion de 20% para zapatillas"' },
-        { who: 'Lumi', type: 'lumi', text: 'Responde com tutorial de 8 passos em vez de criar a promocao <em>(resposta desalinhada)</em>' },
-        { who: 'Lojista', type: 'merchant', text: '"Ya, pero podes crearla vos?"' },
-        { who: 'Lumi', type: 'lumi', text: 'Nao responde ou repete o tutorial <em>(dead-end)</em>' }
+      { label: 'Padrao 1 — Resposta desalinhada (365 conversas)', msgs: [
+        { who: 'Lojista', type: 'merchant', text: '"Quiero activar la recuperacion automatica de carritos abandonados"' },
+        { who: 'Lumi', type: 'lumi', text: '"Para activar la recuperacion de carritos abandonados, segui estos pasos: 1. Anda a Marketing. 2. Busca Carritos abandonados. 3. Activa la opcion. 4. Configura el tiempo de espera. 5. Personaliza el email..." (continua por mais 3 passos)' },
+        { who: '', type: 'ideal', text: '<strong>O que o lojista queria:</strong> que o Lumi ativasse pra ele, ou pelo menos um botao "Ir a Carritos abandonados" com link direto. Recebeu um manual de 8 passos que podia ter sido 1 clique.' }
+      ]},
+      { label: 'Padrao 2 — Dead-end: a conversa morre (254 conversas)', msgs: [
+        { who: 'Lojista', type: 'merchant', text: '"Quiero descargar un Excel con mi inventario"' },
+        { who: 'Lumi', type: 'lumi', text: '"Voy a derivar tu consulta al equipo de soporte para que te ayuden."' },
+        { who: 'Lojista', type: 'merchant', text: '"Ok... pero donde esta el link? Estoy esperando..."' },
+        { who: 'Lumi', type: 'lumi', text: '...' },
+        { who: '', type: 'ideal', text: '<strong>O que aconteceu:</strong> Lumi prometeu suporte mas nunca enviou o link. O lojista ficou esperando. A conversa morreu. Nenhum proximo passo, nenhuma alternativa. Em 45% desses casos, o Lumi nem tenta acionar nenhum modulo — simplesmente nao sabe o que fazer.' }
+      ]},
+      { label: 'Padrao 3 — Verbosidade: resposta enorme (225 conversas)', msgs: [
+        { who: 'Lojista', type: 'merchant', text: '"Cuantas ordenes tengo para empaquetar?"' },
+        { who: 'Lumi', type: 'lumi', text: '"Entiendo tu consulta. Voy a verificar tus ordenes pendientes de empaque. Segun la informacion que tengo, actualmente tenes varias ordenes en estado pendiente de empaque. Para ver el listado completo, te recomiendo ir a la seccion de Pedidos > Pendientes de empaque donde vas a encontrar todas las ordenes que necesitan ser empaquetadas. Ademas, podes filtrar por fecha, estado, metodo de envio..." (e continua por mais 2 paragrafos)' },
+        { who: '', type: 'ideal', text: '<strong>O que o lojista queria:</strong> um numero. "Tenes 7 ordenes para empaquetar." Pronto. Em vez disso, recebeu 4 paragrafos repetitivos. O pior: as vezes 2-3 modulos do Lumi respondem ao mesmo tempo sobre o mesmo tema, multiplicando a verbosidade.' }
+      ]},
+      { label: 'Padrao 4 — Guardrail: Lumi recusa sem motivo (101 conversas)', msgs: [
+        { who: 'Lojista', type: 'merchant', text: '"Quiero agregar variantes de talle para filtrar calzado"' },
+        { who: 'Lumi', type: 'lumi', text: '"No tengo la capacidad de hacer eso."' },
+        { who: 'Lojista', type: 'merchant', text: '"Pero si tiene que ser posible... es una funcion basica"' },
+        { who: 'Lumi', type: 'lumi', text: '"Lo siento, no puedo ayudarte con eso en este momento."' },
+        { who: '', type: 'ideal', text: '<strong>O que o lojista sentiu:</strong> pediu algo perfeitamente valido e Lumi simplesmente recusou. Nao perguntou mais detalhes, nao ofereceu alternativa, nao explicou por que. So "no puedo" e fim. Em 50% desses casos, o guardrail vira um dead-end — o lojista fica sem saida.' }
+      ]},
+      { label: 'Padrao 5 — Routing errado: resposta sem sentido (70 conversas)', msgs: [
+        { who: 'Lojista', type: 'merchant', text: '"Quiero acceder a las estadisticas de mis productos"' },
+        { who: 'Lumi', type: 'lumi', text: '(O cerebro do Lumi manda a pergunta para o modulo de Catalogo em vez do modulo de Estatisticas. O modulo de Catalogo responde com informacoes sobre como editar produtos — nada a ver com o que o lojista pediu.)' },
+        { who: 'Lojista', type: 'merchant', text: '"No era eso lo que te pedi..."' },
+        { who: '', type: 'ideal', text: '<strong>O que aconteceu:</strong> o cerebro do Lumi mandou a pergunta pro lugar errado. O lojista recebe uma resposta que nao tem nada a ver. E o unico padrao que PIOROU nos dados recentes — subiu de 2% para 3.4%. Em 31% dos casos, 2+ modulos respondem ao mesmo tempo, gerando confusao.' }
       ]}
     ],
     evidence: [
-      { text: 'Necesito que cambies el color del banner, no que me expliques como hacerlo yo', author: 'lojista, loja de moda AR — conversa sobre storefront' },
-      { text: 'Me dijiste que ibas a derivarme a soporte pero no me pasaste ningun link. Estoy esperando.', author: 'lojista, loja de acessorios BR — dead-end com handoff falho' },
-      { text: 'No me sirve para nada. Ya le pregunte 3 veces y siempre me da lo mismo.', author: 'lojista, loja de eletronicos AR — apos 3 tentativas frustradas' },
-      { text: 'Le pregunto algo concreto y me responde con un manual. Desisti.', author: 'lojista, loja de cosmeticos MX — resposta desalinhada' }
+      { text: 'Te pido que hagas algo y me explicas como hacerlo yo. Si quisiera hacerlo yo no te estaria pidiendo.', author: 'lojista, loja de calcados AR — pediu criar promocao, recebeu tutorial (Padrao 1)' },
+      { text: 'Me dijiste que ibas a derivarme a soporte y nunca me pasaste el link. Llevo 10 minutos esperando.', author: 'lojista, loja de acessorios BR — prometeu suporte e nao cumpriu (Padrao 2)' },
+      { text: 'Me respondio como 3 paginas de texto y yo solo queria saber donde esta el boton.', author: 'lojista, loja de eletronicos AR — pergunta simples, resposta gigante (Padrao 3)' },
+      { text: 'Me dice "no puedo" y listo. Al menos preguntame que necesito exactamente.', author: 'lojista, loja de roupas AR — pedido valido recusado (Padrao 4)' },
+      { text: 'Le pregunte por estadisticas y me respondio sobre como editar un producto. Nada que ver.', author: 'lojista, loja de decoracao BR — resposta de modulo errado (Padrao 5)' },
+      { text: 'No me sirve para nada. Ya le pregunte 3 veces y siempre me da lo mismo.', author: 'lojista, loja de eletronicos AR — desistiu apos 3 tentativas' },
+      { text: 'Al menos decime donde buscar la respuesta si vos no la sabes.', author: 'lojista, loja de decoracao AR — pediu alternativa e nao recebeu' },
+      { text: 'Parece que me responden varios al mismo tiempo y ninguno me da la respuesta que necesito.', author: 'lojista — sentiu a confusao de multiplos modulos respondendo' }
     ],
     solution: [
-      { icon: 'UX', type: 'ux', text: '<strong>Capturar screenshots reais</strong> de cada padrao: a mensagem do lojista, a resposta do Lumi, e o momento de abandono' },
-      { icon: 'UX', type: 'ux', text: '<strong>Anotar para cada caso:</strong> o que o lojista queria, o que recebeu, e onde desistiu' },
-      { icon: 'UX', type: 'ux', text: '<strong>Criar documento visual de referencia</strong> para alinhar design, backend e produto sobre o que esta errado' }
+      { icon: 'UX', type: 'ux', text: '<strong>Para cada um dos 5 padroes, documentar visualmente:</strong> (1) O que o lojista escreveu, (2) O que Lumi respondeu, (3) O momento exato onde a experiencia quebrou, (4) O que o lojista fez depois (desistiu? tentou de novo? saiu do chat?)' },
+      { icon: 'UX', type: 'ux', text: '<strong>Criar 1 pagina visual por padrao</strong> com: titulo do padrao, numero de conversas afetadas, 3 exemplos reais de conversas (screenshot ou reproduzido), e o "momento critico" circulado/destacado' },
+      { icon: 'UX', type: 'ux', text: '<strong>Incluir a "jornada emocional" do lojista:</strong> confiante ao abrir o chat → frustrado ao receber resposta ruim → confuso sem proximo passo → abandono. Mapear onde cada padrao cai nessa jornada.' },
+      { icon: 'UX', type: 'ux', text: '<strong>Resultado final:</strong> documento visual de referencia que qualquer pessoa do time consiga olhar e entender em 2 minutos qual e o problema, como ele aparece, e por que o lojista desiste.' }
     ],
     effort: '2 dias', status: 'Em progresso', timeline: 'Mar S2', deps: [{ label: 'Nenhuma', type: 'ready' }]
   },
