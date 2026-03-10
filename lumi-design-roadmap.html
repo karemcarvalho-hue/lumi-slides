@@ -478,10 +478,10 @@
       <div class="lane__tasks">
         <div class="task-row">
           <div class="task task--green" style="width:calc(2.5/20*100%);margin-left:calc(1.5/20*100%)" onclick="openPanel('d11')">
-            <span class="task__id">D1.1 · Wave 1</span><span class="pt">"Lumi nao sabe e nao me diz o que fazer"</span><span class="es">"Lumi no sabe y no me dice qué hacer"</span><span class="task__threads">~237 fixáveis (257 total)</span><div class="task__status task__status--todo"></div>
+            <span class="task__id">D1.1 · Wave 1</span><span class="pt">"Lumi nao sabe e nao me diz o que fazer"</span><span class="es">"Lumi no sabe y no me dice qué hacer"</span><span class="task__threads">236 threads · #1 resposta ruim</span><div class="task__status task__status--todo"></div>
           </div>
           <div class="task task--green" style="width:calc(1.5/20*100%)" onclick="openPanel('d12')">
-            <span class="task__id">D1.2 · Wave 1</span><span class="pt">"Resposta enorme e me perdi no texto"</span><span class="es">"Respuesta enorme y me perdí en el texto"</span><span class="task__threads">~225 fixáveis (97%)</span><div class="task__status task__status--todo"></div>
+            <span class="task__id">D1.2 · Wave 1</span><span class="pt">"Resposta enorme e me perdi no texto"</span><span class="es">"Respuesta enorme y me perdí en el texto"</span><span class="task__threads">218 threads · #2 resposta ruim</span><div class="task__status task__status--todo"></div>
           </div>
           <div class="task task--green" style="width:calc(1.5/20*100%)" onclick="openPanel('d13')">
             <span class="task__id">D1.3 · Wave 1</span><span class="pt">"Fez sem me perguntar e errou"</span><span class="es">"Lo hizo sin preguntarme y se equivocó"</span><span class="task__threads">transversal</span><div class="task__status task__status--todo"></div>
@@ -492,7 +492,7 @@
         </div>
         <div class="task-row">
           <div class="task task--orange" style="width:calc(3/20*100%);margin-left:calc(5/20*100%)" onclick="openPanel('d21')">
-            <span class="task__id">D2.1 · Wave 2</span><span class="pt">"Pedi pra fazer e me deu um tutorial"</span><span class="es">"Le pedí que hiciera y me dio un tutorial"</span><span class="task__threads">~161 fixáveis (388 total, 59% feature gap)</span><div class="task__status task__status--todo"></div>
+            <span class="task__id">D2.1 · Wave 2</span><span class="pt">"Pedi pra fazer e me deu um tutorial"</span><span class="es">"Le pedí que hiciera y me dio un tutorial"</span><span class="task__threads">155 threads · #3 resposta ruim</span><div class="task__status task__status--todo"></div>
           </div>
           <div class="task task--orange" style="width:calc(2.5/20*100%)" onclick="openPanel('d22')">
             <span class="task__id">D2.2 · Wave 2</span><span class="pt">"Me deu 8 passos e nao sei em qual estou"</span><span class="es">"Me dio 8 pasos y no sé en cuál estoy"</span><span class="task__threads">~300+ threads</span><div class="task__status task__status--todo"></div>
@@ -573,9 +573,9 @@
   <div class="footer__left">Lumi Design Roadmap &nbsp;·&nbsp; Q1–Q2 2026 &nbsp;·&nbsp; Karem Carvalho<br><span class="pt">Baseado em análise de 2.080 threads recentes</span><span class="es">Basado en análisis de 2.080 threads recientes</span> &nbsp;·&nbsp; 1.546 <span class="pt">lojas</span><span class="es">tiendas</span> &nbsp;·&nbsp; Fev–Mar/2026 (dados recentes)</div>
   <div class="footer__right">
     <div class="footer__stat"><div class="footer__stat-number" style="color:var(--accent-light)">18</div><div class="footer__stat-label"><span class="pt">entregas</span><span class="es">entregas</span></div></div>
-    <div class="footer__stat"><div class="footer__stat-number" style="color:var(--red)">~49%</div><div class="footer__stat-label"><span class="pt">taxa de falha hoje</span><span class="es">tasa de falla hoy</span></div></div>
-    <div class="footer__stat"><div class="footer__stat-number" style="color:var(--green)">~35%</div><div class="footer__stat-label"><span class="pt">meta wave 1+2</span><span class="es">meta wave 1+2</span></div></div>
-    <div class="footer__stat"><div class="footer__stat-number" style="color:var(--green)">763</div><div class="footer__stat-label"><span class="pt">threads fixáveis</span><span class="es">threads corregibles</span></div></div>
+    <div class="footer__stat"><div class="footer__stat-number" style="color:var(--green)">570</div><div class="footer__stat-label"><span class="pt">resposta ruim</span><span class="es">respuesta mala</span></div></div>
+    <div class="footer__stat"><div class="footer__stat-number" style="color:var(--orange)">611</div><div class="footer__stat-label">feature gap</div></div>
+    <div class="footer__stat"><div class="footer__stat-number" style="color:var(--accent-light)">56</div><div class="footer__stat-label">data gap</div></div>
   </div>
 </div>
 
@@ -586,10 +586,10 @@ var TASKS = {
     context: '<div class="panel__context-title">Por que isso importa</div>"Human in the loop" nao e um unico item do backlog — e uma <strong>estrategia de design</strong> que permeia 3 dos 5 maiores problemas e afeta <strong>~720 threads (34.6%)</strong>. A IA nao precisa resolver tudo sozinha. O principio e: <strong>envolver o humano no momento certo</strong>, seja o lojista ou o suporte.',
     problem: 'Hoje, quando Lumi nao sabe responder, <strong>a conversa morre</strong>. Quando tem duvida, <strong>recusa</strong>. Quando e ambiguo, <strong>assume errado</strong>. Nos 3 casos, envolver o humano (lojista ou suporte) resolveria o problema. Mas nao existe nenhum mecanismo para isso.',
     impact: [
-      { number: '237', label: 'Dead-ends fixáveis (92% do total)', color: 'red' },
-      { number: '86', label: 'Guardrails fixáveis (86% do total)', color: 'orange' },
-      { number: '161', label: 'Desalinhamento fixável (41% do total)', color: 'accent' },
-      { number: '763', label: 'threads fixáveis hoje (sem feature gap)', color: 'green' }
+      { number: '236', label: 'Dead-ends (resposta ruim)', color: 'red' },
+      { number: '86', label: 'Guardrails excessivos (resposta ruim)', color: 'orange' },
+      { number: '155', label: 'Resposta desalinhada (resposta ruim)', color: 'accent' },
+      { number: '570/611', label: 'resposta ruim / feature gap (~50/50)', color: 'green' }
     ],
     scenarios: [
       { label: 'Nivel 1 — Escalar quando falha (Dead-ends)', msgs: [
@@ -629,7 +629,7 @@ var TASKS = {
     wave: 'Wave 0 · Fundacao', waveColor: '#a29bfe', title: 'Lojistas desistem e nao sabemos por que',
     context: '<div class="panel__context-title">O que o lojista vive hoje</div>Imagina que voce e um lojista e abre o chat do Lumi para pedir ajuda. Dependendo do que voce pergunta, voce vai cair em 1 de 5 experiencias frustrantes que se repetem. Sao sempre as mesmas. Analisamos <strong>2.080 conversas recentes</strong> e <strong>6 em cada 10</strong> terminam com o lojista insatisfeito ou parcialmente atendido. O problema nao e aleatorio — sao 5 padroes claros que precisamos documentar visualmente para o time inteiro entender antes de resolver.',
     problem: 'Existem <strong>5 tipos de experiencia ruim</strong> que o lojista vive no chat. Cada um tem uma cara diferente, mas todos levam ao mesmo resultado: o lojista desiste, fica frustrado, ou resolve sozinho. Precisamos mapear cada padrao com conversas reais para que design, produto e engenharia entendam exatamente o que acontece.',
-    impact: [{ number: '5', label: 'padrões de falha identificados', color: 'accent' },{ number: '763', label: 'threads fixáveis hoje (sem feature gap)', color: 'green' },{ number: '289', label: 'threads com feature gap (precisa funcionalidade nova)', color: 'orange' },{ number: '2.080', label: 'conversas analisadas (Fev-Mar)', color: 'orange' }],
+    impact: [{ number: '3', label: 'tipos de erro: resposta ruim, feature gap, data gap', color: 'accent' },{ number: '570', label: 'threads resposta ruim (27.4%) — fixável com prompt', color: 'green' },{ number: '611', label: 'threads feature gap (29.4%) — precisa construir', color: 'orange' },{ number: '56', label: 'threads data gap (2.7%) — precisa dar dados ao Lumi', color: 'accent' }],
     scenarios: [
       { label: 'Padrao 1 — Resposta desalinhada (365 conversas)', msgs: [
         { who: 'Lojista', type: 'merchant', text: '"Quiero activar la recuperacion automatica de carritos abandonados"' },
@@ -741,7 +741,7 @@ var TASKS = {
     wave: 'Wave 1 · Quick Wins', waveColor: '#00cec9', title: '"Lumi não sabe e não me diz o que fazer" — 237 conversas fixáveis sem saída',
     context: '<div class="panel__context-title">A jornada do lojista</div>O lojista abre o chat, faz uma pergunta, e <strong>não recebe nenhum próximo passo</strong>. Lumi trava. Às vezes diz "vou te transferir para suporte" mas não envia o link. O lojista fica esperando, sem saber se algo vai acontecer. <strong>92% dos dead-ends são fixáveis</strong> — o Lumi TEM a funcionalidade mas respondeu mal. Apenas 8% (20 threads) são feature gap real.',
     problem: 'Quando Lumi nao consegue resolver, a conversa <strong>morre em silencio</strong>. Nao existe nenhum componente visual que diga "nao consegui, mas voce pode tentar isso". O lojista simplesmente nao recebe mais nada. Ha um caso extra: o lojista pede algo que <strong>existe no painel</strong> mas Lumi nao sabe responder — ai o card deve ter um deep link direto para a tela certa.',
-    impact: [{ number: '237', label: 'dead-ends fixáveis (Lumi pode resolver)', color: 'green' },{ number: '92%', label: 'é resposta ruim, não feature gap', color: 'green' },{ number: '20', label: 'são feature gap real (8%)', color: 'orange' },{ number: '#1', label: 'na nova priorização (era #2)', color: 'red' }],
+    impact: [{ number: '236', label: 'dead-ends (resposta ruim)', color: 'red' },{ number: '41.4%', label: 'dos erros de resposta', color: 'red' },{ number: '#1', label: 'problema de resposta mais frequente', color: 'red' },{ number: '570', label: 'total resposta ruim vs 611 feature gap', color: 'green' }],
     scenarios: [
       { label: 'Cenario 1 — Lojista fica sem resposta', msgs: [
         { who: 'Lojista', type: 'merchant', text: '"Como configuro Mercado Pago en mi tienda?"' },
