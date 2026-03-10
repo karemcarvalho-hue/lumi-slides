@@ -88,49 +88,55 @@
 
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:960px">
 
-      <div onclick="goTo(2)" style="display:flex;align-items:center;gap:14px;padding:14px 18px;background:var(--surface);border:1px solid var(--border);border-radius:12px;cursor:pointer;transition:background .15s" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
-        <div style="width:32px;height:32px;border-radius:8px;background:rgba(255,107,107,.15);display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:800;color:var(--red);flex-shrink:0">1</div>
-        <div><div style="font-weight:700;font-size:.88rem"><span class="pt">Cenario atual</span><span class="es">Escenario actual</span></div><div style="font-size:.72rem;color:var(--text-dim);margin-top:2px"><span class="pt">61.6% taxa de falha nos dados recentes</span><span class="es">61.6% tasa de fallo en datos recientes</span></div></div>
-      </div>
+      <div style="grid-column:1/-1;padding:6px 14px;font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--red)"><span class="pt">Diagnóstico</span><span class="es">Diagnóstico</span></div>
 
       <div onclick="goTo(2)" style="display:flex;align-items:center;gap:14px;padding:14px 18px;background:var(--surface);border:1px solid var(--border);border-radius:12px;cursor:pointer;transition:background .15s" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
+        <div style="width:32px;height:32px;border-radius:8px;background:rgba(255,107,107,.15);display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:800;color:var(--red);flex-shrink:0">1</div>
+        <div><div style="font-weight:700;font-size:.88rem"><span class="pt">Cenário + 3 tipos de erro</span><span class="es">Escenario + 3 tipos de error</span></div><div style="font-size:.72rem;color:var(--text-dim);margin-top:2px"><span class="pt">61.1% falha · Resposta ruim vs Feature gap vs Data gap</span><span class="es">61.1% fallo · Respuesta mala vs Feature gap vs Data gap</span></div></div>
+      </div>
+
+      <div onclick="goTo(4)" style="display:flex;align-items:center;gap:14px;padding:14px 18px;background:var(--surface);border:1px solid var(--border);border-radius:12px;cursor:pointer;transition:background .15s" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
         <div style="width:32px;height:32px;border-radius:8px;background:rgba(255,107,107,.15);display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:800;color:var(--red);flex-shrink:0">2</div>
-        <div><div style="font-weight:700;font-size:.88rem"><span class="pt">3 tipos de erro</span><span class="es">3 tipos de error</span></div><div style="font-size:.72rem;color:var(--text-dim);margin-top:2px"><span class="pt">Resposta ruim vs Feature gap vs Data gap (~50/50)</span><span class="es">Respuesta mala vs Feature gap vs Data gap (~50/50)</span></div></div>
+        <div><div style="font-weight:700;font-size:.88rem"><span class="pt">5 problemas + exemplos</span><span class="es">5 problemas + ejemplos</span></div><div style="font-size:.72rem;color:var(--text-dim);margin-top:2px"><span class="pt">Dead-ends, Verbosidade, Desalinhada, Guardrails, Routing</span><span class="es">Dead-ends, Verbosidad, Desalineada, Guardrails, Routing</span></div></div>
       </div>
 
       <div onclick="goTo(8)" style="display:flex;align-items:center;gap:14px;padding:14px 18px;background:var(--surface);border:1px solid var(--border);border-radius:12px;cursor:pointer;transition:background .15s" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
         <div style="width:32px;height:32px;border-radius:8px;background:rgba(108,92,231,.2);display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:800;color:var(--accent-light);flex-shrink:0">3</div>
-        <div><div style="font-weight:700;font-size:.88rem">Human in the Loop</div><div style="font-size:.72rem;color:var(--text-dim);margin-top:2px"><span class="pt">1 estrategia que resolve 34.6% das falhas</span><span class="es">1 estrategia que resuelve 34.6% de las fallas</span></div></div>
+        <div><div style="font-weight:700;font-size:.88rem"><span class="pt">Causa raiz + Feature gaps</span><span class="es">Causa raíz + Feature gaps</span></div><div style="font-size:.72rem;color:var(--text-dim);margin-top:2px"><span class="pt">Orquestrador é o gargalo · Cruzamento com backlog PM</span><span class="es">Orquestador es el cuello de botella · Cruce con backlog PM</span></div></div>
       </div>
 
-      <div onclick="goTo(9)" style="display:flex;align-items:center;gap:14px;padding:14px 18px;background:var(--surface);border:1px solid var(--border);border-radius:12px;cursor:pointer;transition:background .15s" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
+      <div onclick="goTo(10)" style="display:flex;align-items:center;gap:14px;padding:14px 18px;background:var(--surface);border:1px solid var(--border);border-radius:12px;cursor:pointer;transition:background .15s" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
         <div style="width:32px;height:32px;border-radius:8px;background:rgba(253,203,110,.15);display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:800;color:var(--orange);flex-shrink:0">4</div>
-        <div><div style="font-weight:700;font-size:.88rem"><span class="pt">3 Insights novos</span><span class="es">3 Insights nuevos</span></div><div style="font-size:.72rem;color:var(--text-dim);margin-top:2px"><span class="pt">Painel, acoes massivas e dados do negocio</span><span class="es">Panel, acciones masivas y datos del negocio</span></div></div>
+        <div><div style="font-weight:700;font-size:.88rem"><span class="pt">3 Insights novos</span><span class="es">3 Insights nuevos</span></div><div style="font-size:.72rem;color:var(--text-dim);margin-top:2px"><span class="pt">Deep linking (57.6%), Bulk (109), Analytics (206 lojas)</span><span class="es">Deep linking (57.6%), Bulk (109), Analytics (206 tiendas)</span></div></div>
       </div>
 
-      <div onclick="goTo(14)" style="display:flex;align-items:center;gap:14px;padding:14px 18px;background:var(--surface);border:1px solid var(--border);border-radius:12px;cursor:pointer;transition:background .15s" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
+      <div style="grid-column:1/-1;padding:6px 14px;font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--orange);margin-top:4px"><span class="pt">Realidade da Sprint</span><span class="es">Realidad del Sprint</span></div>
+
+      <div onclick="goTo(13)" style="display:flex;align-items:center;gap:14px;padding:14px 18px;background:var(--surface);border:1px solid var(--border);border-radius:12px;cursor:pointer;transition:background .15s" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
         <div style="width:32px;height:32px;border-radius:8px;background:rgba(253,203,110,.15);display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:800;color:var(--orange);flex-shrink:0">5</div>
-        <div><div style="font-weight:700;font-size:.88rem"><span class="pt">Sprint vs Dados</span><span class="es">Sprint vs Datos</span></div><div style="font-size:.72rem;color:var(--text-dim);margin-top:2px"><span class="pt">~49% de impacto sem issue na sprint</span><span class="es">~49% de impacto sin issue en la sprint</span></div></div>
+        <div><div style="font-weight:700;font-size:.88rem"><span class="pt">Sprint vs Dados</span><span class="es">Sprint vs Datos</span></div><div style="font-size:.72rem;color:var(--text-dim);margin-top:2px"><span class="pt">90.1% dos problemas sem issue na sprint</span><span class="es">90.1% de los problemas sin issue en la sprint</span></div></div>
       </div>
 
-      <div onclick="goTo(15)" style="display:flex;align-items:center;gap:14px;padding:14px 18px;background:var(--surface);border:1px solid var(--border);border-radius:12px;cursor:pointer;transition:background .15s" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
+      <div style="grid-column:1/-1;padding:6px 14px;font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--green);margin-top:4px"><span class="pt">Proposta + Execução</span><span class="es">Propuesta + Ejecución</span></div>
+
+      <div onclick="goTo(16)" style="display:flex;align-items:center;gap:14px;padding:14px 18px;background:var(--surface);border:1px solid var(--border);border-radius:12px;cursor:pointer;transition:background .15s" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
         <div style="width:32px;height:32px;border-radius:8px;background:rgba(0,206,201,.15);display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:800;color:var(--green);flex-shrink:0">6</div>
-        <div><div style="font-weight:700;font-size:.88rem"><span class="pt">Waves 1, 2, 3</span><span class="es">Waves 1, 2, 3</span></div><div style="font-size:.72rem;color:var(--text-dim);margin-top:2px"><span class="pt">Priorizacao por impacto e esforco</span><span class="es">Priorizacion por impacto y esfuerzo</span></div></div>
+        <div><div style="font-weight:700;font-size:.88rem"><span class="pt">Proposta: HITL + Preview Cards + Prompt</span><span class="es">Propuesta: HITL + Preview Cards + Prompt</span></div><div style="font-size:.72rem;color:var(--text-dim);margin-top:2px"><span class="pt">3 iniciativas · de 61% para 4.3% · waterfall de impacto</span><span class="es">3 iniciativas · de 61% a 4.3% · waterfall de impacto</span></div></div>
       </div>
 
-      <div onclick="goTo(21)" style="display:flex;align-items:center;gap:14px;padding:14px 18px;background:var(--surface);border:1px solid var(--border);border-radius:12px;cursor:pointer;transition:background .15s" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
+      <div onclick="goTo(19)" style="display:flex;align-items:center;gap:14px;padding:14px 18px;background:var(--surface);border:1px solid var(--border);border-radius:12px;cursor:pointer;transition:background .15s" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
         <div style="width:32px;height:32px;border-radius:8px;background:rgba(0,206,201,.15);display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:800;color:var(--green);flex-shrink:0">7</div>
-        <div><div style="font-weight:700;font-size:.88rem"><span class="pt">Roadmap ideal</span><span class="es">Roadmap ideal</span></div><div style="font-size:.72rem;color:var(--text-dim);margin-top:2px"><span class="pt">11 iniciativas ordenadas por impacto</span><span class="es">11 iniciativas ordenadas por impacto</span></div></div>
-      </div>
-
-      <div onclick="goTo(22)" style="display:flex;align-items:center;gap:14px;padding:14px 18px;background:var(--surface);border:1px solid var(--border);border-radius:12px;cursor:pointer;transition:background .15s" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
-        <div style="width:32px;height:32px;border-radius:8px;background:rgba(253,203,110,.15);display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:800;color:var(--orange);flex-shrink:0">8</div>
-        <div><div style="font-weight:700;font-size:.88rem"><span class="pt">Aprendizado + Processo</span><span class="es">Aprendizaje + Proceso</span></div><div style="font-size:.72rem;color:var(--text-dim);margin-top:2px"><span class="pt">Template de problem statement + proximos passos</span><span class="es">Template de problem statement + proximos pasos</span></div></div>
+        <div><div style="font-weight:700;font-size:.88rem"><span class="pt">Waves + Roadmap ideal</span><span class="es">Waves + Roadmap ideal</span></div><div style="font-size:.72rem;color:var(--text-dim);margin-top:2px"><span class="pt">Priorização por impacto e esforço · 11 iniciativas</span><span class="es">Priorización por impacto y esfuerzo · 11 iniciativas</span></div></div>
       </div>
 
       <div onclick="goTo(24)" style="display:flex;align-items:center;gap:14px;padding:14px 18px;background:var(--surface);border:1px solid var(--border);border-radius:12px;cursor:pointer;transition:background .15s" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
-        <div style="width:32px;height:32px;border-radius:8px;background:rgba(108,92,231,.2);display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:800;color:var(--accent-light);flex-shrink:0">9</div>
-        <div><div style="font-weight:700;font-size:.88rem"><span class="pt">Resumo + Roadmaps</span><span class="es">Resumen + Roadmaps</span></div><div style="font-size:.72rem;color:var(--text-dim);margin-top:2px"><span class="pt">Links dos roadmaps e proximos passos</span><span class="es">Links de los roadmaps y proximos pasos</span></div></div>
+        <div style="width:32px;height:32px;border-radius:8px;background:rgba(108,92,231,.2);display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:800;color:var(--accent-light);flex-shrink:0">8</div>
+        <div><div style="font-weight:700;font-size:.88rem"><span class="pt">Próximos passos + Roadmaps</span><span class="es">Próximos pasos + Roadmaps</span></div><div style="font-size:.72rem;color:var(--text-dim);margin-top:2px"><span class="pt">Links interativos + resumo</span><span class="es">Links interactivos + resumen</span></div></div>
+      </div>
+
+      <div onclick="goTo(28)" style="display:flex;align-items:center;gap:14px;padding:14px 18px;background:var(--surface);border:1px solid var(--border);border-radius:12px;cursor:pointer;transition:background .15s" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
+        <div style="width:32px;height:32px;border-radius:8px;background:rgba(253,203,110,.15);display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:800;color:var(--orange);flex-shrink:0">9</div>
+        <div><div style="font-weight:700;font-size:.88rem"><span class="pt">Aprendizado</span><span class="es">Aprendizaje</span></div><div style="font-size:.72rem;color:var(--text-dim);margin-top:2px"><span class="pt">Processo e template para o futuro</span><span class="es">Proceso y template para el futuro</span></div></div>
       </div>
 
     </div>
@@ -198,7 +204,7 @@
     <p style="color:var(--text-dim);font-size:.82rem;margin-top:4px;margin-bottom:14px"><span class="pt">Estes são os problemas que resolvemos com <strong style="color:var(--green)">prompt, orquestrador e UX</strong> — sem construir funcionalidade nova.</span><span class="es">Estos son los problemas que resolvemos con <strong style="color:var(--green)">prompt, orquestador y UX</strong> — sin construir funcionalidad nueva.</span></p>
     <div class="bar-chart" style="margin-top:8px">
 
-      <div class="bar-row bar-row--link" onclick="goTo(5)" title="Ver detalhes">
+      <div class="bar-row bar-row--link" onclick="goTo(6)" title="Ver detalhes">
         <div class="bar-label" style="min-width:280px">
           <div style="display:flex;align-items:center;gap:6px"><span style="font-weight:700">Dead-ends</span> <span style="font-size:.62rem;padding:2px 8px;border-radius:4px;background:rgba(255,107,107,.12);color:var(--red);font-weight:700">#1</span> <span style="font-size:.7rem;color:var(--accent-light);cursor:pointer">&#x2197;</span></div>
           <div style="font-size:.72rem;color:var(--text-dim);margin-top:2px;line-height:1.3"><span class="pt">Conversa morre sem próximo passo. Lumi trava, diz algo genérico ou promete suporte e não envia link.</span><span class="es">Conversación muere sin próximo paso. Lumi se traba, dice algo genérico o promete soporte y no envía link.</span></div>
@@ -206,7 +212,7 @@
         <div class="bar-track"><div class="bar-fill bar-fill--red" style="width:100%"><span style="color:#fff">236 threads</span></div></div><div class="bar-value">41.4%</div>
       </div>
 
-      <div class="bar-row bar-row--link" onclick="goTo(6)" title="Ver detalhes">
+      <div class="bar-row bar-row--link" onclick="goTo(7)" title="Ver detalhes">
         <div class="bar-label" style="min-width:280px">
           <div style="display:flex;align-items:center;gap:6px"><span style="font-weight:700"><span class="pt">Verbosidade</span><span class="es">Verbosidad</span></span> <span style="font-size:.62rem;padding:2px 8px;border-radius:4px;background:rgba(255,107,107,.12);color:var(--red);font-weight:700">#2</span> <span style="font-size:.7rem;color:var(--accent-light);cursor:pointer">&#x2197;</span></div>
           <div style="font-size:.72rem;color:var(--text-dim);margin-top:2px;line-height:1.3"><span class="pt">Respostas enormes para perguntas simples. Lojista pede algo direto e recebe manual de 8 passos.</span><span class="es">Respuestas enormes para preguntas simples. Merchant pide algo directo y recibe manual de 8 pasos.</span></div>
@@ -214,7 +220,7 @@
         <div class="bar-track"><div class="bar-fill bar-fill--red" style="width:92%"><span style="color:#fff">218 threads</span></div></div><div class="bar-value">38.2%</div>
       </div>
 
-      <div class="bar-row bar-row--link" onclick="goTo(4)" title="Ver detalhes">
+      <div class="bar-row bar-row--link" onclick="goTo(5)" title="Ver detalhes">
         <div class="bar-label" style="min-width:280px">
           <div style="display:flex;align-items:center;gap:6px"><span style="font-weight:700"><span class="pt">Resposta desalinhada</span><span class="es">Respuesta desalineada</span></span> <span style="font-size:.62rem;padding:2px 8px;border-radius:4px;background:rgba(253,203,110,.12);color:var(--orange);font-weight:700">#3</span> <span style="font-size:.7rem;color:var(--accent-light);cursor:pointer">&#x2197;</span></div>
           <div style="font-size:.72rem;color:var(--text-dim);margin-top:2px;line-height:1.3"><span class="pt">Lojista pede ação e recebe tutorial, ou pede explicação e Lumi tenta executar.</span><span class="es">Merchant pide acción y recibe tutorial, o pide explicación y Lumi intenta ejecutar.</span></div>
@@ -222,7 +228,7 @@
         <div class="bar-track"><div class="bar-fill bar-fill--orange" style="width:66%"><span style="color:#fff">155 threads</span></div></div><div class="bar-value">27.2%</div>
       </div>
 
-      <div class="bar-row bar-row--link" onclick="goTo(6)" title="Ver detalhes">
+      <div class="bar-row bar-row--link" onclick="goTo(7)" title="Ver detalhes">
         <div class="bar-label" style="min-width:280px">
           <div style="display:flex;align-items:center;gap:6px"><span style="font-weight:700"><span class="pt">Guardrails excessivos</span><span class="es">Guardrails excesivos</span></span> <span style="font-size:.62rem;padding:2px 8px;border-radius:4px;background:rgba(253,203,110,.12);color:var(--orange);font-weight:700">#4</span> <span style="font-size:.7rem;color:var(--accent-light);cursor:pointer">&#x2197;</span></div>
           <div style="font-size:.72rem;color:var(--text-dim);margin-top:2px;line-height:1.3"><span class="pt">Lumi recusa pedidos válidos ("não posso fazer isso") sem oferecer alternativa.</span><span class="es">Lumi rechaza pedidos válidos ("no puedo hacer eso") sin ofrecer alternativa.</span></div>
@@ -230,7 +236,7 @@
         <div class="bar-track"><div class="bar-fill bar-fill--orange" style="width:36%"><span style="color:#fff">86 threads</span></div></div><div class="bar-value">15.1%</div>
       </div>
 
-      <div class="bar-row bar-row--link" onclick="goTo(7)" title="Ver detalhes">
+      <div class="bar-row bar-row--link" onclick="goTo(8)" title="Ver detalhes">
         <div class="bar-label" style="min-width:280px">
           <div style="display:flex;align-items:center;gap:6px"><span style="font-weight:700"><span class="pt">Routing errado</span><span class="es">Routing incorrecto</span></span> <span style="font-size:.62rem;padding:2px 8px;border-radius:4px;background:rgba(108,92,231,.15);color:var(--accent-light);font-weight:700">#5</span> <span style="font-size:.7rem;color:var(--accent-light);cursor:pointer">&#x2197;</span></div>
           <div style="font-size:.72rem;color:var(--text-dim);margin-top:2px;line-height:1.3"><span class="pt">Pergunta vai pro módulo errado do Lumi. Problema de orquestração.</span><span class="es">Pregunta va al módulo equivocado de Lumi. Problema de orquestación.</span></div>
@@ -240,6 +246,126 @@
 
     </div>
     <p style="color:var(--text-dim);margin-top:12px;font-size:.82rem"><span class="pt">Estes 570 threads são <strong style="color:var(--green)">fixáveis com prompt e orquestrador</strong>. O orquestrador é o gargalo: fixes nos agents <strong style="color:var(--green)">funcionaram</strong>, mas agents novos não receberam os mesmos fixes. &nbsp; <span style="color:var(--accent-light);font-size:.78rem">Clique em cada problema para detalhes &#x2197;</span></span><span class="es">Estos 570 threads son <strong style="color:var(--green)">corregibles con prompt y orquestador</strong>. El orquestador es el cuello de botella: fixes en agents <strong style="color:var(--green)">funcionaron</strong>, pero agents nuevos no los recibieron. &nbsp; <span style="color:var(--accent-light);font-size:.78rem">Clic en cada problema para detalles &#x2197;</span></span></p>
+  </div>
+
+  <!-- 3b: Storytelling — Como resolvemos -->
+  <div class="slide">
+    <span class="tag tag--green"><span class="pt">A estratégia — como chegamos aqui</span><span class="es">La estrategia — cómo llegamos aquí</span></span>
+    <h2><span class="pt">3 iniciativas que resolvem 95.7% dos problemas</span><span class="es">3 iniciativas que resuelven 95.7% de los problemas</span></h2>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-top:16px">
+
+      <!-- HITL -->
+      <div style="background:var(--surface);border:1px solid rgba(0,206,201,.3);border-radius:14px;padding:18px">
+        <div style="font-size:.68rem;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px"><span class="pt">Iniciativa 1 — Design + Backend</span><span class="es">Iniciativa 1 — Design + Backend</span></div>
+        <div style="font-size:1.1rem;font-weight:800;margin-bottom:8px">Human in the Loop</div>
+        <div style="font-size:.78rem;color:var(--text-dim);line-height:1.5;margin-bottom:12px"><span class="pt">Approval/reject no chat antes de executar write actions. Lumi <strong style="color:var(--text)">propõe e pergunta</strong> em vez de recusar ou agir cego.</span><span class="es">Approval/reject en el chat antes de ejecutar write actions. Lumi <strong style="color:var(--text)">propone y pregunta</strong> en vez de rechazar o actuar a ciegas.</span></div>
+        <div style="font-size:2rem;font-weight:800;color:var(--green)">311</div>
+        <div style="font-size:.72rem;color:var(--text-dim)"><span class="pt">threads resolvidos (15.0%)</span><span class="es">threads resueltos (15.0%)</span></div>
+        <div style="margin-top:10px;font-size:.7rem;line-height:1.5;color:var(--text-dim)">
+          <div><span style="color:var(--red)">155</span> <span class="pt">resposta desalinhada (#3)</span><span class="es">respuesta desalineada (#3)</span></div>
+          <div><span style="color:var(--orange)">86</span> <span class="pt">guardrails excessivos (#4)</span><span class="es">guardrails excesivos (#4)</span></div>
+          <div><span style="color:var(--red)">70</span> <span class="pt">dead-ends parcial (#1)</span><span class="es">dead-ends parcial (#1)</span></div>
+        </div>
+        <div style="margin-top:10px;padding:6px 10px;background:rgba(0,206,201,.08);border-radius:6px;font-size:.68rem;color:var(--green)"><span class="pt">Devs já avançam no backend</span><span class="es">Devs ya avanzan en el backend</span></div>
+      </div>
+
+      <!-- Preview Cards -->
+      <div style="background:var(--surface);border:1px solid rgba(253,203,110,.3);border-radius:14px;padding:18px">
+        <div style="font-size:.68rem;font-weight:700;color:var(--orange);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px"><span class="pt">Iniciativa 2 — Design + Produto</span><span class="es">Iniciativa 2 — Design + Producto</span></div>
+        <div style="font-size:1.1rem;font-weight:800;margin-bottom:8px">Preview Cards</div>
+        <div style="font-size:.78rem;color:var(--text-dim);line-height:1.5;margin-bottom:12px"><span class="pt">Tabelas, produto criado, descrição editada, criação massiva. A <strong style="color:var(--text)">interface visual</strong> que habilita todas as write actions.</span><span class="es">Tablas, producto creado, descripción editada, creación masiva. La <strong style="color:var(--text)">interfaz visual</strong> que habilita todas las write actions.</span></div>
+        <div style="font-size:2rem;font-weight:800;color:var(--orange)">720</div>
+        <div style="font-size:.72rem;color:var(--text-dim)"><span class="pt">threads habilitados (34.6%)</span><span class="es">threads habilitados (34.6%)</span></div>
+        <div style="margin-top:10px;font-size:.7rem;line-height:1.5;color:var(--text-dim)">
+          <div><span style="color:var(--orange)">611</span> <span class="pt">feature gap (UI para backlog)</span><span class="es">feature gap (UI para backlog)</span></div>
+          <div><span style="color:var(--orange)">109</span> <span class="pt">reduz verbosidade (#2)</span><span class="es">reduce verbosidad (#2)</span></div>
+        </div>
+        <div style="margin-top:10px;padding:6px 10px;background:rgba(253,203,110,.08);border-radius:6px;font-size:.68rem;color:var(--orange)"><span class="pt">Habilita o backlog do PM</span><span class="es">Habilita el backlog del PM</span></div>
+      </div>
+
+      <!-- Prompt/Orchestrator -->
+      <div style="background:var(--surface);border:1px solid rgba(108,92,231,.3);border-radius:14px;padding:18px">
+        <div style="font-size:.68rem;font-weight:700;color:var(--accent-light);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px"><span class="pt">Iniciativa 3 — Backend</span><span class="es">Iniciativa 3 — Backend</span></div>
+        <div style="font-size:1.1rem;font-weight:800;margin-bottom:8px"><span class="pt">Prompt + Orquestrador</span><span class="es">Prompt + Orquestador</span></div>
+        <div style="font-size:.78rem;color:var(--text-dim);line-height:1.5;margin-bottom:12px"><span class="pt">Fixes de prompt, fallback chain, max parágrafos. O <strong style="color:var(--text)">orquestrador</strong> aplica regras em todos os agents.</span><span class="es">Fixes de prompt, fallback chain, max párrafos. El <strong style="color:var(--text)">orquestador</strong> aplica reglas en todos los agents.</span></div>
+        <div style="font-size:2rem;font-weight:800;color:var(--accent-light)">373</div>
+        <div style="font-size:.72rem;color:var(--text-dim)"><span class="pt">threads resolvidos (17.9%)</span><span class="es">threads resueltos (17.9%)</span></div>
+        <div style="margin-top:10px;font-size:.7rem;line-height:1.5;color:var(--text-dim)">
+          <div><span style="color:var(--red)">166</span> <span class="pt">dead-ends restantes (#1)</span><span class="es">dead-ends restantes (#1)</span></div>
+          <div><span style="color:var(--orange)">109</span> <span class="pt">verbosidade restante (#2)</span><span class="es">verbosidad restante (#2)</span></div>
+          <div><span style="color:var(--accent-light)">48+45+5</span> <span class="pt">routing + missed + alucinação</span><span class="es">routing + missed + alucinación</span></div>
+        </div>
+        <div style="margin-top:10px;padding:6px 10px;background:rgba(108,92,231,.08);border-radius:6px;font-size:.68rem;color:var(--accent-light)"><span class="pt">Desbloqueia com Orchestrator Refactor</span><span class="es">Desbloquea con Orchestrator Refactor</span></div>
+      </div>
+
+    </div>
+
+    <div style="margin-top:14px;padding:12px 16px;background:var(--surface);border:1px solid var(--border);border-radius:10px;display:flex;justify-content:space-between;align-items:center">
+      <div style="font-size:.82rem;line-height:1.5"><span class="pt"><strong>HITL + Preview Cards</strong> são a infraestrutura: HITL resolve o <strong style="color:var(--green)">como</strong> (resposta ruim), Preview Cards habilita o <strong style="color:var(--orange)">quê</strong> (feature gap). Juntos cobrem os dois lados do 50/50.</span><span class="es"><strong>HITL + Preview Cards</strong> son la infraestructura: HITL resuelve el <strong style="color:var(--green)">cómo</strong> (respuesta mala), Preview Cards habilita el <strong style="color:var(--orange)">qué</strong> (feature gap). Juntos cubren los dos lados del 50/50.</span></div>
+      <div style="text-align:center;min-width:160px;padding-left:20px">
+        <div style="font-size:.65rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.5px"><span class="pt">Taxa de falha</span><span class="es">Tasa de fallo</span></div>
+        <div style="display:flex;align-items:center;gap:8px;justify-content:center;margin-top:4px"><span style="font-size:1.6rem;font-weight:800;color:var(--red)">61.1%</span><span style="font-size:1.2rem;color:var(--text-dim)">→</span><span style="font-size:1.6rem;font-weight:800;color:var(--green)">4.3%</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3c: O que falta -->
+  <div class="slide">
+    <span class="tag tag--orange"><span class="pt">O que falta — e a sequência</span><span class="es">Lo que falta — y la secuencia</span></span>
+    <h2><span class="pt">Depois das 3 iniciativas: de 61% → 4.3% de falha</span><span class="es">Después de las 3 iniciativas: de 61% → 4.3% de fallo</span></h2>
+
+    <!-- Waterfall visualization -->
+    <div style="display:flex;align-items:end;gap:4px;margin-top:20px;height:220px;padding:0 20px">
+      <div style="display:flex;flex-direction:column;align-items:center;flex:1">
+        <div style="font-size:.72rem;font-weight:700;margin-bottom:4px;color:var(--red)">61.1%</div>
+        <div style="width:100%;background:var(--red);border-radius:6px 6px 0 0;height:200px;display:flex;align-items:center;justify-content:center">
+          <span style="color:#fff;font-size:.7rem;font-weight:700;writing-mode:vertical-rl;transform:rotate(180deg)"><span class="pt">HOJE: 1.271 com problema</span><span class="es">HOY: 1.271 con problema</span></span>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;flex:1">
+        <div style="font-size:.72rem;font-weight:700;margin-bottom:4px;color:var(--green)">-15.0%</div>
+        <div style="width:100%;background:var(--green);border-radius:6px 6px 0 0;height:49px;display:flex;align-items:center;justify-content:center">
+          <span style="color:#fff;font-size:.65rem;font-weight:700">HITL<br>311</span>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;flex:1">
+        <div style="font-size:.72rem;font-weight:700;margin-bottom:4px;color:var(--orange)">-34.6%</div>
+        <div style="width:100%;background:var(--orange);border-radius:6px 6px 0 0;height:113px;display:flex;align-items:center;justify-content:center">
+          <span style="color:#fff;font-size:.65rem;font-weight:700;text-align:center">Preview<br>Cards<br>720</span>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;flex:1">
+        <div style="font-size:.72rem;font-weight:700;margin-bottom:4px;color:var(--accent-light)">-17.9%</div>
+        <div style="width:100%;background:var(--accent-light);border-radius:6px 6px 0 0;height:59px;display:flex;align-items:center;justify-content:center">
+          <span style="color:#fff;font-size:.65rem;font-weight:700;text-align:center">Prompt<br>373</span>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;flex:1">
+        <div style="font-size:.72rem;font-weight:700;margin-bottom:4px;color:var(--text-dim)">4.3%</div>
+        <div style="width:100%;background:var(--border);border-radius:6px 6px 0 0;height:14px;display:flex;align-items:center;justify-content:center">
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;gap:4px;padding:0 20px;margin-top:2px;font-size:.68rem;color:var(--text-dim);text-align:center">
+      <div style="flex:1"><span class="pt">Hoje</span><span class="es">Hoy</span></div>
+      <div style="flex:1">HITL</div>
+      <div style="flex:1">Preview Cards</div>
+      <div style="flex:1">Prompt fixes</div>
+      <div style="flex:1"><span class="pt">Resta</span><span class="es">Queda</span></div>
+    </div>
+
+    <!-- What remains -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px">
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px">
+        <div style="font-size:.75rem;font-weight:700;color:var(--accent-light);margin-bottom:6px"><span class="pt">O que resta (4.3%)</span><span class="es">Lo que queda (4.3%)</span></div>
+        <div style="font-size:.78rem;color:var(--text-dim);line-height:1.6"><span class="pt"><strong>56 threads</strong> de data gap — Lumi não tem os dados para responder (rankings, períodos antigos, dados de produto). Precisa de integrações novas.<br><strong>34 threads</strong> de casos edge variados.</span><span class="es"><strong>56 threads</strong> de data gap — Lumi no tiene los datos para responder (rankings, períodos antiguos, datos de producto). Necesita integraciones nuevas.<br><strong>34 threads</strong> de casos edge variados.</span></div>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px">
+        <div style="font-size:.75rem;font-weight:700;color:var(--green);margin-bottom:6px"><span class="pt">Sequência de execução</span><span class="es">Secuencia de ejecución</span></div>
+        <div style="font-size:.78rem;color:var(--text-dim);line-height:1.6"><span class="pt"><strong>1.</strong> Backend HITL (devs já avançam) → <strong>2.</strong> Design approval/reject → <strong>3.</strong> Preview Cards (tabelas, produto, bulk) → <strong>4.</strong> Orchestrator refactor (desbloqueia prompt fixes) → <strong>5.</strong> Backlog de features</span><span class="es"><strong>1.</strong> Backend HITL (devs ya avanzan) → <strong>2.</strong> Design approval/reject → <strong>3.</strong> Preview Cards (tablas, producto, bulk) → <strong>4.</strong> Orchestrator refactor (desbloquea prompt fixes) → <strong>5.</strong> Backlog de features</span></div>
+      </div>
+    </div>
   </div>
 
   <!-- 4: Problema #3 Resposta desalinhada -->
@@ -973,8 +1099,8 @@
       </div>
       <div class="card card--green" style="text-align:center">
         <div style="font-size:.78rem;color:var(--green);text-transform:uppercase;letter-spacing:.08em;font-weight:600;margin-bottom:10px"><span class="pt">Com as mudancas</span><span class="es">Con los cambios</span></div>
-        <div style="font-size:3.2rem;font-weight:800;color:var(--green)">~35%</div>
-        <div style="color:var(--text-dim);margin:6px 0"><span class="pt">estimativa Wave 1+2</span><span class="es">estimacion Wave 1+2</span></div>
+        <div style="font-size:3.2rem;font-weight:800;color:var(--green)">4.3%</div>
+        <div style="color:var(--text-dim);margin:6px 0"><span class="pt">com as 3 iniciativas</span><span class="es">con las 3 iniciativas</span></div>
         <div style="border-top:1px solid rgba(0,206,201,.2);padding-top:14px;margin-top:14px"><div style="color:var(--text-dim);font-size:.88rem;line-height:1.8"><span class="pt">Quick wins entram <strong style="color:var(--green)">neste ciclo</strong></span><span class="es">Quick wins entran <strong style="color:var(--green)">en este ciclo</strong></span><br><span class="pt">Toda feature tem Problem Statement</span><span class="es">Toda feature tiene Problem Statement</span><br><span class="pt">Design participa da definicao</span><span class="es">Diseno participa de la definicion</span></div></div>
       </div>
     </div>

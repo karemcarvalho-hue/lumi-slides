@@ -267,19 +267,29 @@
     <div class="months__month"><div class="months__month-name">Julho+</div><div class="months__month-sub">S18 – S21</div></div>
   </div>
 
-  <!-- LANE: Human in the Loop (transversal) -->
+  <!-- LANE: Strategic Initiatives -->
   <div class="lane">
-    <div class="lane__label"><div class="lane__label-name">Human in<br>the Loop</div><div class="lane__label-count"><span class="pt">estrategia</span><span class="es">estrategia</span> · 34.6%</div></div>
+    <div class="lane__label"><div class="lane__label-name" style="font-size:.68rem"><span class="pt">Estratégia<br>Transversal</span><span class="es">Estrategia<br>Transversal</span></div><div class="lane__label-count" style="color:var(--green)">61% → 4.3%</div></div>
     <div class="lane__content">
       <div class="lane__grid"><div class="lane__grid-cell lane__grid-cell--now"></div><div class="lane__grid-cell lane__grid-cell--now"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div><div class="lane__grid-cell"></div></div>
       <div class="lane__tasks">
         <div class="task-row">
-          <div class="task task--hitl" onclick="openPanel('hitl')" style="width:calc(14/20*100%);margin-left:calc(0.5/20*100%)">
-            <span class="task__id" style="color:var(--red)"><span class="pt">~720 threads (34.6%) · 0 issues na sprint</span><span class="es">~720 threads (34.6%) · 0 issues en la sprint</span></span>
-            <span style="font-size:.76rem;display:flex;gap:18px;flex-wrap:wrap">
-              <span><span style="color:var(--accent-light)"><span class="pt">Escalar</span><span class="es">Escalar</span></span> → fallback + error state</span>
-              <span><span style="color:var(--orange)"><span class="pt">Perguntar</span><span class="es">Preguntar</span></span> → confirmation card</span>
-              <span><span style="color:var(--red)"><span class="pt">Confirmar</span><span class="es">Confirmar</span></span> → intent + action cards</span>
+          <div class="task task--hitl" onclick="openPanel('hitl')" style="width:calc(8/20*100%);margin-left:calc(0.5/20*100%);border-color:rgba(0,206,201,.4)">
+            <span class="task__id" style="color:var(--green)">HITL · Human in the Loop</span>
+            <span style="font-size:.72rem;color:var(--text-dim)"><span class="pt">Approval/reject no chat · Resolve <strong style="color:var(--green)">311 threads (15%)</strong></span><span class="es">Approval/reject en el chat · Resuelve <strong style="color:var(--green)">311 threads (15%)</strong></span></span>
+            <span style="font-size:.68rem;display:flex;gap:12px;flex-wrap:wrap;color:var(--text-dim)">
+              <span><span style="color:var(--red)">155</span> <span class="pt">desalinhada</span><span class="es">desalineada</span></span>
+              <span><span style="color:var(--orange)">86</span> guardrails</span>
+              <span><span style="color:var(--red)">70</span> dead-ends</span>
+            </span>
+            <div class="task__status task__status--doing" title="Devs já avançam no backend"></div>
+          </div>
+          <div class="task task--hitl" onclick="openPanel('preview-cards')" style="width:calc(10/20*100%);margin-left:calc(0.5/20*100%);border-color:rgba(253,203,110,.4)">
+            <span class="task__id" style="color:var(--orange)">Preview Cards · <span class="pt">Infraestrutura visual</span><span class="es">Infraestructura visual</span></span>
+            <span style="font-size:.72rem;color:var(--text-dim)"><span class="pt">Tabelas, produto, edição, bulk · Habilita <strong style="color:var(--orange)">720 threads (34.6%)</strong></span><span class="es">Tablas, producto, edición, bulk · Habilita <strong style="color:var(--orange)">720 threads (34.6%)</strong></span></span>
+            <span style="font-size:.68rem;display:flex;gap:12px;flex-wrap:wrap;color:var(--text-dim)">
+              <span><span style="color:var(--orange)">611</span> feature gap</span>
+              <span><span style="color:var(--orange)">109</span> <span class="pt">verbosidade</span><span class="es">verbosidad</span></span>
             </span>
             <div class="task__status task__status--blocked"></div>
           </div>
@@ -500,11 +510,11 @@
     <strong style="color:var(--red)"><span class="pt">~49% do impacto nao tem issue na sprint</span><span class="es">~49% del impacto no tiene issue en la sprint</span></strong> &nbsp;·&nbsp; <strong style="color:var(--accent-light)"><span class="pt">+3 insights: Deep link (1.198) · Bulk (109) · Analytics (206)</span><span class="es">+3 insights: Deep link (1.198) · Bulk (109) · Analytics (206)</span></strong>
   </div>
   <div class="footer__right">
-    <div class="footer__stat"><div class="footer__stat-number" style="color:var(--red)">~49%</div><div class="footer__stat-label"><span class="pt">sem issue</span><span class="es">sin issue</span></div></div>
-    <div class="footer__stat"><div class="footer__stat-number" style="color:var(--green)">6.2%</div><div class="footer__stat-label"><span class="pt">na sprint</span><span class="es">en la sprint</span></div></div>
-    <div class="footer__stat"><div class="footer__stat-number" style="color:var(--green)">570</div><div class="footer__stat-label"><span class="pt">resposta ruim</span><span class="es">respuesta mala</span></div></div>
-    <div class="footer__stat"><div class="footer__stat-number" style="color:var(--orange)">611</div><div class="footer__stat-label">feature gap</div></div>
-    <div class="footer__stat"><div class="footer__stat-number" style="color:var(--orange)">~35%</div><div class="footer__stat-label">meta wave 1+2</div></div>
+    <div class="footer__stat"><div class="footer__stat-number" style="color:var(--red)">61.1%</div><div class="footer__stat-label"><span class="pt">falha hoje</span><span class="es">fallo hoy</span></div></div>
+    <div class="footer__stat"><div class="footer__stat-number" style="color:var(--green)">311</div><div class="footer__stat-label">HITL (15%)</div></div>
+    <div class="footer__stat"><div class="footer__stat-number" style="color:var(--orange)">720</div><div class="footer__stat-label">Preview (34.6%)</div></div>
+    <div class="footer__stat"><div class="footer__stat-number" style="color:var(--accent-light)">373</div><div class="footer__stat-label">Prompt (17.9%)</div></div>
+    <div class="footer__stat"><div class="footer__stat-number" style="color:var(--green)">4.3%</div><div class="footer__stat-label"><span class="pt">falha depois</span><span class="es">fallo después</span></div></div>
   </div>
 </div>
 
@@ -568,26 +578,33 @@ const TASKS = {
   },
   'hitl': {
     wave: 'Estrategia Transversal',
-    title: 'Human in the Loop',
+    title: 'Human in the Loop — Approval/Reject',
     sections: [
-      { type:'context', html:'<div class="panel__context-title">Contexto</div>A Lumi hoje opera de forma 100% autonoma: quando nao sabe responder, inventa ou trava. O lojista fica sem saida. <strong>Human in the Loop</strong> significa que a Lumi reconhece seus limites e oferece caminhos reais ao inves de becos sem saida.' },
-      { type:'problem', html:'Resolve 3 problemas de resposta simultaneamente:<br><strong>Dead-ends</strong> (236 threads) — conversa termina sem próximo passo<br><strong>Guardrails excessivos</strong> (86 threads) — "não posso ajudar" sem alternativa<br><strong>Respostas desalinhadas</strong> (155 threads) — Lumi faz/explica o oposto do pedido<br><br><em>Nota: 570 threads são resposta ruim (27.4%), 611 são feature gap (29.4%) — frentes paralelas de igual peso.</em>' },
+      { type:'context', html:'<div class="panel__context-title"><span class="pt">Contexto</span><span class="es">Contexto</span></div><span class="pt">A Lumi hoje opera de forma 100% autônoma: quando não sabe responder, inventa ou trava. O lojista fica sem saída. <strong>Human in the Loop</strong> muda isso — a Lumi reconhece seus limites e <strong>propõe e pergunta</strong> em vez de recusar ou agir às cegas. Devs já avançam no backend.</span><span class="es">Lumi hoy opera de forma 100% autónoma: cuando no sabe responder, inventa o se traba. El comerciante queda sin salida. <strong>Human in the Loop</strong> cambia eso — Lumi reconoce sus límites y <strong>propone y pregunta</strong> en vez de rechazar o actuar a ciegas. Devs ya avanzan en el backend.</span>' },
+      { type:'problem', html:'<span class="pt">Resolve <strong style="color:var(--green)">311 threads (15.0%)</strong> em 3 problemas simultâneos:<br><br><strong style="color:var(--red)">155 respostas desalinhadas (#3)</strong> — Lumi faz/explica o oposto do pedido. Com HITL, mostra preview e pede confirmação antes.<br><strong style="color:var(--orange)">86 guardrails excessivos (#4)</strong> — "não posso ajudar" sem alternativa. Com HITL, pergunta em vez de recusar.<br><strong style="color:var(--red)">70 dead-ends (#1, parcial)</strong> — conversa termina sem próximo passo. Com HITL, oferece caminhos reais.<br><br>Junto com <strong>Preview Cards (720 threads, 34.6%)</strong> e <strong>Prompt fixes (373 threads, 17.9%)</strong>, as 3 iniciativas levam a taxa de falha de <strong style="color:var(--red)">61.1%</strong> para <strong style="color:var(--green)">4.3%</strong>.</span><span class="es">Resuelve <strong style="color:var(--green)">311 threads (15.0%)</strong> en 3 problemas simultáneos:<br><br><strong style="color:var(--red)">155 respuestas desalineadas (#3)</strong> — Lumi hace/explica lo opuesto del pedido. Con HITL, muestra preview y pide confirmación antes.<br><strong style="color:var(--orange)">86 guardrails excesivos (#4)</strong> — "no puedo ayudar" sin alternativa. Con HITL, pregunta en vez de rechazar.<br><strong style="color:var(--red)">70 dead-ends (#1, parcial)</strong> — conversación termina sin próximo paso. Con HITL, ofrece caminos reales.<br><br>Junto con <strong>Preview Cards (720 threads, 34.6%)</strong> y <strong>Prompt fixes (373 threads, 17.9%)</strong>, las 3 iniciativas llevan la tasa de fallo de <strong style="color:var(--red)">61.1%</strong> a <strong style="color:var(--green)">4.3%</strong>.</span>' },
       { type:'impact', cards:[
-        { number:'~720', cls:'red', label:'threads afetadas' },
-        { number:'34.6%', cls:'orange', label:'do total de threads' },
+        { number:'311', cls:'green', label:'threads resolvidos (15%)' },
+        { number:'3', cls:'accent', label:'problemas resolvidos' },
         { number:'0', cls:'red', label:'issues na sprint' },
-        { number:'3', cls:'accent', label:'problemas resolvidos' }
+        { number:'61→4%', cls:'green', label:'com as 3 iniciativas' }
       ]},
-      { type:'quote', text:'"Necesito hacer un descuento del 20% en camperas" — Lumi explica como fazer desconto no admin mas nao oferece criar a promocao. Lojista tem que sair do chat e fazer manualmente.', author:'Lojista · threadId: conv-promo-manual' },
+      { type:'scenario', label:'Cenario real — sem HITL', messages:[
+        { who:'Lojista', cls:'merchant', text:'"Necesito hacer un descuento del 20% en camperas"' },
+        { who:'Lumi', cls:'lumi', text:'"Para crear un descuento, ve a Marketing > Promociones en tu admin. Ahí podés crear una nueva promoción seleccionando los productos..."' }
+      ]},
+      { type:'scenario', label:'Cenario ideal — com HITL', messages:[
+        { who:'Lojista', cls:'merchant', text:'"Necesito hacer un descuento del 20% en camperas"' },
+        { who:'Lumi', cls:'lumi-ok', text:'"Encontré 12 camperas en tu catálogo. ¿Querés que cree un cupón de 20% para todas? [Sí, crear cupón] [No, solo explicame] [Ver productos]"' }
+      ]},
       { type:'solutions', items:[
-        { icon:'BE', cls:'be', text:'<strong>Nivel 1 — Escalar quando falha:</strong> Fallback chain no backend. Quando Lumi nao consegue resolver, oferece error state card com "Falar com suporte", "Ir ao admin", ou link direto.' },
-        { icon:'UX', cls:'ux', text:'<strong>Nivel 2 — Perguntar quando tem duvida:</strong> Confirmation card antes de executar acoes. "Voce quer que eu crie um cupom de 20%? [Sim, criar] [Nao, so explica]"' },
-        { icon:'BE', cls:'be', text:'<strong>Nivel 3 — Confirmar antes de agir:</strong> Intent classification no backend + Action cards no frontend. Distinguir "faz pra mim" vs "me ensina como".' }
+        { icon:'BE', cls:'be', text:'<span class="pt"><strong>Nível 1 — Escalar quando falha:</strong> Fallback chain no backend. Quando Lumi não consegue resolver, oferece error state card com "Falar com suporte", "Ir ao admin", ou link direto.</span><span class="es"><strong>Nivel 1 — Escalar cuando falla:</strong> Fallback chain en el backend. Cuando Lumi no logra resolver, ofrece error state card con "Hablar con soporte", "Ir al admin", o link directo.</span>' },
+        { icon:'UX', cls:'ux', text:'<span class="pt"><strong>Nível 2 — Perguntar quando tem dúvida:</strong> Confirmation card antes de executar ações. "Você quer que eu crie um cupom de 20%? [Sim, criar] [Não, só explica]"</span><span class="es"><strong>Nivel 2 — Preguntar cuando tiene duda:</strong> Confirmation card antes de ejecutar acciones. "¿Querés que cree un cupón de 20%? [Sí, crear] [No, solo explicame]"</span>' },
+        { icon:'BE', cls:'be', text:'<span class="pt"><strong>Nível 3 — Confirmar antes de agir:</strong> Intent classification no backend + Action cards no frontend. Distinguir "faz pra mim" vs "me ensina como".</span><span class="es"><strong>Nivel 3 — Confirmar antes de actuar:</strong> Intent classification en el backend + Action cards en el frontend. Distinguir "hacelo por mí" vs "explicame cómo".</span>' }
       ]},
       { type:'meta', items:[
         { label:'Esforco total', value:'~15-20 dias (BE+UX+FE)' },
-        { label:'Prioridade', value:'P0 — deve iniciar na Wave 1' },
-        { label:'Status', value:'Bloqueado — 0 issues na sprint' },
+        { label:'Prioridade', value:'P0 — devs ja avancam no backend' },
+        { label:'Status', value:'Em progresso (backend)' },
         { label:'Wave', value:'Wave 1 a Wave 2 (continuo)' }
       ]},
       { type:'deps', tags:[
@@ -596,7 +613,49 @@ const TASKS = {
         { text:'BE Intent Classification', cls:'blocked' },
         { text:'D1.1 Error State', cls:'blocked' },
         { text:'D1.3 Confirmacao', cls:'blocked' },
-        { text:'D2.1 Action Cards', cls:'blocked' }
+        { text:'D2.1 Action Cards', cls:'blocked' },
+        { text:'Preview Cards', cls:'blocked' }
+      ]}
+    ]
+  },
+  'preview-cards': {
+    wave: 'Estrategia Transversal',
+    title: 'Preview Cards — Infraestrutura Visual',
+    sections: [
+      { type:'context', html:'<div class="panel__context-title">Contexto</div><span class="pt">Preview Cards são a <strong>interface visual</strong> que transforma texto em ação. Quando a Lumi cria um produto, edita uma descrição, ou aplica preços em lote, o lojista precisa VER o resultado antes de confirmar. Sem Preview Cards, a Lumi só pode responder com texto — e texto não é suficiente para mostrar tabelas, produtos criados, ou resultados de bulk actions.</span><span class="es">Preview Cards son la <strong>interfaz visual</strong> que transforma texto en acción. Cuando Lumi crea un producto, edita una descripción, o aplica precios masivos, el comerciante necesita VER el resultado antes de confirmar. Sin Preview Cards, Lumi solo puede responder con texto — y el texto no es suficiente para mostrar tablas, productos creados, o resultados de acciones masivas.</span>' },
+      { type:'problem', html:'<span class="pt">Habilita <strong>720 threads (34.6%)</strong> em duas frentes:<br><br><strong style="color:var(--orange)">611 feature gap</strong> — todas as write actions do backlog do PM (criar produto, editar preço, cupons) precisam de uma UI visual para confirmação e feedback. Sem Preview Cards, essas features não podem ser entregues.<br><br><strong style="color:var(--orange)">109 verbosidade</strong> — quando a Lumi não pode mostrar dados visualmente (tabela, card), compensa com parágrafos de texto. Preview Cards eliminam ~50% da verbosidade.</span><span class="es">Habilita <strong>720 threads (34.6%)</strong> en dos frentes:<br><br><strong style="color:var(--orange)">611 feature gap</strong> — todas las write actions del backlog del PM (crear producto, editar precio, cupones) necesitan una UI visual para confirmación y feedback. Sin Preview Cards, esas features no pueden entregarse.<br><br><strong style="color:var(--orange)">109 verbosidad</strong> — cuando Lumi no puede mostrar datos visualmente (tabla, card), compensa con párrafos de texto. Preview Cards eliminan ~50% de la verbosidad.</span>' },
+      { type:'impact', cards:[
+        { number:'720', cls:'orange', label:'threads habilitados' },
+        { number:'34.6%', cls:'orange', label:'do total de threads' },
+        { number:'611', cls:'red', label:'feature gap depende disto' },
+        { number:'109', cls:'accent', label:'verbosidade reduzida' }
+      ]},
+      { type:'scenario', label:'Cenario real — sem Preview Cards', messages:[
+        { who:'Lojista', cls:'merchant', text:'"Cria um produto chamado Remera Básica, tamanho P, M, G, preço R$59"' },
+        { who:'Lumi', cls:'lumi', text:'"Criei o produto Remera Básica com as variantes P (R$59), M (R$59) e G (R$59). O produto está como rascunho. Para publicar, acesse Produtos no admin e altere o status para publicado. As imagens podem ser adicionadas editando o produto no admin..."' }
+      ]},
+      { type:'scenario', label:'Cenario ideal — com Preview Cards', messages:[
+        { who:'Lojista', cls:'merchant', text:'"Cria um produto chamado Remera Básica, tamanho P, M, G, preço R$59"' },
+        { who:'Lumi', cls:'lumi-ok', text:'[Preview Card: Remera Básica · P/M/G · R$59 · Rascunho] [Publicar] [Editar] [Adicionar fotos]' }
+      ]},
+      { type:'solutions', items:[
+        { icon:'UX', cls:'ux', text:'<span class="pt"><strong>Design de componentes:</strong> Card de preview para produto criado, tabela de preços editados, card de descrição gerada, progresso de bulk actions. Cada tipo de write action precisa de um template visual.</span><span class="es"><strong>Diseño de componentes:</strong> Card de preview para producto creado, tabla de precios editados, card de descripción generada, progreso de bulk actions. Cada tipo de write action necesita un template visual.</span>' },
+        { icon:'BE', cls:'be', text:'<span class="pt"><strong>Structured data do backend:</strong> O backend precisa enviar dados como JSON estruturado (não texto) para que o frontend renderize os cards. Isso depende do BE Structured Data task.</span><span class="es"><strong>Structured data del backend:</strong> El backend necesita enviar datos como JSON estructurado (no texto) para que el frontend renderice los cards. Esto depende del BE Structured Data task.</span>' },
+        { icon:'FE', cls:'fe', text:'<span class="pt"><strong>Componentes frontend:</strong> ProductCard, PriceTable, DescriptionCard, BulkProgressBar — cada um consome structured data do backend e renderiza preview interativo com botões de ação.</span><span class="es"><strong>Componentes frontend:</strong> ProductCard, PriceTable, DescriptionCard, BulkProgressBar — cada uno consume structured data del backend y renderiza preview interactivo con botones de acción.</span>' }
+      ]},
+      { type:'meta', items:[
+        { label:'Esforco total', value:'~15-25 dias (UX+BE+FE)' },
+        { label:'Prioridade', value:'P0 — habilita todo o backlog do PM' },
+        { label:'Status', value:'Bloqueado — sem issue na sprint' },
+        { label:'Wave', value:'Wave 1 (design) a Wave 2 (implementacao)' }
+      ]},
+      { type:'deps', tags:[
+        { text:'BE Structured Data', cls:'blocked' },
+        { text:'D2.1 Action Cards', cls:'blocked' },
+        { text:'D2.4 Formulario', cls:'blocked' },
+        { text:'FE Action Cards', cls:'blocked' },
+        { text:'FE Formulario Inline', cls:'blocked' },
+        { text:'HITL (approval/reject)', cls:'ready' }
       ]}
     ]
   },
