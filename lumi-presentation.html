@@ -822,39 +822,81 @@
     </div>
   </div>
 
-  <!-- 9c: Comparacao direta -->
+  <!-- 9c: Comparacao direta — Sprint vs Iniciativas vs Falta -->
   <div class="slide">
-    <span class="tag tag--red"><span class="pt">O desbalanceamento</span><span class="es">El desbalanceo</span></span>
-    <h2><span class="pt">Sprint vs Dados -- A comparacao</span><span class="es">Sprint vs Datos -- La comparacion</span></h2>
-    <div class="grid-2" style="margin-top:24px">
+    <span class="tag tag--red"><span class="pt">O panorama completo</span><span class="es">El panorama completo</span></span>
+    <h2><span class="pt">Sprint atual vs 3 Iniciativas vs O que falta</span><span class="es">Sprint actual vs 3 Iniciativas vs Lo que falta</span></h2>
+
+    <div style="display:grid;grid-template-columns:1fr 1.8fr .8fr;gap:14px;margin-top:20px">
+
+      <!-- Col 1: Sprint atual -->
       <div class="card card--green" style="text-align:center">
-        <div style="font-size:.72rem;color:var(--green);text-transform:uppercase;letter-spacing:.08em;font-weight:600"><span class="pt">Na sprint (Cycle 2)</span><span class="es">En la sprint (Cycle 2)</span></div>
-        <div style="font-size:4rem;font-weight:800;color:var(--green);margin:8px 0">40</div>
-        <div style="font-size:1rem;color:var(--text-dim)">issues</div>
-        <div style="margin-top:16px;padding-top:16px;border-top:1px solid rgba(0,206,201,.2)">
-          <div style="font-size:2rem;font-weight:800;color:var(--text-muted)">~241</div>
-          <div style="font-size:.85rem;color:var(--text-muted)">threads impactados</div>
+        <div style="font-size:.65rem;color:var(--green);text-transform:uppercase;letter-spacing:.1em;font-weight:700"><span class="pt">Na sprint (Cycle 2)</span><span class="es">En la sprint (Cycle 2)</span></div>
+        <div style="font-size:2.8rem;font-weight:800;color:var(--green);margin:6px 0">123</div>
+        <div style="font-size:.82rem;color:var(--text-dim)">threads (5.9%)</div>
+        <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(0,206,201,.2);font-size:.72rem;color:var(--text-dim);line-height:1.5">
+          <span class="pt">Catálogo, Export, Promoções, Coach, Handoff</span>
+          <span class="es">Catálogo, Export, Promociones, Coach, Handoff</span>
         </div>
       </div>
-      <div class="card card--red" style="text-align:center">
-        <div style="font-size:.72rem;color:var(--red);text-transform:uppercase;letter-spacing:.08em;font-weight:600"><span class="pt">Fora da sprint</span><span class="es">Fuera de la sprint</span></div>
-        <div style="font-size:4rem;font-weight:800;color:var(--red);margin:8px 0">0</div>
-        <div style="font-size:1rem;color:var(--text-dim)">issues</div>
-        <div style="margin-top:16px;padding-top:16px;border-top:1px solid rgba(255,107,107,.2)">
-          <div style="font-size:2rem;font-weight:800;color:var(--red)">~2.308</div>
-          <div style="font-size:.85rem;color:var(--red)">threads impactados</div>
+
+      <!-- Col 2: 3 Iniciativas -->
+      <div class="card" style="text-align:center;border-color:rgba(108,92,231,.3);background:linear-gradient(135deg,rgba(108,92,231,.06),rgba(108,92,231,.02))">
+        <div style="font-size:.65rem;color:var(--accent-light);text-transform:uppercase;letter-spacing:.1em;font-weight:700"><span class="pt">3 iniciativas propostas</span><span class="es">3 iniciativas propuestas</span></div>
+        <div style="font-size:2.8rem;font-weight:800;color:var(--accent-light);margin:6px 0">1.280</div>
+        <div style="font-size:.82rem;color:var(--text-dim)">threads (61.5%)</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:12px;padding-top:12px;border-top:1px solid rgba(108,92,231,.2)">
+          <div>
+            <div style="font-size:1.2rem;font-weight:800;color:var(--green)">304</div>
+            <div style="font-size:.62rem;color:var(--text-dim)">HITL<br>(14.6%)</div>
+          </div>
+          <div>
+            <div style="font-size:1.2rem;font-weight:800;color:var(--orange)">611</div>
+            <div style="font-size:.62rem;color:var(--text-dim)">Preview Cards<br>(29.4%)</div>
+          </div>
+          <div>
+            <div style="font-size:1.2rem;font-weight:800;color:var(--accent-light)">365</div>
+            <div style="font-size:.62rem;color:var(--text-dim)">Prompt fixes<br>(17.5%)</div>
+          </div>
+        </div>
+        <div style="margin-top:8px;font-size:.68rem;color:var(--accent-light)"><span class="pt">HITL: design em andamento (<a href="https://linear.app/nuvemshop-tiendanube/issue/AIL-3" style="color:var(--accent-light)" target="_blank">AIL-3</a>) · devs avançam no BE</span><span class="es">HITL: diseño en progreso (<a href="https://linear.app/nuvemshop-tiendanube/issue/AIL-3" style="color:var(--accent-light)" target="_blank">AIL-3</a>) · devs avanzan en BE</span></div>
+      </div>
+
+      <!-- Col 3: O que falta -->
+      <div class="card" style="text-align:center;border-color:rgba(85,85,106,.3)">
+        <div style="font-size:.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.1em;font-weight:700"><span class="pt">O que falta</span><span class="es">Lo que falta</span></div>
+        <div style="font-size:2.8rem;font-weight:800;color:var(--text-muted);margin:6px 0">87</div>
+        <div style="font-size:.82rem;color:var(--text-dim)">threads (4.2%)</div>
+        <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border);font-size:.72rem;color:var(--text-dim);line-height:1.5">
+          <span class="pt">Data gap (53) + edge cases (34)</span>
+          <span class="es">Data gap (53) + edge cases (34)</span>
         </div>
       </div>
+
     </div>
-    <div style="margin-top:28px;text-align:center">
-      <div style="display:inline-flex;gap:0;border-radius:10px;overflow:hidden;width:80%;height:40px">
-        <div style="width:9.5%;background:var(--green);display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;color:white">9.5%</div>
-        <div style="width:90.5%;background:var(--red);display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:700;color:white"><span class="pt">90.5% dos threads com dor nao tem issue</span><span class="es">90.5% de los threads con dolor no tienen issue</span></div>
+
+    <!-- Stacked bar -->
+    <div style="margin-top:20px;text-align:center">
+      <div style="display:inline-flex;gap:0;border-radius:10px;overflow:hidden;width:90%;height:44px">
+        <div style="width:5.9%;background:var(--green);display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:700;color:white">5.9%</div>
+        <div style="width:14.6%;background:rgba(0,206,201,.6);display:flex;align-items:center;justify-content:center;font-size:.62rem;font-weight:700;color:white">HITL</div>
+        <div style="width:29.4%;background:var(--orange);display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;color:#333">Preview Cards (29.4%)</div>
+        <div style="width:17.5%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:.62rem;font-weight:700;color:white">Prompt</div>
+        <div style="width:4.2%;background:var(--surface-2);display:flex;align-items:center;justify-content:center;font-size:.55rem;font-weight:700;color:var(--text-muted)"></div>
+        <div style="width:28.4%;background:rgba(0,206,201,.15);display:flex;align-items:center;justify-content:center;font-size:.68rem;font-weight:600;color:var(--green)"><span class="pt">Bom (38.9%)</span><span class="es">Bien (38.9%)</span></div>
+      </div>
+      <div style="display:flex;justify-content:center;gap:16px;margin-top:8px;font-size:.68rem;color:var(--text-dim)">
+        <span><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:var(--green);margin-right:4px"></span>Sprint</span>
+        <span><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:rgba(0,206,201,.6);margin-right:4px"></span>HITL</span>
+        <span><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:var(--orange);margin-right:4px"></span>Preview Cards</span>
+        <span><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:var(--accent);margin-right:4px"></span>Prompt</span>
+        <span><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:var(--surface-2);margin-right:4px"></span><span class="pt">Falta</span><span class="es">Falta</span></span>
       </div>
     </div>
-    <p style="color:var(--text-dim);margin-top:20px;font-size:.95rem;text-align:center;line-height:1.6">
-      <span class="pt">Os problemas fora da sprint sao <strong style="color:var(--text)">9.6x maiores em impacto</strong> e exigem <strong style="color:var(--green)">~8-12 dias</strong> para resolver (prompt tuning + front basico).</span>
-      <span class="es">Los problemas fuera de la sprint son <strong style="color:var(--text)">9.6x mas grandes en impacto</strong> y requieren <strong style="color:var(--green)">~8-12 dias</strong> para resolver (prompt tuning + front basico).</span>
+
+    <p style="color:var(--text-dim);margin-top:14px;font-size:.88rem;text-align:center;line-height:1.6">
+      <span class="pt">Sprint atual cobre <strong style="color:var(--green)">5.9%</strong>. Com as 3 iniciativas, cobriríamos <strong style="color:var(--accent-light)">67.4%</strong> — restando apenas <strong>4.2%</strong> de problemas sem solução definida.</span>
+      <span class="es">Sprint actual cubre <strong style="color:var(--green)">5.9%</strong>. Con las 3 iniciativas, cubriríamos <strong style="color:var(--accent-light)">67.4%</strong> — quedando solo <strong>4.2%</strong> de problemas sin solución definida.</span>
     </p>
   </div>
 
