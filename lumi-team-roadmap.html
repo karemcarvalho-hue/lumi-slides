@@ -473,7 +473,7 @@
             <span class="task__id">Workbook / Export · 10 issues</span>AIL-1, AIL-7, AIL-100, etc.<span class="task__threads">~8 threads · 0.2%</span><div class="task__status task__status--doing"></div>
           </div>
           <div class="task task--sprint" onclick="openPanel('sprint-streaming')" style="width:calc(1.5/20*100%)">
-            <span class="task__id">Fake Streaming</span>AIL-49<span class="task__threads">UX</span><div class="task__status task__status--doing"></div>
+            <span class="task__id">⚡ Streaming</span>AIL-49<span class="task__threads">UX · HITL</span><div class="task__status task__status--doing"></div>
           </div>
           <div class="task task--sprint" onclick="openPanel('sprint-coach')" style="width:calc(1.5/20*100%)">
             <span class="task__id">Coach Agent</span>AIL-23, AIL-24<span class="task__threads">educativo</span><div class="task__status task__status--doing"></div>
@@ -1374,20 +1374,22 @@ const TASKS = {
   },
   'sprint-streaming': {
     wave: 'Na Sprint · Cycle 2',
-    title: 'Fake Streaming — AIL-49',
+    title: 'Streaming — AIL-49',
     sections: [
-      { type:'context', html:'<div class="panel__context-title">Contexto</div>Melhoria de UX que simula streaming de texto (typing effect) para que o lojista nao espere uma resposta completa aparecer de uma vez. Percepao de velocidade.' },
+      { type:'context', html:'<div class="panel__context-title">Contexto</div><span class="pt">Começa como fake streaming (typing effect) e evolui para <strong>streaming real</strong>. Reduz a percepção de espera de 8-15s para &lt;1s. É o <strong style="color:var(--green)">habilitador direto do HITL</strong>: o fluxo de approval/reject só funciona de forma fluida quando a resposta chega progressivamente.<br><br><strong>Fase 1 (sprint):</strong> Fake streaming — simula typing enquanto a resposta completa é gerada.<br><strong>Fase 2 (próximo ciclo):</strong> Streaming real — token-by-token do LLM, com possibilidade de interromper/redirecionar mid-stream.</span><span class="es">Comienza como fake streaming (typing effect) y evoluciona a <strong>streaming real</strong>. Reduce la percepción de espera de 8-15s a &lt;1s. Es el <strong style="color:var(--green)">habilitador directo de HITL</strong>: el flujo de approval/reject solo funciona fluido cuando la respuesta llega progresivamente.<br><br><strong>Fase 1 (sprint):</strong> Fake streaming — simula typing mientras la respuesta completa se genera.<br><strong>Fase 2 (próximo ciclo):</strong> Streaming real — token-by-token del LLM, con posibilidad de interrumpir/redirigir mid-stream.</span>' },
       { type:'impact', cards:[
         { number:'UX', cls:'accent', label:'tipo' },
-        { number:'Percepcao', cls:'green', label:'velocidade' },
+        { number:'&lt;1s', cls:'green', label:'percepção' },
         { number:'Em progresso', cls:'green', label:'status' },
         { number:'AIL-49', cls:'accent', label:'issue' }
       ]},
+      { type:'solution', html:'<span class="pt"><strong>Por que habilita HITL:</strong><br>Sem streaming, o merchant espera 8-15s por uma resposta completa. Se a resposta está errada, já perdeu tempo. Com streaming, a resposta aparece progressivamente — e o botão de approve/reject pode aparecer <strong>antes da resposta terminar</strong>, permitindo intervenção imediata.<br><br><strong>Por que evolui para streaming real:</strong><br>Fake streaming ainda espera a resposta completa no backend. Streaming real envia tokens conforme o LLM gera, reduzindo latência real (não só percebida) e habilitando features como cancelar mid-generation.</span><span class="es"><strong>Por qué habilita HITL:</strong><br>Sin streaming, el merchant espera 8-15s por una respuesta completa. Si está mal, ya perdió tiempo. Con streaming, la respuesta aparece progresivamente — y el botón de approve/reject puede aparecer <strong>antes de que termine</strong>, permitiendo intervención inmediata.<br><br><strong>Por qué evoluciona a streaming real:</strong><br>Fake streaming aún espera la respuesta completa en el backend. Streaming real envía tokens conforme el LLM genera, reduciendo latencia real (no solo percibida) y habilitando features como cancelar mid-generation.</span>' },
       { type:'meta', items:[
         { label:'Issue', value:'AIL-49' },
-        { label:'Status', value:'Em progresso' },
-        { label:'Tipo', value:'Melhoria de UX (percepcao de velocidade)' },
-        { label:'Impacto', value:'Qualitativo — melhora experiencia de espera' }
+        { label:'Status', value:'Em progresso (Fase 1: Fake Streaming)' },
+        { label:'Tipo', value:'Infraestrutura UX — habilita HITL' },
+        { label:'Impacto', value:'Qualitativo + estrutural: percepção de velocidade + fluxo HITL fluido' },
+        { label:'Conexão', value:'Sub-iniciativa de Human in the Loop' }
       ]}
     ]
   },
