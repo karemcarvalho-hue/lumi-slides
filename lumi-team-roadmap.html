@@ -478,6 +478,9 @@
           <div class="task task--sprint" onclick="openPanel('sprint-coach')" style="width:calc(1.5/20*100%)">
             <span class="task__id">Coach Agent</span>AIL-23, AIL-24<span class="task__threads">educativo</span><div class="task__status task__status--doing"></div>
           </div>
+          <div class="task task--sprint" onclick="openPanel('sprint-prompt')" style="width:calc(2.5/20*100%)">
+            <span class="task__id">Reestruturação Prompt</span>AIL-207<span class="task__threads">365 threads · 17.5%</span><div class="task__status task__status--doing"></div>
+          </div>
         </div>
         <div class="task-row">
           <div class="task task--sprint" onclick="openPanel('sprint-promocoes')" style="width:calc(2/20*100%);margin-left:calc(0.2/20*100%)">
@@ -507,14 +510,13 @@
   <div class="footer__left">
     Lumi Team Roadmap &nbsp;·&nbsp; Q1–Q2 2026 &nbsp;·&nbsp; Karem Carvalho + time AI Lumi<br>
     <span class="pt">Baseado em analise de 2.080 threads</span><span class="es">Basado en análisis de 2.080 threads</span> &nbsp;·&nbsp; <span class="pt">1.546 lojas</span><span class="es">1.546 tiendas</span> &nbsp;·&nbsp; Fev–Mar/2026<br>
-    <strong style="color:var(--red)"><span class="pt">~49% do impacto nao tem issue na sprint</span><span class="es">~49% del impacto no tiene issue en la sprint</span></strong> &nbsp;·&nbsp; <strong style="color:var(--accent-light)"><span class="pt">+3 insights: Deep link (1.198) · Bulk (109) · Analytics (206)</span><span class="es">+3 insights: Deep link (1.198) · Bulk (109) · Analytics (206)</span></strong>
+    <strong style="color:var(--green)"><span class="pt">Sprint (Dev + Design + Prompt) cobre 67.4% dos problemas</span><span class="es">Sprint (Dev + Design + Prompt) cubre 67.4% de los problemas</span></strong> &nbsp;·&nbsp; <strong style="color:var(--accent-light)"><span class="pt">+3 insights: Deep link (1.198) · Bulk (109) · Analytics (206)</span><span class="es">+3 insights: Deep link (1.198) · Bulk (109) · Analytics (206)</span></strong>
   </div>
   <div class="footer__right">
     <div class="footer__stat"><div class="footer__stat-number" style="color:var(--red)">61.1%</div><div class="footer__stat-label"><span class="pt">falha hoje</span><span class="es">fallo hoy</span></div></div>
-    <div class="footer__stat"><div class="footer__stat-number" style="color:var(--green)">311</div><div class="footer__stat-label">HITL (15%)</div></div>
-    <div class="footer__stat"><div class="footer__stat-number" style="color:var(--orange)">720</div><div class="footer__stat-label">Preview (34.6%)</div></div>
-    <div class="footer__stat"><div class="footer__stat-number" style="color:var(--accent-light)">373</div><div class="footer__stat-label">Prompt (17.9%)</div></div>
-    <div class="footer__stat"><div class="footer__stat-number" style="color:var(--green)">4.3%</div><div class="footer__stat-label"><span class="pt">falha depois</span><span class="es">fallo después</span></div></div>
+    <div class="footer__stat"><div class="footer__stat-number" style="color:var(--green)">1.403</div><div class="footer__stat-label"><span class="pt">na sprint (67.4%)</span><span class="es">en sprint (67.4%)</span></div></div>
+    <div class="footer__stat"><div class="footer__stat-number" style="color:var(--text-muted)">87</div><div class="footer__stat-label"><span class="pt">falta (4.2%)</span><span class="es">falta (4.2%)</span></div></div>
+    <div class="footer__stat"><div class="footer__stat-number" style="color:var(--green)">4.2%</div><div class="footer__stat-label"><span class="pt">falha restante</span><span class="es">fallo restante</span></div></div>
   </div>
 </div>
 
@@ -577,11 +579,11 @@ const TASKS = {
     ]
   },
   'hitl': {
-    wave: 'Estrategia Transversal',
+    wave: 'Na Sprint · Cycle 2 (Design) + Estratégia Transversal',
     title: 'Human in the Loop — Approval/Reject',
     sections: [
       { type:'context', html:'<div class="panel__context-title"><span class="pt">Contexto</span><span class="es">Contexto</span></div><span class="pt">A Lumi hoje opera de forma 100% autônoma: quando não sabe responder, inventa ou trava. O lojista fica sem saída. <strong>Human in the Loop</strong> muda isso — a Lumi reconhece seus limites e <strong>propõe e pergunta</strong> em vez de recusar ou agir às cegas. Devs já avançam no backend.</span><span class="es">Lumi hoy opera de forma 100% autónoma: cuando no sabe responder, inventa o se traba. El comerciante queda sin salida. <strong>Human in the Loop</strong> cambia eso — Lumi reconoce sus límites y <strong>propone y pregunta</strong> en vez de rechazar o actuar a ciegas. Devs ya avanzan en el backend.</span>' },
-      { type:'problem', html:'<span class="pt">Resolve <strong style="color:var(--green)">311 threads (15.0%)</strong> em 3 problemas simultâneos:<br><br><strong style="color:var(--red)">155 respostas desalinhadas (#3)</strong> — Lumi faz/explica o oposto do pedido. Com HITL, mostra preview e pede confirmação antes.<br><strong style="color:var(--orange)">86 guardrails excessivos (#4)</strong> — "não posso ajudar" sem alternativa. Com HITL, pergunta em vez de recusar.<br><strong style="color:var(--red)">70 dead-ends (#1, parcial)</strong> — conversa termina sem próximo passo. Com HITL, oferece caminhos reais.<br><br>Junto com <strong>Preview Cards (720 threads, 34.6%)</strong> e <strong>Prompt fixes (373 threads, 17.9%)</strong>, as 3 iniciativas levam a taxa de falha de <strong style="color:var(--red)">61.1%</strong> para <strong style="color:var(--green)">4.3%</strong>.</span><span class="es">Resuelve <strong style="color:var(--green)">311 threads (15.0%)</strong> en 3 problemas simultáneos:<br><br><strong style="color:var(--red)">155 respuestas desalineadas (#3)</strong> — Lumi hace/explica lo opuesto del pedido. Con HITL, muestra preview y pide confirmación antes.<br><strong style="color:var(--orange)">86 guardrails excesivos (#4)</strong> — "no puedo ayudar" sin alternativa. Con HITL, pregunta en vez de rechazar.<br><strong style="color:var(--red)">70 dead-ends (#1, parcial)</strong> — conversación termina sin próximo paso. Con HITL, ofrece caminos reales.<br><br>Junto con <strong>Preview Cards (720 threads, 34.6%)</strong> y <strong>Prompt fixes (373 threads, 17.9%)</strong>, las 3 iniciativas llevan la tasa de fallo de <strong style="color:var(--red)">61.1%</strong> a <strong style="color:var(--green)">4.3%</strong>.</span>' },
+      { type:'problem', html:'<span class="pt">Resolve <strong style="color:var(--green)">311 threads (15.0%)</strong> em 3 problemas simultâneos:<br><br><strong style="color:var(--red)">155 respostas desalinhadas (#3)</strong> — Lumi faz/explica o oposto do pedido. Com HITL, mostra preview e pede confirmação antes.<br><strong style="color:var(--orange)">86 guardrails excessivos (#4)</strong> — "não posso ajudar" sem alternativa. Com HITL, pergunta em vez de recusar.<br><strong style="color:var(--red)">70 dead-ends (#1, parcial)</strong> — conversa termina sem próximo passo. Com HITL, oferece caminhos reais.<br><br>Junto com <strong>Preview Cards (611 threads, 29.4%)</strong> e <strong>Prompt fixes (365 threads, 17.5%)</strong>, as 3 iniciativas na sprint cobrem <strong style="color:var(--green)">67.4% dos problemas</strong>, levando a taxa de falha de <strong style="color:var(--red)">61.1%</strong> para <strong style="color:var(--green)">4.2%</strong>.</span><span class="es">Resuelve <strong style="color:var(--green)">311 threads (15.0%)</strong> en 3 problemas simultáneos:<br><br><strong style="color:var(--red)">155 respuestas desalineadas (#3)</strong> — Lumi hace/explica lo opuesto del pedido. Con HITL, muestra preview y pide confirmación antes.<br><strong style="color:var(--orange)">86 guardrails excesivos (#4)</strong> — "no puedo ayudar" sin alternativa. Con HITL, pregunta en vez de rechazar.<br><strong style="color:var(--red)">70 dead-ends (#1, parcial)</strong> — conversación termina sin próximo paso. Con HITL, ofrece caminos reales.<br><br>Junto con <strong>Preview Cards (611 threads, 29.4%)</strong> y <strong>Prompt fixes (365 threads, 17.5%)</strong>, las 3 iniciativas en sprint cubren <strong style="color:var(--green)">67.4% de los problemas</strong>, llevando la tasa de fallo de <strong style="color:var(--red)">61.1%</strong> a <strong style="color:var(--green)">4.2%</strong>.</span>' },
       { type:'impact', cards:[
         { number:'311', cls:'green', label:'threads resolvidos (15%)' },
         { number:'3', cls:'accent', label:'problemas resolvidos' },
@@ -619,7 +621,7 @@ const TASKS = {
     ]
   },
   'preview-cards': {
-    wave: 'Estrategia Transversal',
+    wave: 'Na Sprint · Cycle 2 (Design) + Estratégia Transversal',
     title: 'Preview Cards — Infraestrutura Visual',
     sections: [
       { type:'context', html:'<div class="panel__context-title">Contexto</div><span class="pt">Preview Cards são a <strong>interface visual</strong> que transforma texto em ação. Quando a Lumi cria um produto, edita uma descrição, ou aplica preços em lote, o lojista precisa VER o resultado antes de confirmar. Sem Preview Cards, a Lumi só pode responder com texto — e texto não é suficiente para mostrar tabelas, produtos criados, ou resultados de bulk actions.</span><span class="es">Preview Cards son la <strong>interfaz visual</strong> que transforma texto en acción. Cuando Lumi crea un producto, edita una descripción, o aplica precios masivos, el comerciante necesita VER el resultado antes de confirmar. Sin Preview Cards, Lumi solo puede responder con texto — y el texto no es suficiente para mostrar tablas, productos creados, o resultados de acciones masivas.</span>' },
@@ -1409,6 +1411,26 @@ const TASKS = {
         { label:'Status', value:'Em progresso' },
         { label:'Tipo', value:'Nova funcionalidade (agente educativo)' },
         { label:'Observacao', value:'Feature nova — sem dados de impacto previos' }
+      ]}
+    ]
+  },
+  'sprint-prompt': {
+    wave: 'Na Sprint · Cycle 2',
+    title: 'Reestruturação de Prompt — AIL-207',
+    sections: [
+      { type:'context', html:'<span class="pt"><div class="panel__context-title">Contexto</div>Refatoração completa da arquitetura de prompts do Lumi. Hoje os prompts acumularam regras orgânicas que geram conflitos entre si — o modelo recebe instruções contraditórias, causando respostas desalinhadas, guardrails excessivos e inconsistência.</span><span class="es"><div class="panel__context-title">Contexto</div>Refactorización completa de la arquitectura de prompts de Lumi. Hoy los prompts acumularon reglas orgánicas que generan conflictos entre sí — el modelo recibe instrucciones contradictorias, causando respuestas desalineadas, guardrails excesivos e inconsistencia.</span>' },
+      { type:'impact', cards:[
+        { number:'365', cls:'green', label:'threads resolvidos' },
+        { number:'17.5%', cls:'accent', label:'dos problemas' },
+        { number:'AIL-207', cls:'accent', label:'issue' },
+        { number:'Em progresso', cls:'green', label:'status' }
+      ]},
+      { type:'problem', html:'<span class="pt">Resolve <strong style="color:var(--green)">365 threads (17.5%)</strong> atacando problemas de qualidade de resposta:<br><br><strong style="color:var(--red)">Respostas desalinhadas</strong> — instruções contraditórias no prompt fazem Lumi agir oposto ao pedido.<br><strong style="color:var(--orange)">Guardrails excessivos</strong> — prompt com regras "não faça X" demais leva a recusas desnecessárias.<br><strong style="color:var(--red)">Inconsistência entre domínios</strong> — cada domínio tem regras independentes sem padrão unificado.<br><br>Com a reestruturação, os prompts terão arquitetura modular e regras sem conflito, melhorando diretamente a qualidade das respostas.</span><span class="es">Resuelve <strong style="color:var(--green)">365 threads (17.5%)</strong> atacando problemas de calidad de respuesta:<br><br><strong style="color:var(--red)">Respuestas desalineadas</strong> — instrucciones contradictorias en el prompt hacen que Lumi actúe opuesto al pedido.<br><strong style="color:var(--orange)">Guardrails excesivos</strong> — prompt con reglas "no hagas X" en exceso lleva a rechazos innecesarios.<br><strong style="color:var(--red)">Inconsistencia entre dominios</strong> — cada dominio tiene reglas independientes sin patrón unificado.<br><br>Con la reestructuración, los prompts tendrán arquitectura modular y reglas sin conflicto, mejorando directamente la calidad de las respuestas.</span>' },
+      { type:'meta', items:[
+        { label:'Issue', value:'<a href="https://linear.app/nuvemshop-tiendanube/issue/AIL-207" target="_blank">AIL-207</a>' },
+        { label:'Status', value:'Em progresso' },
+        { label:'Impacto', value:'365 threads (17.5% dos problemas) — respostas desalinhadas + guardrails excessivos' },
+        { label:'Complemento', value:'Funciona em sinergia com HITL (304 threads) e Preview Cards (611 threads)' }
       ]}
     ]
   },
