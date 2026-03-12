@@ -129,12 +129,12 @@
         <div><div style="font-weight:700;font-size:.88rem"><span class="pt">Proposta: HITL + Preview Cards + Prompt</span><span class="es">Propuesta: HITL + Preview Cards + Prompt</span></div><div style="font-size:.72rem;color:var(--text-dim);margin-top:2px"><span class="pt">3 iniciativas · de 61% para 4.3% · waterfall de impacto</span><span class="es">3 iniciativas · de 61% a 4.3% · waterfall de impacto</span></div></div>
       </div>
 
-      <div onclick="goTo(20)" style="display:flex;align-items:center;gap:14px;padding:14px 18px;background:var(--surface);border:1px solid var(--border);border-radius:12px;cursor:pointer;transition:background .15s" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
+      <div onclick="goTo(21)" style="display:flex;align-items:center;gap:14px;padding:14px 18px;background:var(--surface);border:1px solid var(--border);border-radius:12px;cursor:pointer;transition:background .15s" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
         <div style="width:32px;height:32px;border-radius:8px;background:rgba(0,206,201,.15);display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:800;color:var(--green);flex-shrink:0">8</div>
         <div><div style="font-weight:700;font-size:.88rem"><span class="pt">Waves + Roadmap ideal</span><span class="es">Waves + Roadmap ideal</span></div><div style="font-size:.72rem;color:var(--text-dim);margin-top:2px"><span class="pt">Priorização por impacto e esforço · 11 iniciativas</span><span class="es">Priorización por impacto y esfuerzo · 11 iniciativas</span></div></div>
       </div>
 
-      <div onclick="goTo(23)" style="display:flex;align-items:center;gap:14px;padding:14px 18px;background:var(--surface);border:1px solid var(--border);border-radius:12px;cursor:pointer;transition:background .15s" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
+      <div onclick="goTo(24)" style="display:flex;align-items:center;gap:14px;padding:14px 18px;background:var(--surface);border:1px solid var(--border);border-radius:12px;cursor:pointer;transition:background .15s" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
         <div style="width:32px;height:32px;border-radius:8px;background:rgba(108,92,231,.2);display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:800;color:var(--accent-light);flex-shrink:0">9</div>
         <div><div style="font-weight:700;font-size:.88rem"><span class="pt">Próximos passos + Roadmaps</span><span class="es">Próximos pasos + Roadmaps</span></div><div style="font-size:.72rem;color:var(--text-dim);margin-top:2px"><span class="pt">Links interativos + resumo</span><span class="es">Links interactivos + resumen</span></div></div>
       </div>
@@ -922,53 +922,104 @@
     </div>
   </div>
 
-  <!-- 9c: Comparacao direta — Sprint (Dev+Design) vs Prompt vs Falta -->
+  <!-- 9c: ANTES — Sprint só com Dev -->
   <div class="slide">
-    <span class="tag tag--green"><span class="pt">O panorama completo</span><span class="es">El panorama completo</span></span>
-    <h2><span class="pt">Sprint atual (Dev + Design) vs O que falta</span><span class="es">Sprint actual (Dev + Design) vs Lo que falta</span></h2>
+    <span class="tag tag--red"><span class="pt">Antes — Só olhando Dev</span><span class="es">Antes — Solo mirando Dev</span></span>
+    <h2><span class="pt">Sprint parecia cobrir apenas 5.9%</span><span class="es">Sprint parecía cubrir solo 5.9%</span></h2>
 
-    <div style="display:grid;grid-template-columns:2fr 1fr .7fr;gap:14px;margin-top:20px">
+    <div style="display:grid;grid-template-columns:1fr 2.5fr;gap:20px;margin-top:24px;align-items:center">
 
-      <!-- Col 1: Sprint Dev + Design -->
-      <div class="card card--green" style="text-align:center;padding:18px">
-        <div style="font-size:.65rem;color:var(--green);text-transform:uppercase;letter-spacing:.1em;font-weight:700"><span class="pt">Na sprint · Cycle 2 (Dev + Design)</span><span class="es">En sprint · Cycle 2 (Dev + Design)</span></div>
-        <div style="font-size:3rem;font-weight:800;color:var(--green);margin:6px 0">1.038</div>
-        <div style="font-size:.82rem;color:var(--text-dim)">threads <strong style="color:var(--green)">(49.9%)</strong></div>
-        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:12px;padding-top:12px;border-top:1px solid rgba(0,206,201,.2)">
-          <div>
-            <div style="font-size:1.1rem;font-weight:800;color:var(--green)">123</div>
-            <div style="font-size:.6rem;color:var(--text-dim)"><span class="pt">Dev<br>(5.9%)</span><span class="es">Dev<br>(5.9%)</span></div>
-          </div>
-          <div>
-            <div style="font-size:1.1rem;font-weight:800;color:var(--accent-light)">304</div>
-            <div style="font-size:.6rem;color:var(--text-dim)"><span class="pt">HITL Design<br>(14.6%)</span><span class="es">HITL Design<br>(14.6%)</span></div>
-          </div>
-          <div>
-            <div style="font-size:1.1rem;font-weight:800;color:var(--orange)">611</div>
-            <div style="font-size:.6rem;color:var(--text-dim)"><span class="pt">Preview Cards<br>(29.4%)</span><span class="es">Preview Cards<br>(29.4%)</span></div>
-          </div>
-        </div>
-        <div style="margin-top:10px;font-size:.68rem;color:var(--text-dim);line-height:1.5">
-          <span class="pt"><strong style="color:var(--green)">Dev:</strong> Catálogo, Export, Promoções, Coach, Streaming<br><strong style="color:var(--accent-light)">Design:</strong> HITL (<a href="https://linear.app/nuvemshop-tiendanube/issue/AIL-3" style="color:var(--accent-light)" target="_blank">AIL-3</a>) + Preview Cards</span>
-          <span class="es"><strong style="color:var(--green)">Dev:</strong> Catálogo, Export, Promociones, Coach, Streaming<br><strong style="color:var(--accent-light)">Design:</strong> HITL (<a href="https://linear.app/nuvemshop-tiendanube/issue/AIL-3" style="color:var(--accent-light)" target="_blank">AIL-3</a>) + Preview Cards</span>
+      <div class="card card--red" style="text-align:center;padding:24px 18px">
+        <div style="font-size:.65rem;color:var(--red);text-transform:uppercase;letter-spacing:.1em;font-weight:700"><span class="pt">Sprint (só Dev)</span><span class="es">Sprint (solo Dev)</span></div>
+        <div style="font-size:3.5rem;font-weight:800;color:var(--red);margin:8px 0">5.9%</div>
+        <div style="font-size:.82rem;color:var(--text-dim)">123 threads</div>
+        <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,107,107,.2);font-size:.72rem;color:var(--text-dim);line-height:1.5">
+          <span class="pt">Catálogo, Export, Promoções,<br>Coach, Handoff</span>
+          <span class="es">Catálogo, Export, Promociones,<br>Coach, Handoff</span>
         </div>
       </div>
 
-      <!-- Col 2: Prompt/Orchestrator -->
-      <div class="card" style="text-align:center;padding:18px;border-color:rgba(108,92,231,.3);background:linear-gradient(135deg,rgba(108,92,231,.06),rgba(108,92,231,.02))">
-        <div style="font-size:.65rem;color:var(--accent-light);text-transform:uppercase;letter-spacing:.1em;font-weight:700"><span class="pt">Proposta adicional</span><span class="es">Propuesta adicional</span></div>
-        <div style="font-size:3rem;font-weight:800;color:var(--accent-light);margin:6px 0">365</div>
-        <div style="font-size:.82rem;color:var(--text-dim)">threads (17.5%)</div>
-        <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(108,92,231,.2);font-size:.72rem;color:var(--text-dim);line-height:1.5">
-          <span class="pt">Prompt tuning +<br>Orchestrator refactor<br><br><strong style="color:var(--accent-light)">Quick wins de BE</strong><br>~5d de trabalho</span>
-          <span class="es">Prompt tuning +<br>Orchestrator refactor<br><br><strong style="color:var(--accent-light)">Quick wins de BE</strong><br>~5d de trabajo</span>
+      <div>
+        <div style="font-size:1rem;color:var(--text-dim);line-height:1.8;padding:0 12px">
+          <span class="pt">
+            <div style="margin-bottom:14px;font-size:1.1rem;color:var(--red);font-weight:700">94.1% dos problemas sem cobertura na sprint</div>
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><span style="color:var(--red);font-size:1.2rem">&#10005;</span> <span style="font-size:.88rem">HITL (Human in the Loop) — sem issue formal</span></div>
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><span style="color:var(--red);font-size:1.2rem">&#10005;</span> <span style="font-size:.88rem">Preview Cards — sem issue formal</span></div>
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><span style="color:var(--red);font-size:1.2rem">&#10005;</span> <span style="font-size:.88rem">Prompt tuning — sem issue formal</span></div>
+            <div style="display:flex;align-items:center;gap:8px"><span style="color:var(--red);font-size:1.2rem">&#10005;</span> <span style="font-size:.88rem">Streaming — sem conexão com qualidade</span></div>
+          </span>
+          <span class="es">
+            <div style="margin-bottom:14px;font-size:1.1rem;color:var(--red);font-weight:700">94.1% de los problemas sin cobertura en sprint</div>
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><span style="color:var(--red);font-size:1.2rem">&#10005;</span> <span style="font-size:.88rem">HITL (Human in the Loop) — sin issue formal</span></div>
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><span style="color:var(--red);font-size:1.2rem">&#10005;</span> <span style="font-size:.88rem">Preview Cards — sin issue formal</span></div>
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><span style="color:var(--red);font-size:1.2rem">&#10005;</span> <span style="font-size:.88rem">Prompt tuning — sin issue formal</span></div>
+            <div style="display:flex;align-items:center;gap:8px"><span style="color:var(--red);font-size:1.2rem">&#10005;</span> <span style="font-size:.88rem">Streaming — sin conexión con calidad</span></div>
+          </span>
         </div>
       </div>
 
-      <!-- Col 3: O que falta -->
-      <div class="card" style="text-align:center;padding:18px;border-color:rgba(85,85,106,.3)">
+    </div>
+
+    <!-- Stacked bar: antes -->
+    <div style="margin-top:24px;text-align:center">
+      <div style="display:inline-flex;gap:0;border-radius:10px;overflow:hidden;width:90%;height:36px">
+        <div style="width:5.9%;background:var(--green);display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:700;color:white">5.9%</div>
+        <div style="width:55.2%;background:rgba(255,107,107,.15);display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:600;color:var(--red)"><span class="pt">Sem cobertura (55.2%)</span><span class="es">Sin cobertura (55.2%)</span></div>
+        <div style="width:38.9%;background:rgba(0,206,201,.1);display:flex;align-items:center;justify-content:center;font-size:.68rem;font-weight:600;color:var(--green)"><span class="pt">Bom (38.9%)</span><span class="es">Bien (38.9%)</span></div>
+      </div>
+    </div>
+
+    <p style="text-align:center;margin-top:12px;font-size:.82rem;color:var(--text-muted)"><span class="pt">Visão antes de mapear Design e Prompt na sprint</span><span class="es">Visión antes de mapear Design y Prompt en la sprint</span></p>
+  </div>
+
+  <!-- 9d: AGORA — Sprint completa (Dev + Design + Prompt) -->
+  <div class="slide">
+    <span class="tag tag--green"><span class="pt">Agora — Sprint completa</span><span class="es">Ahora — Sprint completa</span></span>
+    <h2><span class="pt">Sprint cobre 67.4% dos problemas</span><span class="es">Sprint cubre 67.4% de los problemas</span></h2>
+
+    <div style="display:grid;grid-template-columns:2.5fr .7fr;gap:16px;margin-top:20px">
+
+      <!-- Col 1: Sprint completa -->
+      <div class="card card--green" style="padding:20px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+          <div>
+            <div style="font-size:.65rem;color:var(--green);text-transform:uppercase;letter-spacing:.1em;font-weight:700"><span class="pt">Na sprint · Cycle 2 (Dev + Design + Prompt)</span><span class="es">En sprint · Cycle 2 (Dev + Design + Prompt)</span></div>
+            <div style="font-size:2.6rem;font-weight:800;color:var(--green);margin-top:4px">1.403 <span style="font-size:1rem;font-weight:600">threads</span></div>
+          </div>
+          <div style="text-align:center">
+            <div style="font-size:3rem;font-weight:800;color:var(--green)">67.4%</div>
+            <div style="font-size:.68rem;color:var(--text-dim)"><span class="pt">dos problemas cobertos</span><span class="es">de los problemas cubiertos</span></div>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px;padding-top:14px;border-top:1px solid rgba(0,206,201,.2)">
+          <div style="text-align:center">
+            <div style="font-size:1.2rem;font-weight:800;color:var(--green)">123</div>
+            <div style="font-size:.58rem;color:var(--text-dim)">Dev (5.9%)</div>
+            <div style="font-size:.52rem;color:var(--text-muted);margin-top:2px"><span class="pt">Catálogo, Export,<br>Coach, Streaming</span><span class="es">Catálogo, Export,<br>Coach, Streaming</span></div>
+          </div>
+          <div style="text-align:center">
+            <div style="font-size:1.2rem;font-weight:800;color:var(--accent-light)">304</div>
+            <div style="font-size:.58rem;color:var(--text-dim)">HITL Design (14.6%)</div>
+            <div style="font-size:.52rem;color:var(--text-muted);margin-top:2px"><a href="https://linear.app/nuvemshop-tiendanube/issue/AIL-3" style="color:var(--accent-light);font-size:.52rem" target="_blank">AIL-3</a></div>
+          </div>
+          <div style="text-align:center">
+            <div style="font-size:1.2rem;font-weight:800;color:var(--orange)">611</div>
+            <div style="font-size:.58rem;color:var(--text-dim)">Preview Cards (29.4%)</div>
+            <div style="font-size:.52rem;color:var(--text-muted);margin-top:2px"><span class="pt">Design em andamento</span><span class="es">Diseño en progreso</span></div>
+          </div>
+          <div style="text-align:center">
+            <div style="font-size:1.2rem;font-weight:800;color:var(--accent-light)">365</div>
+            <div style="font-size:.58rem;color:var(--text-dim)">Prompt (17.5%)</div>
+            <div style="font-size:.52rem;color:var(--text-muted);margin-top:2px"><a href="https://linear.app/nuvemshop-tiendanube/issue/AIL-207" style="color:var(--accent-light);font-size:.52rem" target="_blank">AIL-207</a></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Col 2: O que falta -->
+      <div class="card" style="text-align:center;padding:20px 14px;border-color:rgba(85,85,106,.3)">
         <div style="font-size:.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.1em;font-weight:700"><span class="pt">O que falta</span><span class="es">Lo que falta</span></div>
-        <div style="font-size:3rem;font-weight:800;color:var(--text-muted);margin:6px 0">87</div>
+        <div style="font-size:2.6rem;font-weight:800;color:var(--text-muted);margin:8px 0">87</div>
         <div style="font-size:.82rem;color:var(--text-dim)">threads (4.2%)</div>
         <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border);font-size:.72rem;color:var(--text-dim);line-height:1.5">
           <span class="pt">Data gap (53)<br>+ edge cases (34)</span>
@@ -978,30 +1029,39 @@
 
     </div>
 
-    <!-- Stacked bar -->
-    <div style="margin-top:18px;text-align:center">
-      <div style="display:inline-flex;gap:0;border-radius:10px;overflow:hidden;width:90%;height:44px">
-        <div style="width:5.9%;background:var(--green);display:flex;align-items:center;justify-content:center;font-size:.55rem;font-weight:700;color:white">Dev</div>
-        <div style="width:14.6%;background:rgba(108,92,231,.7);display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:700;color:white">HITL</div>
-        <div style="width:29.4%;background:var(--orange);display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:#333">Preview Cards (29.4%)</div>
-        <div style="width:17.5%;background:rgba(108,92,231,.35);display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:700;color:white">Prompt</div>
-        <div style="width:4.2%;background:var(--surface-2);display:flex;align-items:center;justify-content:center;font-size:.5rem;font-weight:700;color:var(--text-muted)"></div>
-        <div style="width:28.4%;background:rgba(0,206,201,.15);display:flex;align-items:center;justify-content:center;font-size:.68rem;font-weight:600;color:var(--green)"><span class="pt">Bom (38.9%)</span><span class="es">Bien (38.9%)</span></div>
+    <!-- Stacked bar: agora -->
+    <div style="margin-top:16px;text-align:center">
+      <div style="display:inline-flex;gap:0;border-radius:10px;overflow:hidden;width:90%;height:40px">
+        <div style="width:5.9%;background:var(--green);display:flex;align-items:center;justify-content:center;font-size:.5rem;font-weight:700;color:white">Dev</div>
+        <div style="width:14.6%;background:rgba(108,92,231,.7);display:flex;align-items:center;justify-content:center;font-size:.55rem;font-weight:700;color:white">HITL</div>
+        <div style="width:29.4%;background:var(--orange);display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;color:#333">Preview Cards</div>
+        <div style="width:17.5%;background:rgba(108,92,231,.45);display:flex;align-items:center;justify-content:center;font-size:.55rem;font-weight:700;color:white">Prompt</div>
+        <div style="width:4.2%;background:var(--surface-2);display:flex;align-items:center;justify-content:center"></div>
+        <div style="width:28.4%;background:rgba(0,206,201,.12);display:flex;align-items:center;justify-content:center;font-size:.62rem;font-weight:600;color:var(--green)"><span class="pt">Bom (38.9%)</span><span class="es">Bien (38.9%)</span></div>
       </div>
-      <div style="display:flex;justify-content:center;gap:14px;margin-top:8px;font-size:.66rem;color:var(--text-dim)">
-        <span style="border:1px solid rgba(0,206,201,.3);border-radius:4px;padding:2px 8px"><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:var(--green);margin-right:4px"></span>Sprint Dev (5.9%)</span>
-        <span style="border:1px solid rgba(108,92,231,.3);border-radius:4px;padding:2px 8px"><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:rgba(108,92,231,.7);margin-right:4px"></span>Sprint Design (44%)</span>
-        <span style="border:1px solid rgba(108,92,231,.2);border-radius:4px;padding:2px 8px"><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:rgba(108,92,231,.35);margin-right:4px"></span><span class="pt">Proposta BE (17.5%)</span><span class="es">Propuesta BE (17.5%)</span></span>
-        <span><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:var(--surface-2);margin-right:4px"></span><span class="pt">Falta (4.2%)</span><span class="es">Falta (4.2%)</span></span>
+      <div style="display:flex;justify-content:center;gap:12px;margin-top:8px;font-size:.62rem;color:var(--text-dim)">
+        <span><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:var(--green);margin-right:3px"></span>Dev</span>
+        <span><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:rgba(108,92,231,.7);margin-right:3px"></span>HITL</span>
+        <span><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:var(--orange);margin-right:3px"></span>Preview Cards</span>
+        <span><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:rgba(108,92,231,.45);margin-right:3px"></span>Prompt</span>
+        <span><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:var(--surface-2);margin-right:3px"></span><span class="pt">Falta</span><span class="es">Falta</span></span>
       </div>
     </div>
 
-    <div style="margin-top:12px;padding:10px 16px;background:rgba(0,206,201,.06);border:1px solid rgba(0,206,201,.2);border-radius:8px;text-align:center">
-      <p style="font-size:.88rem;color:var(--text-dim);line-height:1.6;margin:0">
-        <span class="pt">Sprint (Dev + Design) já cobre <strong style="color:var(--green)">49.9%</strong> dos problemas. Com prompt tuning adicional (~5d BE), chegamos a <strong style="color:var(--green)">67.4%</strong> — restando apenas <strong>4.2%</strong> sem solução.</span>
-        <span class="es">Sprint (Dev + Design) ya cubre <strong style="color:var(--green)">49.9%</strong> de los problemas. Con prompt tuning adicional (~5d BE), llegamos a <strong style="color:var(--green)">67.4%</strong> — quedando solo <strong>4.2%</strong> sin solución.</span>
-      </p>
+    <div style="margin-top:12px;display:flex;gap:12px;align-items:center;justify-content:center">
+      <div style="padding:8px 16px;border-radius:8px;background:rgba(255,107,107,.08);border:1px solid rgba(255,107,107,.2);text-align:center">
+        <div style="font-size:.6rem;color:var(--red);text-transform:uppercase;font-weight:700"><span class="pt">Antes</span><span class="es">Antes</span></div>
+        <div style="font-size:1.4rem;font-weight:800;color:var(--red)">5.9%</div>
+      </div>
+      <div style="font-size:1.8rem;color:var(--text-muted)">→</div>
+      <div style="padding:8px 16px;border-radius:8px;background:rgba(0,206,201,.08);border:1px solid rgba(0,206,201,.2);text-align:center">
+        <div style="font-size:.6rem;color:var(--green);text-transform:uppercase;font-weight:700"><span class="pt">Agora</span><span class="es">Ahora</span></div>
+        <div style="font-size:1.4rem;font-weight:800;color:var(--green)">67.4%</div>
+      </div>
+      <div style="font-size:.82rem;color:var(--text-dim);margin-left:8px;line-height:1.5"><span class="pt">Mapeando Design (HITL + Preview Cards)<br>e Prompt (<a href="https://linear.app/nuvemshop-tiendanube/issue/AIL-207" style="color:var(--accent-light)" target="_blank">AIL-207</a>) na sprint</span><span class="es">Mapeando Design (HITL + Preview Cards)<br>y Prompt (<a href="https://linear.app/nuvemshop-tiendanube/issue/AIL-207" style="color:var(--accent-light)" target="_blank">AIL-207</a>) en la sprint</span></div>
     </div>
+
+    <p style="text-align:center;margin-top:8px;font-size:.72rem;color:var(--text-muted)"><span class="pt">Fonte: <a href="https://linear.app/nuvemshop-tiendanube/team/AIL/cycle/active" style="color:var(--accent-light)" target="_blank">Linear · AI-Lumi · Cycle 2</a></span><span class="es">Fuente: <a href="https://linear.app/nuvemshop-tiendanube/team/AIL/cycle/active" style="color:var(--accent-light)" target="_blank">Linear · AI-Lumi · Cycle 2</a></span></p>
   </div>
 
   <!-- 10: Wave 1 -->
