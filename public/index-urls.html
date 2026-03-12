@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Central de URLs — Karem</title>
+<style>
+  :root {
+    --bg: #0f111a;
+    --surface: #1a1d2e;
+    --surface-hover: #222640;
+    --border: #2a2e45;
+    --text: #e2e4f0;
+    --text-dim: #8b8fa8;
+    --accent: #6c8cff;
+    --accent-light: #8ba6ff;
+    --green: #4ade80;
+    --orange: #fbbf24;
+    --purple: #a78bfa;
+    --pink: #f472b6;
+    --cyan: #22d3ee;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+    padding: 2rem 1rem;
+  }
+  .container { max-width: 900px; margin: 0 auto; }
+  header {
+    text-align: center;
+    padding: 2rem 0 1rem;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 2.5rem;
+  }
+  header h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, var(--accent), var(--purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  header p { color: var(--text-dim); font-size: .85rem; margin-top: .5rem; }
+  .section { margin-bottom: 2.5rem; }
+  .section-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: .25rem;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+  }
+  .section-title .badge {
+    font-size: .65rem;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 10px;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+  }
+  .badge-lumi { background: rgba(108,140,255,.15); color: var(--accent-light); }
+  .badge-other { background: rgba(244,114,182,.12); color: var(--pink); }
+  .subsection { margin-top: 1.5rem; margin-bottom: 1rem; }
+  .subsection h3 {
+    font-size: .8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: var(--text-dim);
+    margin-bottom: .75rem;
+    padding-bottom: .4rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .subsection h3 .dot {
+    display: inline-block;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    margin-right: 6px;
+    vertical-align: middle;
+  }
+  .dot-discovery { background: var(--green); }
+  .dot-delivery { background: var(--orange); }
+  .dot-proto { background: var(--purple); }
+  .dot-other { background: var(--pink); }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem 1.15rem;
+    margin-bottom: .6rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    text-decoration: none;
+    color: inherit;
+    transition: background .15s, border-color .15s, transform .1s;
+    cursor: pointer;
+  }
+  .card:hover {
+    background: var(--surface-hover);
+    border-color: var(--accent);
+    transform: translateY(-1px);
+  }
+  .card-icon {
+    flex-shrink: 0;
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+  }
+  .icon-pages { background: rgba(108,140,255,.12); }
+  .icon-gist { background: rgba(167,139,250,.12); }
+  .icon-vercel { background: rgba(34,211,238,.12); }
+  .icon-gdoc { background: rgba(74,222,128,.12); }
+  .card-body { flex: 1; min-width: 0; }
+  .card-title {
+    font-weight: 600;
+    font-size: .95rem;
+    margin-bottom: 2px;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    flex-wrap: wrap;
+  }
+  .card-title .platform {
+    font-size: .6rem;
+    color: var(--text-dim);
+    background: rgba(255,255,255,.06);
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-weight: 500;
+  }
+  .card-desc {
+    font-size: .82rem;
+    color: var(--text-dim);
+    line-height: 1.5;
+  }
+  .card-arrow {
+    flex-shrink: 0;
+    color: var(--text-dim);
+    font-size: 1.1rem;
+    align-self: center;
+    transition: color .15s;
+  }
+  .card:hover .card-arrow { color: var(--accent); }
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: .6rem;
+    margin-top: 1rem;
+  }
+  .stat {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: .75rem 1rem;
+    text-align: center;
+  }
+  .stat-num { font-size: 1.5rem; font-weight: 700; color: var(--accent); }
+  .stat-label { font-size: .72rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: .06em; margin-top: 2px; }
+  footer {
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+    margin-top: 2rem;
+  }
+  footer p { font-size: .75rem; color: var(--text-dim); }
+  @media(max-width:600px) {
+    body { padding: 1rem .5rem; }
+    .card { flex-direction: column; gap: .5rem; }
+    .card-icon { width: 28px; height: 28px; font-size: .85rem; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <h1>Central de URLs</h1>
+  <p>Todos os materiais compartilhados — organizado por contexto</p>
+  <p style="margin-top:.3rem;font-size:.75rem;color:var(--text-dim)">Atualizado em 11/Mar/2026</p>
+</header>
+
+<div class="stats">
+  <div class="stat"><div class="stat-num">15</div><div class="stat-label">URLs no total</div></div>
+  <div class="stat"><div class="stat-num">12</div><div class="stat-label">Lumi</div></div>
+  <div class="stat"><div class="stat-num">4</div><div class="stat-label">Plataformas</div></div>
+</div>
+
+<div class="section" style="margin-top:2.5rem">
+  <div class="section-title">LUMI <span class="badge badge-lumi">12 urls</span></div>
+
+  <div class="subsection">
+    <h3><span class="dot dot-discovery"></span>Discovery — Pesquisa, Entrevistas &amp; Analise</h3>
+
+    <a class="card" href="https://karemcarvalho-hue.github.io/lumi-slides/lumi-qualitative-presentation.html" target="_blank" rel="noopener noreferrer">
+      <div class="card-icon icon-pages">📊</div>
+      <div class="card-body">
+        <div class="card-title">Apresentacao Qualitativa <span class="platform">GitHub Pages</span></div>
+        <div class="card-desc">Analise de 3.902 conversas reais (Nov/2025–Mar/2026, 1.546 lojas). Indice navegavel, problemas, o que melhorou vs persiste. ~8 min.</div>
+      </div>
+      <div class="card-arrow">→</div>
+    </a>
+
+    <a class="card" href="https://karemcarvalho-hue.github.io/lumi-slides/lumi-qualitative-analysis.html" target="_blank" rel="noopener noreferrer">
+      <div class="card-icon icon-pages">📄</div>
+      <div class="card-body">
+        <div class="card-title">Analise Qualitativa Completa <span class="platform">GitHub Pages</span></div>
+        <div class="card-desc">Versao detalhada com todas as fontes, dados brutos e metodologia.</div>
+      </div>
+      <div class="card-arrow">→</div>
+    </a>
+
+    <a class="card" href="https://karemcarvalho-hue.github.io/lumi-slides/?presentation=discovery-chat-panel" target="_blank" rel="noopener noreferrer">
+      <div class="card-icon icon-pages">🎤</div>
+      <div class="card-body">
+        <div class="card-title">Discovery — Painel de Chat <span class="platform">GitHub Pages</span></div>
+        <div class="card-desc">Entrevistas com 4 lojistas (Ewol, Alice Salazar, Paloma Clothes, Empire Padel). Insights de pesquisa, priorizacao de 3 frentes. 16 slides.</div>
+      </div>
+      <div class="card-arrow">→</div>
+    </a>
+
+    <a class="card" href="https://docs.google.com/document/d/1pN8bcxQdLgLIR1GpQc33rGoL9Wavkp5lIAcs0weDHyA/edit?tab=t.0#heading=h.2r05pen324fl" target="_blank" rel="noopener noreferrer">
+      <div class="card-icon icon-gdoc">📝</div>
+      <div class="card-body">
+        <div class="card-title">Google Doc — Analise Completa <span class="platform">Google Docs</span></div>
+        <div class="card-desc">Documento colaborativo compartilhado no canal com GE e time. Detalhes e fontes.</div>
+      </div>
+      <div class="card-arrow">→</div>
+    </a>
+
+    <a class="card" href="https://karemcarvalho-hue.github.io/lumi-dashboard/" target="_blank" rel="noopener noreferrer">
+      <div class="card-icon icon-pages">📈</div>
+      <div class="card-body">
+        <div class="card-title">Lumi Dashboard <span class="platform">GitHub Pages</span></div>
+        <div class="card-desc">Dashboard visual com metricas e dados da Lumi.</div>
+      </div>
+      <div class="card-arrow">→</div>
+    </a>
+  </div>
+
+  <div class="subsection">
+    <h3><span class="dot dot-delivery"></span>Delivery — Specs, Roadmaps &amp; Propostas</h3>
+
+    <a class="card" href="https://karemcarvalho-hue.github.io/lumi-slides/lumi-team-roadmap.html" target="_blank" rel="noopener noreferrer">
+      <div class="card-icon icon-pages">🗺️</div>
+      <div class="card-body">
+        <div class="card-title">Team Roadmap (BE + Design + FE) <span class="platform">GitHub Pages</span></div>
+        <div class="card-desc">Roadmap clicavel com detalhes por disciplina. Inclui P0: Orchestrator Refactor.</div>
+      </div>
+      <div class="card-arrow">→</div>
+    </a>
+
+    <a class="card" href="https://karemcarvalho-hue.github.io/lumi-slides/lumi-design-roadmap.html" target="_blank" rel="noopener noreferrer">
+      <div class="card-icon icon-pages">🎨</div>
+      <div class="card-body">
+        <div class="card-title">Design Roadmap <span class="platform">GitHub Pages</span></div>
+        <div class="card-desc">Timeline de entregas de design com HITL. Suporta PT/ES.</div>
+      </div>
+      <div class="card-arrow">→</div>
+    </a>
+
+    <a class="card" href="https://htmlpreview.github.io/?https://gist.githubusercontent.com/karemcarvalho-hue/a8bf2efa59a183f528bcd9bfaaa252e6/raw/nimbus-compact-button-proposal-v2.html" target="_blank" rel="noopener noreferrer">
+      <div class="card-icon icon-gist">🔘</div>
+      <div class="card-body">
+        <div class="card-title">Nimbus — Button Compact <span class="platform">Gist</span></div>
+        <div class="card-desc">Artefato de decisao sobre tamanho compact para buttons no header. Compartilhado com designers do Nimbus.</div>
+      </div>
+      <div class="card-arrow">→</div>
+    </a>
+
+    <a class="card" href="https://htmlpreview.github.io/?https://gist.githubusercontent.com/karemcarvalho-hue/cc6981835b829e147749ffbd9897bca3/raw/" target="_blank" rel="noopener noreferrer">
+      <div class="card-icon icon-gist">📋</div>
+      <div class="card-body">
+        <div class="card-title">Nimbus — Bulk Actions Padronizacao <span class="platform">Gist</span></div>
+        <div class="card-desc">Proposta de padronizacao de bulk actions para o Nimbus Design System.</div>
+      </div>
+      <div class="card-arrow">→</div>
+    </a>
+
+    <a class="card" href="https://htmlpreview.github.io/?https://gist.githubusercontent.com/karemcarvalho-hue/644b975d10171991725242953ac93bb9/raw/" target="_blank" rel="noopener noreferrer">
+      <div class="card-icon icon-gist">⏳</div>
+      <div class="card-body">
+        <div class="card-title">Lumi — Loading States Streaming <span class="platform">Gist</span></div>
+        <div class="card-desc">Spec de UX para os estados de carregamento no streaming da Lumi.</div>
+      </div>
+      <div class="card-arrow">→</div>
+    </a>
+  </div>
+
+  <div class="subsection">
+    <h3><span class="dot dot-proto"></span>Prototipos &amp; Specs Visuais</h3>
+
+    <a class="card" href="https://htmlpreview.github.io/?https://gist.githubusercontent.com/karemcarvalho-hue/aab21fbfe3d34facb9956c9e78319e82/raw/spec-card-orders-lumi.html" target="_blank" rel="noopener noreferrer">
+      <div class="card-icon icon-gist">🃏</div>
+      <div class="card-body">
+        <div class="card-title">Spec Card Orders (BR/ES) <span class="platform">Gist</span></div>
+        <div class="card-desc">Especificacao visual do card de pedidos da Lumi. PT-BR e ES.</div>
+      </div>
+      <div class="card-arrow">→</div>
+    </a>
+
+    <a class="card" href="https://lumi-drops.vercel.app/pt" target="_blank" rel="noopener noreferrer">
+      <div class="card-icon icon-vercel">🚀</div>
+      <div class="card-body">
+        <div class="card-title">Lumi Drops — Product Updates <span class="platform">Vercel</span></div>
+        <div class="card-desc">Site de product drops: bulk actions, insights, MCP stats/orders, chat history, studio canvas, etc.</div>
+      </div>
+      <div class="card-arrow">→</div>
+    </a>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-title">OUTROS <span class="badge badge-other">3 urls</span></div>
+  <div class="subsection">
+    <h3><span class="dot dot-other"></span>Nao-Lumi</h3>
+
+    <a class="card" href="https://apresentacao-ia-karem.vercel.app" target="_blank" rel="noopener noreferrer">
+      <div class="card-icon icon-vercel">🤖</div>
+      <div class="card-body">
+        <div class="card-title">Apresentacao IA + Design <span class="platform">Vercel</span></div>
+        <div class="card-desc">Apresentacao sobre IA aplicada ao design. Deploy automatico via Vercel + repo privado.</div>
+      </div>
+      <div class="card-arrow">→</div>
+    </a>
+
+    <a class="card" href="https://karemcarvalho-hue.github.io/apresentacao-ia-design/" target="_blank" rel="noopener noreferrer">
+      <div class="card-icon icon-pages">🤖</div>
+      <div class="card-body">
+        <div class="card-title">Apresentacao IA + Design <span class="platform">GitHub Pages</span></div>
+        <div class="card-desc">Mesma apresentacao, versao GitHub Pages.</div>
+      </div>
+      <div class="card-arrow">→</div>
+    </a>
+
+    <a class="card" href="https://projeto-recrutamento.vercel.app" target="_blank" rel="noopener noreferrer">
+      <div class="card-icon icon-vercel">👥</div>
+      <div class="card-body">
+        <div class="card-title">Projeto Recrutamento <span class="platform">Vercel</span></div>
+        <div class="card-desc">Projeto de recrutamento. Pode estar inativo.</div>
+      </div>
+      <div class="card-arrow">→</div>
+    </a>
+  </div>
+</div>
+
+<footer>
+  <p>Pagina privada — so quem tem o link acessa</p>
+</footer>
+
+</div>
+</body>
+</html>
